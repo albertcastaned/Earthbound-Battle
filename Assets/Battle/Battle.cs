@@ -27,7 +27,17 @@ public class Battle : MonoBehaviour
     private int enemySelect;
     public List<Enemy> currentEnemies;
     public Inventory inventory;
-
+    public MeterRoll hpBar;
+    public MeterRoll ppBar;
+    public GameObject border;
+    private MovesData aux;
+    public float borderDisplacement;
+    public Vector3 menuDisplacement;
+    public GameObject dialogue;
+    public GameObject menuSpinner;
+    private Rotate rotator;
+    public GameObject NessMenu;
+    private Vector3 velocity = Vector3.zero;
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,8 +51,8 @@ public class Battle : MonoBehaviour
     }
     void Start()
     {
-        NessHP = 100;
-
+        NessHP = 30;
+        rotator = menuSpinner.GetComponent<Rotate>();
         enemySelect = 0;
         halt = true;
         text.text = "";
@@ -54,11 +64,13 @@ public class Battle : MonoBehaviour
         currentState = STATE.PlayerTurn;
         once = false;
         EnemyIndex = 0;
+        borderDisplacement = border.transform.position.y + 28.0f;
+        menuDisplacement = new Vector3(NessMenu.transform.localPosition.x, NessMenu.transform.localPosition.y + 335f, NessMenu.transform.localPosition.z);
 
     }
     private IEnumerator TextScroll(string lineOfText,bool attack)
     {
-
+        dialogue.SetActive(true);
         int letter = 0;
 
         text.text = "";
@@ -68,9 +80,19 @@ public class Battle : MonoBehaviour
             isAttacking = true;
         }
         int lineLength = lineOfText.Length - 1;
+        float speed;
         while (isTyping && (letter <= lineLength))
         {
-
+            speed = 0.05f;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                print("a");
+                speed = 0.01f;
+            }
+            else
+            {
+                speed = 0.05f;
+            }
 
             if (lineOfText[letter] == '¬')
             {
@@ -83,9 +105,10 @@ public class Battle : MonoBehaviour
                 letter++;
             }
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(speed);
         }
         isTyping = false;
+
         if (attack)
         {
             isAttacking = false;
@@ -106,7 +129,28 @@ public class Battle : MonoBehaviour
         switch (currentState)
         {
             case STATE.PlayerTurn:
+                if(!isAttacking)
+                dialogue.SetActive(false);
 
+                NessMenu.SetActive(true);
+                if (!isAttacking)
+                {
+                    NessMenu.transform.localPosition = Vector3.SmoothDamp(NessMenu.transform.localPosition, menuDisplacement, ref velocity, 0.2f);
+                    if (NessMenu.transform.localPosition.y >= menuDisplacement.y - 30f)
+                    rotator.SetCanMove(true);
+                }
+                else
+                {
+                    NessMenu.transform.localPosition = Vector3.SmoothDamp(NessMenu.transform.localPosition, new Vector3(menuDisplacement.x, -335.0f, menuDisplacement.z), ref velocity, 0.3f);
+                    rotator.SetCanMove(false);
+
+                }
+
+
+                if (border.transform.position.y <= borderDisplacement)
+                {
+                    border.transform.position = new Vector3(border.transform.position.x, border.transform.position.y + 1f, border.transform.position.z);
+                }
                 if (Input.GetKeyDown("left") && !isTyping && enemySelect > 0)
                 {
                     currentEnemies[enemySelect].ResetColor();
@@ -121,34 +165,47 @@ public class Battle : MonoBehaviour
                     currentEnemies[enemySelect].SelectColor();
 
                 }
-                if (Input.GetKeyDown("1") && !isAttacking && !isTyping)
+                if (Input.GetKeyDown("space") && !isAttacking && !isTyping && rotator.GetCanMove())
                 {
-                    currentEnemies[enemySelect].ResetColor();
-                    StartCoroutine(TextScroll("Ness attacks the enemy!",true));
-                    currentEnemies[enemySelect].ReceiveDamage(20);
-                    currentEnemies[enemySelect].ActivateShake(20);
+                    switch(rotator.num)
+                    {
+                        case 1:
+
+                            currentEnemies[enemySelect].ResetColor();
+                            StartCoroutine(TextScroll("Ness attacks the enemy!", true));
+                            break;
+                        case 2:
+
+                            currentEnemies[enemySelect].ResetColor();
+                            StartCoroutine(TextScroll("Ness uses PK FIRE!", true));
+                            ppBar.CalculateDistance(-7);
+                            break;
+
+                        case 3:
+                            if(inventory.items.Count!=0)
+                            {
+
+                                currentEnemies[enemySelect].ResetColor();
+                                StartCoroutine(TextScroll("Ness eats a " + inventory.items[0].GetName(), true));
+                                NessHP += inventory.items[0].GetHPGain();
+                                hpBar.CalculateDistance(inventory.items[0].GetHPGain());
+                                inventory.items.RemoveAt(0);
+                            }
+                            break;
+                     
+                    }
+
+
 
 
                 }
-                if (Input.GetKeyDown("2") && !isAttacking && !isTyping)
-                {
-                    currentEnemies[enemySelect].ResetColor();
-                    StartCoroutine(TextScroll("Ness uses PK FIRE!",true));
-                    currentEnemies[enemySelect].ReceiveDamage(50);
-                    currentEnemies[enemySelect].ActivateShake(50);
 
-                }
 
-                if (Input.GetKeyDown("3") && !isAttacking && !isTyping && inventory.items.Count != 0)
-                {
-                    currentEnemies[enemySelect].ResetColor();
-                    StartCoroutine(TextScroll("Ness eats a " + inventory.items[0].GetName(), true));
-                    NessHP += inventory.items[0].GetHPGain();
-                    inventory.items.RemoveAt(0);
-
-                }
                 if (turnOver)
                 {
+
+                    currentEnemies[enemySelect].ReceiveDamage(50);
+                    currentEnemies[enemySelect].ActivateShake(50);
                     enemySelect = 0;
                     turnOver = false;
                     EnemyIndex = 0;
@@ -159,16 +216,24 @@ public class Battle : MonoBehaviour
                 break;
 
             case STATE.EnemyTurn:
+
+
+                if (border.transform.position.y >= borderDisplacement - 28.0f)
+                {
+                    border.transform.position = new Vector3(border.transform.position.x, border.transform.position.y - 1f, border.transform.position.z);
+
+                }
                 if (!isAttacking && !turnOver)
                 {
-                    MovesData aux = currentEnemies[EnemyIndex].ChooseAttack();
+                    aux = currentEnemies[EnemyIndex].ChooseAttack();
                     StartCoroutine(TextScroll(currentEnemies[EnemyIndex].GetName() + aux.moveMessage,true));
-                    NessHP -= aux.moveDamage;
-                    StartCoroutine(cam.Shake(0.2f,2f));
                 }
-                if (turnOver)
+                if (turnOver )
                 {
-                   
+                    NessHP -= aux.moveDamage;
+                    hpBar.CalculateDistance(-aux.moveDamage);
+                    StartCoroutine(cam.Shake(0.2f, 2f));
+
                     EnemyIndex++;
                     turnOver = false;
                     if (EnemyIndex >= currentEnemies.Count)

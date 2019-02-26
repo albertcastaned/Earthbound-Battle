@@ -101,6 +101,7 @@ public class Enemy : MonoBehaviour
 
     {
         StartCoroutine(Shake(0.5f, 4f));
+        
         float width = GetComponent<SpriteRenderer>().bounds.size.x / 2f;
         GameObject prefab = Instantiate(damageGUI, new Vector3(transform.position.x + width, transform.position.y, 0f), transform.rotation) as GameObject;
         prefab.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);

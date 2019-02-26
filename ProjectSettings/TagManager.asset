@@ -43,3 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemies
+    uniqueID: 3329700477
+    locked: 0
+  - name: behindHPBox
+    uniqueID: 675573301
+    locked: 0
