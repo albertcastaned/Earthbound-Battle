@@ -18,12 +18,12 @@ MonoBehaviour:
   m_fontInfo:
     Name: EBMain
     PointSize: 116
-    Scale: 1
+    Scale: 0
     CharacterCount: 95
     LineHeight: 97.4375
     Baseline: 0
     Ascender: 78.25
-    CapHeight: 71.0625
+    CapHeight: 0
     Descender: -8.75
     CenterLine: 0
     SuperscriptOffset: 78.25
@@ -33,19 +33,19 @@ MonoBehaviour:
     UnderlineThickness: 5.7773438
     strikethrough: 25.272728
     strikethroughThickness: 5.7773438
-    TabWidth: 217.5
+    TabWidth: 0
     Padding: 5
     AtlasWidth: 512
     AtlasHeight: 512
-  atlas: {fileID: 28849686988108542}
+  atlas: {fileID: 28865385682058028}
   m_glyphInfoList:
   - id: 32
     x: 6
     y: 517
-    width: 21.75
-    height: 87
+    width: 0
+    height: 0
     xOffset: 0
-    yOffset: 78.25
+    yOffset: 0
     xAdvance: 21.75
     scale: 1
   - id: 33
@@ -922,7 +922,7 @@ MonoBehaviour:
     atlasHeight: 512
     characterSetSelectionMode: 0
     characterSequence: 32 - 126, 160, 8203, 8230, 9633
-    referencedFontAssetGUID: 
+    referencedFontAssetGUID: fc7caf69b5f60a644ae2ce00e145e279
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 2
@@ -963,7 +963,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: EBMain SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: BEVEL_ON GLOW_ON
+  m_ShaderKeywords: GLOW_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -986,7 +986,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 28849686988108542}
+        m_Texture: {fileID: 28865385682058028}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -1018,10 +1018,10 @@ Material:
     - _OutlineSoftness: 0.293
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.277
+    - _OutlineWidth: 0.438
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.7572316
+    - _ScaleRatioA: 0.6605892
     - _ScaleRatioB: 0.39125
     - _ScaleRatioC: 0.39125
     - _ScaleX: 1
@@ -1054,7 +1054,7 @@ Material:
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
     - _UnderlayColor: {r: 1, g: 0, b: 0, a: 0.5}
---- !u!28 &28849686988108542
+--- !u!28 &28865385682058028
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

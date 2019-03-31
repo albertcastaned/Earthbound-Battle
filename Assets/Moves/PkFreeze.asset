@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd7a61f79068a744a15f2b45b54f0a1, type: 3}
+  m_Name: PkFreeze
+  m_EditorClassIdentifier: 
+  moveName: Pk Freeze
+  moveDamage: 1e0000003c0000005a000000
+  cost: 140000001e00000032000000
+  description:
+  - Deals small ice damage to a single enemy
+  - Deals moderate ice damage to a single enemy
+  - Deals huge ice damage to a single enemy
+  type: Offense
+  upgrade: 1

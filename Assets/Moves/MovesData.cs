@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "New Attack", menuName = "Attack")]
+[CreateAssetMenu(fileName = "New Enemy Attack", menuName = "Enemy Attack")]
 public class MovesData : ScriptableObject
 {
 

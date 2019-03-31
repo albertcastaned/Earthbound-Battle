@@ -5,14 +5,19 @@ using UnityEngine;
 public class Bob : MonoBehaviour {
 
     public float floatStrength = 1;
-    float originalY;
+    float original;
     public float speed;
     private float startTime;
     private float elapsedTime;
+    public bool vertical = true;
+    public bool relative = false;
     // Use this for initialization
     void Start()
     {
-        originalY = transform.localPosition.y;
+        if (vertical)
+            original = transform.localPosition.y;
+        else
+            original = transform.localPosition.x;
         startTime = Time.time;
 
     }
@@ -23,9 +28,23 @@ public class Bob : MonoBehaviour {
 
 
 
-            elapsedTime = Time.time - startTime;
-            transform.localPosition = new Vector3(transform.localPosition.x, originalY + ((float)Mathf.Sin(elapsedTime * speed) * floatStrength), transform.localPosition.z);
+        elapsedTime = Time.time - startTime;
+        if (relative)
+        {
+            if (vertical)
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + ((float)Mathf.Sin(elapsedTime * speed) * floatStrength), transform.localPosition.z);
+            else
+                transform.localPosition = new Vector3(transform.localPosition.x + ((float)Mathf.Sin(elapsedTime * speed) * floatStrength), transform.localPosition.y, transform.localPosition.z);
+        }
+        else
+        {
+            if (vertical)
+                transform.localPosition = new Vector3(transform.localPosition.x, original + ((float)Mathf.Sin(elapsedTime * speed) * floatStrength), transform.localPosition.z);
+            else
+                transform.localPosition = new Vector3(original + ((float)Mathf.Sin(elapsedTime * speed) * floatStrength), transform.localPosition.y, transform.localPosition.z);
+        }
 
-        
+
+
     }
 }

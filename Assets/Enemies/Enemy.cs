@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sprite;
     private List<MovesData> moves;
     public GameObject damageGUI;
+    public Battle battle;
     private bool selected;
     void Awake()
     {
@@ -65,11 +66,15 @@ public class Enemy : MonoBehaviour
 
 
     }
-    
+    public Vector3 getTransform()
+    {
+        return transform.position;
+    }
     public void ReceiveDamage(int dmg)
     {
         health -= dmg;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -84,6 +89,7 @@ public class Enemy : MonoBehaviour
             SetColor(new Color(1, 1, 1, 0f));
         if (health<=0)
         {
+            battle.removeEnemy(this);
             Destroy(gameObject);
         }
     }
@@ -98,7 +104,6 @@ public class Enemy : MonoBehaviour
 
     }
     public void ActivateShake(int dmg)
-
     {
         StartCoroutine(Shake(0.5f, 4f));
         

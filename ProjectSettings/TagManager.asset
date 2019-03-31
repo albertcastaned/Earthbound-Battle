@@ -46,6 +46,9 @@ TagManager:
   - name: Enemies
     uniqueID: 3329700477
     locked: 0
-  - name: behindHPBox
-    uniqueID: 675573301
+  - name: NessPortrait
+    uniqueID: 773508551
+    locked: 0
+  - name: Menu
+    uniqueID: 1620796669
     locked: 0

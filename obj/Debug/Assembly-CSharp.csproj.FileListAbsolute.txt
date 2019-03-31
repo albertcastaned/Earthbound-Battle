@@ -272,3 +272,7 @@ C:\Users\alber\Desktop\Earthbound-Battle-master\obj\Debug\Assembly-CSharp.csproj
 C:\Users\alber\Desktop\Earthbound-Battle-master\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\alber\Desktop\Earthbound-Battle-master\obj\Debug\Assembly-CSharp.dll
 C:\Users\alber\Desktop\Earthbound-Battle-master\obj\Debug\Assembly-CSharp.pdb
+C:\Users\alber\Documents\GitHub\Earthbound-Battle\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\alber\Documents\GitHub\Earthbound-Battle\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+C:\Users\alber\Documents\GitHub\Earthbound-Battle\obj\Debug\Assembly-CSharp.dll
+C:\Users\alber\Documents\GitHub\Earthbound-Battle\obj\Debug\Assembly-CSharp.pdb
