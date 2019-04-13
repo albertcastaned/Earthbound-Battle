@@ -1,8 +1,8 @@
 .vs
 *.meta
-/Library
-/Logs
-/Packages
-/ProjectSettings
-/obj
-/Temp
+Library/
+Logs/
+Packages/
+ProjectSettings/
+obj/
+Temp/
