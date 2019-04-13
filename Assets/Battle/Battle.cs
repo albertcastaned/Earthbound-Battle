@@ -25,6 +25,8 @@ public class Battle : MonoBehaviour
         SelectingEnemyBash,
         SelectingEnemyPSI,
         ChoosingItem,
+        ChoosingPartyMemberItem,
+        ChoosingPartyMemberPSI,
         Attacking
 
     };
@@ -61,6 +63,9 @@ public class Battle : MonoBehaviour
     private MoveToEnemy moveEnemyScript;
     private MoveDialogue moveDialogue;
     public SelectPSI psiSelector;
+    public ItemSelectorManager itemSelector;
+
+    public GameObject partyMemberSelector;
     private int damage;
     //Crear lista y ordenarlas dependiendo de la posicion x
     void Awake()
@@ -96,6 +101,7 @@ public class Battle : MonoBehaviour
         //Menu de opciones de ataque posicion y
         menuDisplacement = new Vector3(NessMenu.transform.localPosition.x, NessMenu.transform.localPosition.y + 335f, NessMenu.transform.localPosition.z);
         moveEnemySelector.SetActive(false);
+        partyMemberSelector.SetActive(false);
 
 
     }
@@ -317,7 +323,44 @@ public class Battle : MonoBehaviour
                             currentPlayerState = PlayerSTATE.Idle;
                         }
                         break;
+                    case PlayerSTATE.ChoosingItem:
+                        if (Input.GetKeyDown(KeyCode.Escape))
+                        {
+                            itemSelector.MoveMenu();
+                            currentPlayerState = PlayerSTATE.Idle;
+                        }
+                        if(Input.GetKeyDown(KeyCode.Space))
+                        {
+                            itemSelector.MoveMenu();
+                            partyMemberSelector.SetActive(true);
+                            currentPlayerState = PlayerSTATE.ChoosingPartyMemberItem;
+                        }
+                        break;
+                    case PlayerSTATE.ChoosingPartyMemberItem:
+                        if(Input.GetKeyDown(KeyCode.Escape))
+                        {
+                            itemSelector.MoveMenu();
+                            partyMemberSelector.SetActive(false);
+
+                            currentPlayerState = PlayerSTATE.ChoosingItem;
+                        }
+                        if(Input.GetKeyDown(KeyCode.Space))
+                        {
+                            int index = itemSelector.getItemIndex();
+                            StartCoroutine(TextScroll("Ness eats a " + inventory.items[index].GetName(), true));
+                            NessHP += inventory.items[index].GetHPGain();
+                            hpBar.CalculateDistance(inventory.items[index].GetHPGain());
+                            inventory.items.RemoveAt(index);
+                            itemSelector.Deactivate();
+                            partyMemberSelector.SetActive(false);
+
+                            currentPlayerState = PlayerSTATE.Idle;
+
+                        }
+                        break;
+
                 }
+                
 
                 if (Input.GetKeyDown("space") && !isAttacking && !isTyping && rotator.GetCanMove())
                 {
@@ -347,6 +390,17 @@ public class Battle : MonoBehaviour
                                     inventory.items.RemoveAt(0);
                                 }
                                 break;
+                        case 6:
+                            if (inventory.getItemsCount() > 0)
+                            {
+                                currentPlayerState = PlayerSTATE.ChoosingItem;
+                                itemSelector.Activate();
+
+                                itemSelector.MoveMenu();
+                            }
+                            break;
+
+
                         }
                 }
 

@@ -12,6 +12,15 @@ public class Inventory : MonoBehaviour
         
     }
 
+    public List<itemsData> getItems()
+    {
+        return items;
+    }
+
+    public int getItemsCount()
+    {
+        return items.Count;
+    }
     // Update is called once per frame
     void Update()
     {
