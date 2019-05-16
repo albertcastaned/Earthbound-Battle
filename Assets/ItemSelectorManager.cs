@@ -31,9 +31,8 @@ public class ItemSelectorManager : MonoBehaviour {
     private int verticalMax;
     public int horizontalMax;
 
-    
-    // Use this for initialization
-    void Start () {
+    void Awake()
+    {
         items = inventory.getItems();
         UpdateItemList();
         dest = unselectedPos;
@@ -41,9 +40,9 @@ public class ItemSelectorManager : MonoBehaviour {
         descriptionBox.transform.localPosition = descriptionP2;
         descDest = descriptionP2;
 
-        horizontalMax = (items.Count == 1) ? 0:1;
-        verticalMax = (items.Count-1) / 2;
-	}
+        horizontalMax = (items.Count == 1) ? 0 : 1;
+        verticalMax = (items.Count - 1) / 2;
+    }
 
     public void UpdateItemList()
     {

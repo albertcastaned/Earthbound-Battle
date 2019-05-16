@@ -40,8 +40,9 @@ public class SelectPSI : MonoBehaviour {
     private int categoryVerticalIndex;
     private bool inPosition;
     private bool selecting;
-    // Use this for initialization
-    void Start() {
+
+    void Awake()
+    {
         selecting = false;
         inPosition = false;
 
@@ -64,8 +65,9 @@ public class SelectPSI : MonoBehaviour {
         UpdateText();
         categoryDestination = categorySelector.transform.localPosition;
         psiDestination = psiSelector.transform.localPosition;
-
     }
+    // Use this for initialization
+
     public string getGreek()
     {
         string ret = "";
@@ -95,6 +97,7 @@ public class SelectPSI : MonoBehaviour {
     {
         return moves[categoryVerticalIndex].cost[categoryHorizontalIndex];
     }
+
     public void Deactivate()
     {
         selectingCategory = true;
