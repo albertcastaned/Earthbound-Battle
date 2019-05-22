@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using System.Linq;
 
 
-//Manejador de la batalla
+//Battle controller
 public class Battle : MonoBehaviour
 {
-    //Estados posibles
+    //Possible battle states
     protected enum STATE{
         PlayerTurn,
         EnemyTurn,
@@ -17,7 +17,7 @@ public class Battle : MonoBehaviour
         Flee
     };
 
-
+    //Possible player states
     protected enum PlayerSTATE
     {
         Idle,
@@ -38,7 +38,6 @@ public class Battle : MonoBehaviour
 
     public CameraShake cam;
     public Text text;
-    private bool animationHalt = false;
     private bool isTyping;
     private bool isAttacking;
     private bool turnOver;
@@ -72,7 +71,7 @@ public class Battle : MonoBehaviour
     private bool movingEnemies = false;
     public GameObject partyMemberSelector;
     private int damage = 0;
-
+    private bool usingPSI = false;
     public GameObject currentText;
     private Vector3 textVelocity = Vector3.zero;
 
@@ -87,7 +86,20 @@ public class Battle : MonoBehaviour
 
     private Vector3 textDest;
 
+    public GameObject psiAnimation;
+
     private bool enemyDie = false;
+
+    private bool attacksAllRow = false;
+    private bool psiSelf = false;
+
+    public int enemyAuxIndex = 0;
+
+    public GameObject healPrefab;
+
+    private bool itemHeal = false;
+    private int hpGain = 0;
+    public OscilateOpacity playerOverlay;
     //Crear lista y ordenarlas dependiendo de la posicion x
     void Awake()
     {
@@ -189,6 +201,23 @@ public class Battle : MonoBehaviour
 
             yield return new WaitForSeconds(0.030f);
         }
+        if(lineIndex == 0 && usingPSI)
+        {
+            Instantiate(psiAnimation);
+
+            if(!psiSelf)
+                halt = true;
+            else
+                hpBar.CalculateDistance(damage);
+
+        }
+        if(lineIndex == 0 && itemHeal)
+        {
+
+            Instantiate(healPrefab);
+            NessHP += hpGain;
+            hpBar.CalculateDistance(hpGain);
+        }
         lineIndex++;
         text.text += "\n";
         isTyping = false;
@@ -288,7 +317,8 @@ public class Battle : MonoBehaviour
                             currentPlayerState = PlayerSTATE.Idle;
                             currentEnemies[enemySelect].ResetColor();
                             moveEnemySelector.SetActive(false);
-
+                            usingPSI = true;
+                            psiAnimation = psiSelector.getPSIAnimation();
                             //Move dialogue box
                             dialogue.SetActive(true);
                             moveDialogue.SetDestination(new Vector3(0, 85, 0));
@@ -299,9 +329,22 @@ public class Battle : MonoBehaviour
                             lineIndex = 0;
                             lines.Add("@ Ness uses " + psiSelector.getPSIName());
                             damage = psiSelector.getPSIDamage();
-                            lines.Add("@ " + currentEnemies[enemySelect].GetName() + " receives " + damage + " of damage!");
-                            
 
+                            attacksAllRow = psiSelector.getPSIAllRow();
+                            if (attacksAllRow)
+                            {
+                                for (int i = 0; i < currentEnemies.Count; i++)
+                                {
+                                    lines.Add("@ " + currentEnemies[i].GetName() + " receives " + damage + " of damage!");
+                                }
+                            }
+                            else
+                            {
+
+                                lines.Add("@ " + currentEnemies[enemySelect].GetName() + " receives " + damage + " of damage!");
+                            }
+
+                            
                             ppBar.CalculateDistance(-psiSelector.getPSICost());
                             psiSelector.Deactivate();
                             
@@ -337,15 +380,26 @@ public class Battle : MonoBehaviour
                     case PlayerSTATE.ChoosingPSIMove:
                         if (Input.GetKeyDown(KeyCode.Space) && psiSelector.getInPosition() && !psiSelector.getChoosingCat())
                         {
-                            currentPlayerState = PlayerSTATE.SelectingEnemyPSI;
-                            moveEnemySelector.SetActive(true);
-                            moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetPosition(currentEnemies[enemySelect].transform.position);
-                            moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
+                            psiSelf = !psiSelector.getPSIOffensive();
+                            if (psiSelf)
+                            {
+                                partyMemberSelector.SetActive(true);
+                                playerOverlay.SetSelected(true);
+                                currentPlayerState = PlayerSTATE.ChoosingPartyMemberPSI;
+                            }
+                            else
+                            {
+                                currentPlayerState = PlayerSTATE.SelectingEnemyPSI;
+                                moveEnemySelector.SetActive(true);
+                                moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
+                                moveEnemyScript.SetPosition(currentEnemies[enemySelect].transform.position);
+                                moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
 
+                                currentEnemies[enemySelect].SelectColor();
+                            }
 
-                            currentEnemies[enemySelect].SelectColor();
                             psiSelector.MoveMenu();
+
                         }
                         if (Input.GetKeyDown(KeyCode.Escape) && psiSelector.getChoosingCat())
                         {
@@ -409,6 +463,7 @@ public class Battle : MonoBehaviour
                             itemSelector.MoveMenu();
                             partyMemberSelector.SetActive(true);
                             currentPlayerState = PlayerSTATE.ChoosingPartyMemberItem;
+                            playerOverlay.SetSelected(true);
                         }
                         break;
                     case PlayerSTATE.ChoosingPartyMemberItem:
@@ -416,7 +471,7 @@ public class Battle : MonoBehaviour
                         {
                             itemSelector.MoveMenu();
                             partyMemberSelector.SetActive(false);
-
+                            playerOverlay.SetSelected(false);
                             currentPlayerState = PlayerSTATE.ChoosingItem;
                         }
                         if(Input.GetKeyDown(KeyCode.Space))
@@ -429,18 +484,59 @@ public class Battle : MonoBehaviour
 
                             //Add lines
                             writing = true;
+                            itemHeal = true;
                             lineIndex = 0;
+                            hpGain = inventory.items[index].GetHPGain();
                             lines.Add("@ Ness eats a " + inventory.items[index].GetName());
                            
-                            lines.Add("@ Ness recuperates " + inventory.items[index].GetHPGain() + " of HP!");
+                            lines.Add("@ Ness recuperates " + hpGain + " of HP!");
 
-
-                            NessHP += inventory.items[index].GetHPGain();
-                            hpBar.CalculateDistance(inventory.items[index].GetHPGain());
                             inventory.items.RemoveAt(index);
                             itemSelector.Deactivate();
                             partyMemberSelector.SetActive(false);
+                            playerOverlay.SetSelected(false);
 
+                            currentPlayerState = PlayerSTATE.Idle;
+
+                        }
+                        break;
+                    case PlayerSTATE.ChoosingPartyMemberPSI:
+                        if (Input.GetKeyDown(KeyCode.Escape))
+                        {
+                            partyMemberSelector.SetActive(false);
+                            psiSelector.MoveMenu();
+                            playerOverlay.SetSelected(false);
+
+
+                            currentPlayerState = PlayerSTATE.ChoosingPSIMove;
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+
+                            usingPSI = true;
+                            psiAnimation = psiSelector.getPSIAnimation();
+                            //Move dialogue box
+                            dialogue.SetActive(true);
+                            moveDialogue.SetDestination(new Vector3(0, 85, 0));
+
+
+                            //Add lines
+                            writing = true;
+                            lineIndex = 0;
+                            damage = psiSelector.getPSIDamage();
+                            lines.Add("@ Ness uses a " + psiSelector.getPSIName());
+
+                            lines.Add("@ Ness recuperates " + damage + " of HP!");
+
+
+                            NessHP += damage;
+
+                            psiSelector.Deactivate();
+                            partyMemberSelector.SetActive(false);
+                            playerOverlay.SetSelected(false);
+
+                            ppBar.CalculateDistance(-psiSelector.getPSICost());
                             currentPlayerState = PlayerSTATE.Idle;
 
                         }
@@ -496,42 +592,88 @@ public class Battle : MonoBehaviour
                     return;
                 }
 
+                
                 if(writing)
-                {
-
+                { 
+                    //Escribir cada linea
                     if (lineIndex < lines.Count)
                     {
-
                         if (!isTyping)
                         {
-
-
                             isTyping = true;
-                            if (lineIndex == 1 && damage > 0)
-                            {
-                                currentEnemies[enemySelect].ActivateShake(damage);
-                                currentEnemies[enemySelect].ReceiveDamage(damage);
+
+                            if(!psiSelf)
+                            { 
+                                if (attacksAllRow)
+                                {
+                                    if (lineIndex >= 1 && damage > 0 && !enemyDie)
+                                    {
+                                        currentEnemies[enemyAuxIndex].ActivateShake(damage);
+                                        currentEnemies[enemyAuxIndex].ReceiveDamage(damage);
+                                    
+
+                                    }
+                                }
+                                else if (lineIndex == 1 && damage > 0)
+                                {
+
+                                    currentEnemies[enemySelect].ActivateShake(damage);
+                                    currentEnemies[enemySelect].ReceiveDamage(damage);
+
+                                }
                             }
                             StartCoroutine(TextScroll(lines[lineIndex]));
-                            if (currentEnemies.Count > 0 && currentEnemies[enemySelect].GetHealth() <= 0)
+
+                            if(!psiSelf)
                             {
-                                if (!enemyDie)
+                                if (attacksAllRow)
                                 {
-                                    enemyDie = true;
-                                    lines.Add("@ " + currentEnemies[enemySelect].GetName() + " has been defeated!");
+                                    if (currentEnemies.Count > 0 && currentEnemies[enemyAuxIndex].GetHealth() <= 0)
+                                    {
+                                        if (!enemyDie)
+                                        {
+                                            enemyDie = true;
+                                            lines.Insert(lineIndex + 1, "@ " + currentEnemies[enemyAuxIndex].GetName() + " has been defeated!");
+                                        }
+                                        else
+                                        {
+                                            halt = true;
+
+                                            currentEnemies[enemyAuxIndex].StartCoroutine("Die");
+                                            if (enemyAuxIndex > 0)
+                                                enemyAuxIndex--;
+                                            enemyDie = false;
+                                        }
+                                        return;
+                                    }
+                                    if (1 > currentEnemies.Count)
+                                        enemyAuxIndex++;
                                 }
                                 else
                                 {
-                                    halt = true;
-                                    currentEnemies[enemySelect].StartCoroutine("Die");
-                                    enemyDie = false;
+                                    if (currentEnemies.Count > 0 && currentEnemies[enemySelect].GetHealth() <= 0)
+                                    {
+                                        if (!enemyDie)
+                                        {
+                                            enemyDie = true;
+                                            lines.Insert(lineIndex + 1, "@ " + currentEnemies[enemySelect].GetName() + " has been defeated!");
+                                        }
+                                        else
+                                        {
+                                            halt = true;
+                                            enemyAuxIndex--;
+                                            currentEnemies[enemySelect].StartCoroutine("Die");
+                                            enemyDie = false;
+                                        }
+                                        return;
+                                    }
                                 }
-                                return;
                             }
                             
 
                         }
                     }
+                    //Terminado lineas
                     else
                     {
                         turnOver = true;
@@ -541,19 +683,22 @@ public class Battle : MonoBehaviour
                 }
                 if (turnOver)
                 {
-
+                    usingPSI = false;
                     lines.Clear();
                     damage = 0;
                     enemySelect = 0;
+                    enemyAuxIndex = 0;
                     turnOver = false;
+                    attacksAllRow = false;
                     EnemyIndex = 0;
                     currentState = STATE.EnemyTurn;
                     currentPlayerState = PlayerSTATE.Idle;
                     psiObject.SetActive(false);
                     itemObject.SetActive(false);
-
+                    psiSelf = false;
+                    itemHeal = false;
+                    hpGain = 0;
                     StartCoroutine(Halt(0.1f));
-
 
                 }
 
@@ -616,6 +761,7 @@ public class Battle : MonoBehaviour
                     lines.Clear();
                     EnemyIndex++;
                     turnOver = false;
+                    
 
                     if (EnemyIndex >= currentEnemies.Count)
                     {
@@ -673,10 +819,7 @@ public class Battle : MonoBehaviour
     {
         halt = a;
     }
-    public void SetHalt()
-    {
-        animationHalt = false;
-    }
+
 
     public IEnumerator Halt(float duration)
     {

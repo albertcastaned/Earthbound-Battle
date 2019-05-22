@@ -97,6 +97,18 @@ public class SelectPSI : MonoBehaviour {
     {
         return moves[categoryVerticalIndex].cost[categoryHorizontalIndex];
     }
+    public GameObject getPSIAnimation()
+    {
+        return moves[categoryVerticalIndex].psiAnimation;
+    }
+    public bool getPSIOffensive()
+    {
+        return moves[categoryVerticalIndex].offensive;
+    }
+    public bool getPSIAllRow()
+    {
+        return moves[categoryVerticalIndex].allRow;
+    }
 
     public void Deactivate()
     {

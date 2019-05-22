@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveToPartyMember : MonoBehaviour
 {
-    private int numPartyMembers = 1;
+    // private int numPartyMembers = 1;
     // Start is called before the first frame update
     private Vector3 dest = new Vector3(0,0f,60f);
     void Start()

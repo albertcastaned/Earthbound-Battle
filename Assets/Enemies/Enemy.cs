@@ -47,10 +47,8 @@ public class Enemy : MonoBehaviour
         dest = d;
     }
     public int GetHealth() => health;
-    public string GetName()
-    {
-        return enemyName;
-    }
+    public string GetName() => enemyName;
+
     public MovesData ChooseAttack()
     {
 
@@ -75,10 +73,8 @@ public class Enemy : MonoBehaviour
 
 
     }
-    public Vector3 getTransform()
-    {
-        return transform.position;
-    }
+    public Vector3 getTransform() => transform.position;
+
     public void ReceiveDamage(int dmg)
     {
         health -= dmg;
@@ -150,14 +146,14 @@ public class Enemy : MonoBehaviour
         dying = true;
         while (battle.GetTyping())
             yield return null;
-        while(elapsed < 1)
+        while(elapsed < 1.2f)
         {
             SetColor(new Color(1, 1, 1, elapsed));
             elapsed +=  0.05f;
             yield return null;
 
         }
-        while (elapsed > -20f)
+        while (elapsed > -30f)
         {
             SetColor(new Color(1, 1, 1, elapsed));
             elapsed -= 1f;

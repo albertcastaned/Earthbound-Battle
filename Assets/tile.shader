@@ -1,13 +1,14 @@
 ﻿Shader "Custom/tile"
 {
 	Properties{
- _MainTex("Color (RGB) Alpha (A)", 2D) = "white"
+	 _MainTex("Color (RGB) Alpha (A)", 2D) = "white" {}
 
 	}
 
 		SubShader{
-			 Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
-					  Cull off
+			Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
+			Cull off
+			Blend One OneMinusSrcAlpha
 			Pass {
 				CGPROGRAM
 				#pragma vertex vert
@@ -45,24 +46,12 @@
 
 					half2 uv = i.uv;
 
+					float4 colour = tex2D(_MainTex, uv);
+					return colour;
+				}
 
-					
-
-
-float4 colour = tex2D(_MainTex, uv);
-
-
-
-
-
-  colour.a = 1;
-
-
-  return colour;
-}
-
-ENDCG
-}
+			ENDCG
+			}
 	}
 		FallBack "Diffuse"
 }

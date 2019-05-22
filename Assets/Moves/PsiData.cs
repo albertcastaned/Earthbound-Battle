@@ -10,4 +10,9 @@ public class PsiData : ScriptableObject {
     public List<string> description;
     public string type;
     public int upgrade;
+
+    public bool allRow;
+
+    public bool offensive = true;
+    public GameObject psiAnimation;
 }
