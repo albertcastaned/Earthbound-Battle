@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a744a34eb8aa4478ba688760c7d394da, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ff701fc66f0447be9f7aab8103a7a4f, type: 3}
   m_Name: Cookie
   m_EditorClassIdentifier: 
   itemName: Cookie
-  itemDescription: ' worst item in the game easily.'
+  itemDescription: The worst item in the game
   itemHealthGain: 10

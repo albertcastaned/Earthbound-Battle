@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a744a34eb8aa4478ba688760c7d394da, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ff701fc66f0447be9f7aab8103a7a4f, type: 3}
   m_Name: Hamburger
   m_EditorClassIdentifier: 
   itemName: Hamburger
-  itemDescription: ' a very tasty, and cheap meal.'
-  itemHealthGain: 20
+  itemDescription: A very tasty hambureger.
+  itemHealthGain: 30

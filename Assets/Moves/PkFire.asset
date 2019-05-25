@@ -9,19 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd7a61f79068a744a15f2b45b54f0a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 871bca7be2007474abe5a74dfaa99f2f, type: 3}
   m_Name: PkFire
   m_EditorClassIdentifier: 
   moveName: Pk Fire
-  moveDamage: e8030000140000001e000000
-  cost: 0a000000140000001e000000
+  moveDamage: 1e000000c8000000
+  cost: 0a00000014000000
   description:
-  - Deals small fire damage to a row of enemies
-  - Deals moderate fire damage to a row of enemies
-  - Deals huge fire damage to a row of enemies
+  - Deals small fire damage to a row of enemies.
+  - Deals moderate fire damage to a row of enemies.
   type: Offense
-  upgrade: 0
+  upgrade: 1
   allRow: 1
   offensive: 1
-  psiAnimation: {fileID: 6794784554147996525, guid: 26654ee348a98c640bba5b2e820b1198,
+  psiAnimation: {fileID: 6794784554147996525, guid: e1e44dd824ed94c9bbc91d5c729e4b95,
     type: 3}

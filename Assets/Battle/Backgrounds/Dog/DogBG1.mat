@@ -5,9 +5,10 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: DogBG1
-  m_Shader: {fileID: 4800000, guid: b2d83559dda1948f7bf239adf0f779c4, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8fde551b5821e413fbd7e7ddca73b3a3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -39,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f2b65b9e1510126479d96a6a948be65c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 444b9785da5344cfa89bd29ca4ad194e, type: 3}
         m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -59,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
-        m_Texture: {fileID: 2800000, guid: 092214825e060a64b8e9d21cace5548b, type: 3}
+        m_Texture: {fileID: 2800000, guid: b4748f49a1ccf4564a6fd3c7d8bb0733, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:

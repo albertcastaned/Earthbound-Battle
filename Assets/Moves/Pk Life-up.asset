@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd7a61f79068a744a15f2b45b54f0a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 871bca7be2007474abe5a74dfaa99f2f, type: 3}
   m_Name: Pk Life-up
   m_EditorClassIdentifier: 
-  moveName: Pk Life-up
-  moveDamage: 140000001e00000028000000
-  cost: 14000000280000002d000000
+  moveName: Pk Lifeup
+  moveDamage: 0a0000001e00000032000000
+  cost: 0a0000000f0000001e000000
   description:
-  - Restores small amount of HP to a party member
-  - Restore moderate amount of HP to a party member
-  - Restores huge amount of HP to a party member
+  - Restores small amount of HP
+  - Restores moderate amount of HP
+  - Restores huge amount of HP
   type: Recovery
   upgrade: 2
   allRow: 0
   offensive: 0
-  psiAnimation: {fileID: 1787508387595335554, guid: eeeaecb6cc1368b4b83595712f88f217,
+  psiAnimation: {fileID: 1787508387595335554, guid: b246f053688274ae9b093f09269ce35e,
     type: 3}

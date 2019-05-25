@@ -15,7 +15,7 @@ public class MoveToEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(transform.position.x != destination.x)
+        if(!FloatEqual(transform.position.x,destination.x))
         transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, 0.2f);
     }
 
@@ -30,5 +30,9 @@ public class MoveToEnemy : MonoBehaviour {
     public void SetPosition(Vector3 pos)
     {
         transform.position = pos;
+    }
+    public static bool FloatEqual(float a, float b)
+    {
+        return Mathf.Sqrt(a * a + b * b) < 0.025f;
     }
 }

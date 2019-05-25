@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Custom_Sprites_Colorized
-  m_Shader: {fileID: 4800000, guid: 51ca76031e9184583b6888830ae5097c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 800ee0e4d512d4c4993f2406e9288e2f, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

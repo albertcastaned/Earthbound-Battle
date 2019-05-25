@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     {
         dest = transform.position;
         aux = 0;
-        enemyName = enemyData.name;
+        enemyName = enemyData.enemyName;
         selected = false;
         health = enemyData.maxHealth;
         description = enemyData.description;
@@ -104,7 +104,7 @@ public class Enemy : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position,dest,ref velocity, 0.1f);
         
 
-        aux += 0.1f;
+        aux += 8f * Time.deltaTime;
 
         if (aux > 2 * Mathf.PI)
         {
@@ -138,8 +138,12 @@ public class Enemy : MonoBehaviour
         Text text = prefab.GetComponent<Text>();
         text.text = dmg.ToString();
 
-
     }       
+
+    public float GetHeight()
+    {
+        return GetComponent<SpriteRenderer>().bounds.size.y;
+    }
     public IEnumerator Die()
     {
         float elapsed = 0.0f;
@@ -149,14 +153,14 @@ public class Enemy : MonoBehaviour
         while(elapsed < 1.2f)
         {
             SetColor(new Color(1, 1, 1, elapsed));
-            elapsed +=  0.05f;
+            elapsed +=  4f * Time.deltaTime;
             yield return null;
 
         }
-        while (elapsed > -30f)
+        while (elapsed > -1)
         {
-            SetColor(new Color(1, 1, 1, elapsed));
-            elapsed -= 1f;
+            SetColor(new Color(elapsed, elapsed, elapsed, 1));
+            elapsed -= 4f * Time.deltaTime;
             yield return null;
 
 
@@ -176,18 +180,16 @@ public class Enemy : MonoBehaviour
         Vector3 originalPosition = transform.position;
 
         float elapsed = 0.0f;
-       // battle.SetHalt();
         while (elapsed < duration)
         {
             float x = originalPosition.x + Random.Range(-1f, 1f) * magnitude;
 
             transform.position = new Vector3(x, originalPosition.y, originalPosition.z);
 
-            elapsed += Time.deltaTime;
+            elapsed += Time.deltaTime/2f;
             yield return null;
         }
         transform.position = originalPosition;
-       // battle.SetHalt();
     }
 
     private void SetColor(Color color)

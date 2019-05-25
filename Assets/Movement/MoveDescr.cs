@@ -5,6 +5,8 @@ using UnityEngine;
 public class MoveDescr : MonoBehaviour {
     public float dist = 0;
     public int dir = 0;
+    public float speed = 5f;
+    private Vector3 velocity = Vector3.zero;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,7 +23,7 @@ public class MoveDescr : MonoBehaviour {
                     transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                     dist = -55.0f;
                 }
-                transform.localPosition = new Vector3(transform.localPosition.x - 5f, transform.localPosition.y, transform.localPosition.z);
+                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, new Vector3(dist, transform.localPosition.y, transform.localPosition.z), ref velocity, 1f/speed);
             }
         }
         else if(dir==1)
@@ -33,7 +35,8 @@ public class MoveDescr : MonoBehaviour {
                     transform.localPosition = new Vector3(-330.0f, 0.0f, 0.0f);
                     dist = -275.0f;
                 }
-                transform.localPosition = new Vector3(transform.localPosition.x + 5f, transform.localPosition.y, transform.localPosition.z);
+                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, new Vector3(dist, transform.localPosition.y, transform.localPosition.z), ref velocity,1f/speed);
+
             }
         }
 	}

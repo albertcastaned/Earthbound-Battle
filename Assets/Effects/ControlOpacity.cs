@@ -29,19 +29,19 @@ public class ControlOpacity : MonoBehaviour
             if (aux < maxOpacity)
             {
                 SetColor(new Color(renderer.color.r, renderer.color.g, renderer.color.b, aux));
-                aux += speed;
+                aux += speed * Time.deltaTime;
             }
             else
             {
                 if(autoChange)
                 {
-                    if (aux > 0.95f)
+                    if (aux > 1.25f)
                     {
                         darkTime = false;
                         aux = maxOpacity;
                     }
                     else
-                        aux += speed;
+                        aux += speed * Time.deltaTime;
                 }
                 
             }
@@ -51,7 +51,7 @@ public class ControlOpacity : MonoBehaviour
             if (aux > 0f)
             {
                 SetColor(new Color(renderer.color.r, renderer.color.g, renderer.color.b, aux));
-                aux -= speed;
+                aux -= speed * Time.deltaTime;
             }
         }
     }

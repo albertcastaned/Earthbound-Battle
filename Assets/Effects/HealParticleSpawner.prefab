@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1787508387595335557}
   - component: {fileID: 1787508387595335553}
   - component: {fileID: 1787508387595335559}
-  - component: {fileID: 1787508387595335552}
+  - component: {fileID: 49006685026483053}
   m_Layer: 0
   m_Name: HealParticleSpawner
   m_TagString: Untagged
@@ -42,13 +42,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1787508387595335554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f0aba5f7f6a0347a3667e8ed13af61, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
-  target: {fileID: 0}
-  healParticle: {fileID: 3380697096316560790, guid: f72935ce845d93f46833ab23984e7fb9,
-    type: 3}
 --- !u!212 &1787508387595335559
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2830ce46b8162634abcaad5008e40fa8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02322090fc0c24d14b87b3ecae7a8fc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +93,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1787508387595335552
+--- !u!114 &49006685026483053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,6 +102,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1787508387595335554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: f399532e1e1554c51aa9196b29dfa912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 400
+  healParticle: {fileID: 3380697096316560790, guid: 51742fc70594d40fd98551717c6c75cd,
+    type: 3}

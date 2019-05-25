@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tile
-  m_Shader: {fileID: 4800000, guid: 24c326e6333b47842bdbcfdfb72c37a7, type: 3}
+  m_Shader: {fileID: 4800000, guid: b9df1a9b45a90431cb4d37ca86d8321d, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA PIXELSNAP_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -44,8 +44,8 @@ Material:
         m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b284deaaa1f8dd94380a933349a73032, type: 3}
-        m_Scale: {x: 4, y: 4}
+        m_Texture: {fileID: 2800000, guid: e155cf74e89644b05897022736bdaa3a, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}

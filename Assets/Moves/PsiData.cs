@@ -8,7 +8,8 @@ public class PsiData : ScriptableObject {
     public List<int> moveDamage;
     public List<int> cost;
     public List<string> description;
-    public string type;
+    [StringInList("Offense","Recovery","Assist")] public string type;
+
     public int upgrade;
 
     public bool allRow;

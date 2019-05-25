@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.3587269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82.1, y: 58.88}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.9, y: 0.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &2004587
@@ -193,10 +193,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1620796669
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 83ade87c6a503df4fb81a2bedc7106ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf973a8d7eb154722a5f904a9b1142ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,13 +216,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2004585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0426f420041d84563a99dfa242d13bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 2
-  speed: 2
-  vertical: 1
-  relative: 0
+  textmesh: {fileID: 807349493}
 --- !u!114 &2004589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,10 +229,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2004585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c9e6a8cf469f745834abd8dd7db474, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textmesh: {fileID: 807349493}
+  floatStrength: 0.2
+  speed: 5
+  vertical: 1
+  relative: 1
 --- !u!1 &68522611
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &68522612
 RectTransform:
@@ -295,8 +295,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0b09b869bea6ba543bacc712e8d4b49c, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 488d8e1cf63024eb4b874459ea1d4679, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 68522611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fea5ed17aa309d6439d7bb9da827ebe4, type: 3}
+  m_Script: {fileID: 11500000, guid: daddf803797c445be93d0e3166c652dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &97589834
@@ -383,8 +383,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &135874265
 RectTransform:
@@ -539,7 +539,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 7c066cd5426b2804eb2fec906e8f29c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dcd1b3d1a543042349dacb0b4fef2285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -572,7 +572,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &143979521
 RectTransform:
@@ -615,8 +615,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -729,7 +729,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &171803567
 Transform:
@@ -780,9 +780,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 773508551
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0998c8f1803f27e4e8ebb392edfa65af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 870296a10a5df4e24b63dee16ca4cbe3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -850,7 +850,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
@@ -877,8 +877,8 @@ GameObject:
   m_Component:
   - component: {fileID: 186831968}
   - component: {fileID: 186831971}
-  - component: {fileID: 186831969}
   - component: {fileID: 186831970}
+  - component: {fileID: 186831969}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -914,12 +914,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 186831967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0b79f19f8b44cb5bbffd6f99db5e76, type: 3}
+  m_Script: {fileID: 11500000, guid: 206871c6c7b1b4673b81327df1bcfe7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aux: 0
-  enemyData: {fileID: 11400000, guid: 5000a60f4494f48c1af99d20a210011a, type: 2}
-  damageGUI: {fileID: 5903590823042577221, guid: ad40315a843a7496a95076504c3949b4,
+  enemyData: {fileID: 11400000, guid: dd3f9401368834586bb609fff47ced2d, type: 2}
+  damageGUI: {fileID: 5903590823042577221, guid: 1aa83f789cfba46979972cf59cfab1e1,
     type: 3}
   battle: {fileID: 1361440206}
 --- !u!212 &186831970
@@ -939,7 +939,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9df3f36c7e99f495eaf7d46fc377ac41, type: 2}
+  - {fileID: 2100000, guid: 6df7ad35041e54123a1f0922fb52d24d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -956,15 +956,16 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -965266819
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 6b72dea488362488c9af589443aae8be, type: 3}
+  m_Sprite: {fileID: -8108438390446734492, guid: 54d67c636ce2346c29a7120618b7e1fc,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.54, y: 0.6}
+  m_Size: {x: 0.05, y: 0.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1019,7 +1020,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 228010192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9de79924f4d8d45a130c788d02f33d, type: 3}
+  m_Script: {fileID: 11500000, guid: 91c0d1c5fc492443ebca83ae34eb0365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EulerRotation: {x: 0, y: 60, z: 0}
@@ -1073,7 +1074,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &252508961
 RectTransform:
@@ -1161,7 +1162,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &283781142
 RectTransform:
@@ -1204,8 +1205,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: PSI
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1374,7 +1375,7 @@ SpriteRenderer:
   m_SortingLayerID: 675573301
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3674a79aa5dcf774cbe3c0f89487ee9e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ddb426ebe4a749d185ba983cb6c68fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1394,14 +1395,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 287047730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f62abc2bda1524eb01ea89f5630da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 0.2
-  speed: 1
-  id: 3
-  rotateScript: {fileID: 0}
-  bobbing: 0
+  floatStrength: 0.3
+  speed: 0.6
+  vertical: 1
+  relative: 0
 --- !u!114 &287047734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 287047730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &287796964
@@ -1430,7 +1430,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &287796965
 RectTransform:
@@ -1472,7 +1472,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5ab81f0cab66c46708413e29ecf12efb, type: 3}
+    m_Font: {fileID: 12800000, guid: 0ee651463438046ab895cf5c0714e3b3, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
@@ -1594,11 +1594,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 296693926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 2
-  speed: 1
+  floatStrength: 0.3
+  speed: 0.6
   vertical: 1
   relative: 0
 --- !u!1 &378824440
@@ -1648,18 +1648,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 378824440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb223702cdd62e248acd676937af5fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4e2daac19d54036b240da47ed7d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
-  rolling: 0
-  damage: 0
-  damagePrev: 0
-  newPos: 0
+  speed: 0.5
   meter: {fileID: 960334703}
   line: {fileID: 414654574}
-  maxSpeed: 30
-  value: 0
+  maxSpeed: 25
+  value: 5
   id: 1
 --- !u!114 &378824443
 MonoBehaviour:
@@ -1681,7 +1677,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9870a80a2f85c454a8d6e21473fd776f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0aff551b66ad4e09b32d7040accfe27, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1712,7 +1708,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &414654575
 RectTransform:
@@ -1804,7 +1800,7 @@ SpriteRenderer:
   m_SortingLayerID: 675573301
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c0052c01a1b6fa74387dfc26acb91485, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77eb316d927f64cc780c5ba8cd92ffc9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1824,14 +1820,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 418241535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f62abc2bda1524eb01ea89f5630da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 0.2
-  speed: 1
-  id: 2
-  rotateScript: {fileID: 0}
-  bobbing: 0
+  floatStrength: 0.3
+  speed: 0.6
+  vertical: 1
+  relative: 0
 --- !u!114 &418241539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1841,7 +1836,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 418241535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &420834008
@@ -1860,7 +1855,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &420834009
 RectTransform:
@@ -1903,8 +1898,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2076,7 +2071,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b39b4038b90a86d40bf2fa9eab6e8ecc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4deba9e64df874879942b24d0cee7c89, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2121,19 +2116,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 471140525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb223702cdd62e248acd676937af5fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4e2daac19d54036b240da47ed7d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
-  rolling: 0
-  damage: 0
-  damagePrev: 0
-  newPos: 0
+  speed: 0.5
   meter: {fileID: 0}
   line: {fileID: 414654574}
-  maxSpeed: 16
+  maxSpeed: 25
   value: 0
-  id: 0
+  id: 3
 --- !u!114 &471140527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,7 +2145,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9870a80a2f85c454a8d6e21473fd776f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0aff551b66ad4e09b32d7040accfe27, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2249,8 +2240,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2443,7 +2434,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
@@ -2476,7 +2467,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &526728457
 RectTransform:
@@ -2519,8 +2510,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: ITEMS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2665,19 +2656,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 536673245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb223702cdd62e248acd676937af5fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4e2daac19d54036b240da47ed7d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
-  rolling: 0
-  damage: 0
-  damagePrev: 0
-  newPos: 0
+  speed: 0.5
   meter: {fileID: 1581830599}
   line: {fileID: 414654574}
   maxSpeed: 25
   value: 0
-  id: 0
+  id: 1
 --- !u!114 &536673248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2698,7 +2685,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9870a80a2f85c454a8d6e21473fd776f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0aff551b66ad4e09b32d7040accfe27, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2731,7 +2718,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &556505376
 RectTransform:
@@ -2774,8 +2761,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2889,7 +2876,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &561426582
 RectTransform:
@@ -2900,7 +2887,7 @@ RectTransform:
   m_GameObject: {fileID: 561426581}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.020098552, y: 0.01909738, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 818437506}
   m_RootOrder: 1
@@ -2910,35 +2897,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.16939378}
   m_SizeDelta: {x: 25.7, y: 12.15}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &561426583
-MonoBehaviour:
+--- !u!212 &561426583
+SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561426581}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2a909ac18cd144cb380a1d877c15cd58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8f55c99e792a9d642ae2510308a59c1e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 6.21, y: 0.24}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!222 &561426584
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3018,7 +3024,7 @@ SpriteRenderer:
   m_SortingLayerID: 675573301
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 014d6a9debf974549a63e621492d9484, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fd0e1ba287004013beaf5bac7cc5822, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3038,14 +3044,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 562184904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f62abc2bda1524eb01ea89f5630da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 0.2
-  speed: 1
-  id: 4
-  rotateScript: {fileID: 0}
-  bobbing: 0
+  floatStrength: 0.3
+  speed: 0.6
+  vertical: 1
+  relative: 0
 --- !u!114 &562184908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3055,7 +3060,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 562184904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &571334889
@@ -3074,7 +3079,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &571334890
 RectTransform:
@@ -3117,8 +3122,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: CHECK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3267,7 +3272,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e2a2db7da7eac6845a225d8ce83f618d, type: 2}
+  - {fileID: 2100000, guid: 1d9bfaa42253a4d919a92c322bd64ab9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3318,7 +3323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 578015979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e643fe505efb64487b9c15200f3840, type: 3}
+  m_Script: {fileID: 11500000, guid: 1748935842c7b4e6da8ca5af25ecff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &651283642
@@ -3337,7 +3342,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &651283643
 RectTransform:
@@ -3380,8 +3385,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: GUARD
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3522,7 +3527,6 @@ GameObject:
   - component: {fileID: 729759485}
   - component: {fileID: 729759484}
   - component: {fileID: 729759483}
-  - component: {fileID: 729759486}
   m_Layer: 5
   m_Name: PartyMemberSelector
   m_TagString: Untagged
@@ -3558,10 +3562,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 729759481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c9e6a8cf469f745834abd8dd7db474, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textmesh: {fileID: 0}
+  floatStrength: 4
+  speed: 1
+  vertical: 1
+  relative: 0
 --- !u!114 &729759484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3571,13 +3578,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 729759481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 82494b28baefc4a0783ff44fdfb57d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 4
-  speed: 4
-  vertical: 1
-  relative: 0
 --- !u!212 &729759485
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3613,9 +3616,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1620796669
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 83ade87c6a503df4fb81a2bedc7106ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf973a8d7eb154722a5f904a9b1142ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3626,18 +3629,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &729759486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729759481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece34a0f23a206b4eafdf2666a92490e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &735156776
 GameObject:
   m_ObjectHideFlags: 0
@@ -3709,7 +3700,7 @@ SpriteRenderer:
   m_SortingLayerID: 675573301
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3d739a11ab0c1344d836513fa2919373, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fd5b323228854281bc2a82b14302da1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3729,14 +3720,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 735156776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f62abc2bda1524eb01ea89f5630da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 0.2
-  speed: 1
-  id: 6
-  rotateScript: {fileID: 0}
-  bobbing: 0
+  floatStrength: 0.3
+  speed: 0.6
+  vertical: 1
+  relative: 0
 --- !u!114 &735156780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3746,7 +3736,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 735156776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &737118365
@@ -3808,10 +3798,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Offense '
+  m_text: Offense
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1171d877b1b77e649aa04c799a576a7e, type: 2}
-  m_sharedMaterial: {fileID: 21046172385975110, guid: 1171d877b1b77e649aa04c799a576a7e,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3878,9 +3868,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 737118367}
-    characterCount: 8
+    characterCount: 7
     spriteCount: 0
-    spaceCount: 1
+    spaceCount: 0
     wordCount: 1
     linkCount: 0
     lineCount: 1
@@ -3925,7 +3915,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &745418754
 RectTransform:
@@ -3968,8 +3958,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4192,8 +4182,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Pk Fire
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4307,7 +4297,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &784343268
 RectTransform:
@@ -4350,8 +4340,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4508,8 +4498,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Enemy Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4658,10 +4648,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 773508551
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bf70a2ea36a32524fa4b6011fd493b1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: da35dfb17260a495ca434fea96022e27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4755,8 +4745,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Pk Fire: Deals fire damage to a row of enemies.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4897,11 +4887,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 848439805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollX: 0.2
-  ScrollY: 0.2
+  ScrollX: 0.1
+  ScrollY: 0.1
 --- !u!64 &848439808
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4933,7 +4923,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5032,7 +5022,7 @@ SpriteRenderer:
   m_SortingLayerID: 675573301
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e5daa2c3d6ebcb6459fd89c38fc9c839, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf6c240968faf432b831010a8c7e02f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5052,14 +5042,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 877437278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f62abc2bda1524eb01ea89f5630da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 0.2
-  speed: 1
-  id: 5
-  rotateScript: {fileID: 0}
-  bobbing: 0
+  floatStrength: 0.3
+  speed: 0.6
+  vertical: 1
+  relative: 0
 --- !u!114 &877437282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5069,7 +5058,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 877437278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &882985314
@@ -5118,7 +5107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 882985314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fbbe25ed6f1ef44a8bad0f6c602a488, type: 3}
+  m_Script: {fileID: 11500000, guid: 117bca7a3ba1e4da18081e37b478efc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &882985317
@@ -5155,10 +5144,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1620796669
-  m_SortingLayer: 3
+  m_SortingLayerID: -1875969827
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0525f4a4bbc4e9a41869e23cf3aa6de3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd88cbb761954468eaf08263210be9e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -5243,7 +5232,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b39b4038b90a86d40bf2fa9eab6e8ecc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4deba9e64df874879942b24d0cee7c89, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5276,7 +5265,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &946549816
 RectTransform:
@@ -5319,8 +5308,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5465,19 +5454,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 960334703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb223702cdd62e248acd676937af5fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4e2daac19d54036b240da47ed7d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
-  rolling: 0
-  damage: 0
-  damagePrev: 0
-  newPos: 0
+  speed: 0.5
   meter: {fileID: 1182598351}
   line: {fileID: 414654574}
-  maxSpeed: 16
-  value: 3
-  id: 0
+  maxSpeed: 25
+  value: 5
+  id: 2
 --- !u!114 &960334706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5498,7 +5483,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9870a80a2f85c454a8d6e21473fd776f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0aff551b66ad4e09b32d7040accfe27, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5576,7 +5561,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0b09b869bea6ba543bacc712e8d4b49c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28d2e182b14ce47978493b8c9feb7dd9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5657,7 +5642,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0b09b869bea6ba543bacc712e8d4b49c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28d2e182b14ce47978493b8c9feb7dd9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5717,11 +5702,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1027799318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollX: 0.2
-  ScrollY: 0.2
+  ScrollX: 0.1
+  ScrollY: 0.1
 --- !u!64 &1027799321
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5753,7 +5738,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5840,8 +5825,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5998,8 +5983,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6155,7 +6140,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0b09b869bea6ba543bacc712e8d4b49c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28d2e182b14ce47978493b8c9feb7dd9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6188,7 +6173,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1179253051
 RectTransform:
@@ -6231,8 +6216,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: RUN
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6377,19 +6362,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1182598351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb223702cdd62e248acd676937af5fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4e2daac19d54036b240da47ed7d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
-  rolling: 0
-  damage: 0
-  damagePrev: 0
-  newPos: 0
+  speed: 0.5
   meter: {fileID: 0}
   line: {fileID: 414654574}
-  maxSpeed: 16
+  maxSpeed: 25
   value: 0
-  id: 0
+  id: 3
 --- !u!114 &1182598354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6410,7 +6391,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9870a80a2f85c454a8d6e21473fd776f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0aff551b66ad4e09b32d7040accfe27, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6444,7 +6425,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1183546220
 RectTransform:
@@ -6474,11 +6455,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183546219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floatStrength: 4
-  speed: 3
+  speed: 4
   vertical: 0
   relative: 1
 --- !u!114 &1183546222
@@ -6501,7 +6482,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 83ade87c6a503df4fb81a2bedc7106ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf973a8d7eb154722a5f904a9b1142ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6583,7 +6564,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6620,11 +6601,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1253098430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollX: 0.2
-  ScrollY: 0.2
+  ScrollX: 0.1
+  ScrollY: 0.1
 --- !u!1 &1269948894
 GameObject:
   m_ObjectHideFlags: 0
@@ -6642,7 +6623,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1269948895
 RectTransform:
@@ -6683,7 +6664,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d4a716501a30ac940b5cfc166576a60f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1a3fb2e25f6d428682dc6721d31e3b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6709,11 +6690,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269948894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 2
-  speed: 1
+  floatStrength: 0.2
+  speed: 0.6
   vertical: 1
   relative: 0
 --- !u!1 &1305021480
@@ -6732,7 +6713,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1305021481
 RectTransform:
@@ -6773,7 +6754,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bd294f667fbc50b4bb601f39a5c8df4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3ddc2bd16c254eebb7aea32e251587a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6806,7 +6787,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1306382776
 RectTransform:
@@ -6849,8 +6830,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: BASH
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6964,7 +6945,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1318825450
 RectTransform:
@@ -7007,8 +6988,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: BASH
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7165,8 +7146,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Pk Fire: Deals fire damage to a row of enemies.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7209,7 +7190,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -7324,8 +7305,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Recovery
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7439,7 +7420,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1340826497
 RectTransform:
@@ -7482,8 +7463,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7607,23 +7588,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1361440205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb7e701d1c6145d1b3c1e2e21b68234, type: 3}
+  m_Script: {fileID: 11500000, guid: 575a1cc70e53e4189a8370ca1059378a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NessHP: 100
   psiMoves:
-  - {fileID: 11400000, guid: 0102740c22847a649be3719295c96a9e, type: 2}
-  - {fileID: 11400000, guid: 2dafec874c43c27419f710317cc28d8f, type: 2}
-  - {fileID: 11400000, guid: 232cc2fc3651f094a9c02914de94fd86, type: 2}
+  - {fileID: 11400000, guid: 23eaac6347d4240faafc7351fc45c629, type: 2}
+  - {fileID: 11400000, guid: 15bc30d90f0074cacbf019f336a2939d, type: 2}
   cam: {fileID: 1776591413}
   text: {fileID: 287796966}
-  currentEnemies: []
+  currentEnemies:
+  - {fileID: 186831969}
+  - {fileID: 1501828085}
   inventory: {fileID: 1491618818}
   hpBar: {fileID: 378824442}
   ppBar: {fileID: 536673247}
   border: {fileID: 818437504}
-  borderDisplacement: 0
-  menuDisplacement: {x: 0, y: 0, z: 0}
+  borderDisplacement: 50
+  menuDisplacement: {x: 0, y: 0, z: -20}
   dialogue: {fileID: 68522611}
   menuSpinner: {fileID: 228010192}
   NessMenu: {fileID: 494915049}
@@ -7635,9 +7617,8 @@ MonoBehaviour:
   itemObject: {fileID: 1830244642}
   partyMemberSelector: {fileID: 729759481}
   currentText: {fileID: 287796964}
-  psiAnimation: {fileID: 0}
   enemyAuxIndex: 0
-  healPrefab: {fileID: 1787508387595335554, guid: eeeaecb6cc1368b4b83595712f88f217,
+  healPrefab: {fileID: 1787508387595335554, guid: b246f053688274ae9b093f09269ce35e,
     type: 3}
   playerOverlay: {fileID: 882985316}
 --- !u!4 &1361440207
@@ -7697,11 +7678,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1406140684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollX: 0.2
-  ScrollY: 0.2
+  ScrollX: 0.1
+  ScrollY: 0.1
 --- !u!64 &1406140687
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7733,7 +7714,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7819,7 +7800,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0b09b869bea6ba543bacc712e8d4b49c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28d2e182b14ce47978493b8c9feb7dd9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7894,7 +7875,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 83ade87c6a503df4fb81a2bedc7106ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf973a8d7eb154722a5f904a9b1142ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7920,13 +7901,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452168659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 6
-  speed: 6
+  floatStrength: 2
+  speed: 1
   vertical: 0
-  relative: 0
+  relative: 1
 --- !u!1 &1481797583
 GameObject:
   m_ObjectHideFlags: 0
@@ -7984,7 +7965,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
@@ -8041,15 +8022,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1491618816}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf9ff37160284e99afb6f234e4a2347, type: 3}
+  m_Script: {fileID: 11500000, guid: 28b5ba448e20e4d5794f973453d9d512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: ae26433623ff64e579691274ba613d34, type: 2}
-  - {fileID: 11400000, guid: d99449ac55754454282b2d3e26c35b5e, type: 2}
-  - {fileID: 11400000, guid: d99449ac55754454282b2d3e26c35b5e, type: 2}
-  - {fileID: 11400000, guid: d99449ac55754454282b2d3e26c35b5e, type: 2}
-  - {fileID: 11400000, guid: d99449ac55754454282b2d3e26c35b5e, type: 2}
+  - {fileID: 11400000, guid: b52ccb60e48b148beab6998057facc86, type: 2}
+  - {fileID: 11400000, guid: 368477cc63b60487db2f05fa24d59cc3, type: 2}
+  - {fileID: 11400000, guid: b52ccb60e48b148beab6998057facc86, type: 2}
+  - {fileID: 11400000, guid: b52ccb60e48b148beab6998057facc86, type: 2}
+  - {fileID: 11400000, guid: 368477cc63b60487db2f05fa24d59cc3, type: 2}
+  - {fileID: 11400000, guid: 368477cc63b60487db2f05fa24d59cc3, type: 2}
 --- !u!1 &1501828083
 GameObject:
   m_ObjectHideFlags: 0
@@ -8086,7 +8068,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9df3f36c7e99f495eaf7d46fc377ac41, type: 2}
+  - {fileID: 2100000, guid: 6df7ad35041e54123a1f0922fb52d24d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8103,15 +8085,16 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -965266819
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 6b72dea488362488c9af589443aae8be, type: 3}
+  m_Sprite: {fileID: -3231492579343523708, guid: 54d67c636ce2346c29a7120618b7e1fc,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.54, y: 0.6}
+  m_Size: {x: 0.05, y: 0.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8126,12 +8109,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1501828083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0b79f19f8b44cb5bbffd6f99db5e76, type: 3}
+  m_Script: {fileID: 11500000, guid: 206871c6c7b1b4673b81327df1bcfe7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aux: 0
-  enemyData: {fileID: 11400000, guid: 763d42d63a7924119a2ae3d0e7436c1b, type: 2}
-  damageGUI: {fileID: 5903590823042577221, guid: ad40315a843a7496a95076504c3949b4,
+  enemyData: {fileID: 11400000, guid: a6b4f6dd233e8474198ff7d0885e2f0c, type: 2}
+  damageGUI: {fileID: 5903590823042577221, guid: 1aa83f789cfba46979972cf59cfab1e1,
     type: 3}
   battle: {fileID: 1361440206}
 --- !u!222 &1501828086
@@ -8220,8 +8203,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Assist
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -8347,19 +8330,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1581830599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb223702cdd62e248acd676937af5fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4e2daac19d54036b240da47ed7d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
-  rolling: 0
-  damage: 0
-  damagePrev: 0
-  newPos: 0
+  speed: 0.5
   meter: {fileID: 471140525}
   line: {fileID: 414654574}
-  maxSpeed: 16
-  value: 3
-  id: 0
+  maxSpeed: 25
+  value: 5
+  id: 2
 --- !u!114 &1581830601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8380,7 +8359,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9870a80a2f85c454a8d6e21473fd776f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0aff551b66ad4e09b32d7040accfe27, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -8492,7 +8471,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 773508551
+  m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1598872825
@@ -8573,11 +8552,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1609509791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f1ab21e7100a54f8b8a7a5090a197d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8693abe47912847f6b56272c901341dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dist: 0
   dir: 0
+  speed: 10
 --- !u!1 &1678500903
 GameObject:
   m_ObjectHideFlags: 0
@@ -8594,7 +8574,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1678500904
 RectTransform:
@@ -8637,8 +8617,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -8752,7 +8732,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1678790270
 RectTransform:
@@ -8795,8 +8775,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -8910,7 +8890,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1700437287
 RectTransform:
@@ -8953,8 +8933,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9068,7 +9048,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1726434151
 RectTransform:
@@ -9111,8 +9091,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9268,7 +9248,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 83ade87c6a503df4fb81a2bedc7106ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf973a8d7eb154722a5f904a9b1142ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9294,11 +9274,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1747801828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9715e5ce39e535f44be34bac9365fae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 3
-  speed: 5
+  floatStrength: 1
+  speed: 1
   vertical: 0
   relative: 1
 --- !u!1 &1760901413
@@ -9349,7 +9329,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1760901413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1236b8c0ae7066849898405408269ad9, type: 3}
+  m_Script: {fileID: 11500000, guid: 2649f0220590b4356940844169cf7deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   categoryBox: {fileID: 994176503}
@@ -9441,7 +9421,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0b09b869bea6ba543bacc712e8d4b49c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28d2e182b14ce47978493b8c9feb7dd9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9551,7 +9531,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1776591409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0850a0a281ac14f699fc8bc42df042a4, type: 3}
+  m_Script: {fileID: 11500000, guid: facd39f659a194e49b558da52ea436ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1830244642
@@ -9601,7 +9581,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1830244642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 363a7945401f1d04ea99dbcbb25cade0, type: 3}
+  m_Script: {fileID: 11500000, guid: efbdf5fd3ce9140c9b74d1c67cc731b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   descriptionBox: {fileID: 1424635813}
@@ -9642,7 +9622,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1849371427
 RectTransform:
@@ -9685,8 +9665,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9855,10 +9835,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1620796669
-  m_SortingLayer: 3
+  m_SortingLayerID: -1875969827
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e4c92e93c4b5f814886e51c15ffd4ac5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12ec096aab8ef4fd1bffb6c7cd0b84cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -9878,13 +9858,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1849395759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebadb52f657bbe24b88a16ba3aa3c08d, type: 3}
+  m_Script: {fileID: 11500000, guid: 90fe77b1fb9904ace844006417522aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   darkTime: 0
   autoChange: 1
-  maxOpacity: 0.9
-  speed: 0.04
+  maxOpacity: 0.8
+  speed: 0.05
 --- !u!1 &1922673800
 GameObject:
   m_ObjectHideFlags: 0
@@ -9912,8 +9892,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922673800}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.27}
+  m_LocalScale: {x: 3.4999998, y: 3.4999998, z: 1}
   m_Children: []
   m_Father: {fileID: 818437506}
   m_RootOrder: 0
@@ -9940,7 +9920,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9960,12 +9940,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4682ad6ea25367d42803d9c93ca00dc6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d46bc6d1822b40c08fdc4460b4d27ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.31, y: 0.31}
+  m_Size: {x: 0.18, y: 0.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9988,7 +9968,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1922673800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ScrollX: 0.2
@@ -10052,8 +10032,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -10167,7 +10147,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &1962577031
 RectTransform:
@@ -10210,8 +10190,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -10380,7 +10360,7 @@ SpriteRenderer:
   m_SortingLayerID: 675573301
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 895dd182644fc4345bbca07c731a7608, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aefd1205adbf94c41872e7fbd4899cd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10400,7 +10380,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2002533341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd774405fa52da468cc09443b8f511e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb883474c5db4478cbe75e6fffec3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2002533345
@@ -10412,14 +10392,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2002533341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f62abc2bda1524eb01ea89f5630da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eba9a00b723459182d2a507dcf5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatStrength: 0.2
-  speed: 1
-  id: 1
-  rotateScript: {fileID: 0}
-  bobbing: 0
+  floatStrength: 0.3
+  speed: 0.6
+  vertical: 1
+  relative: 0
 --- !u!1 &2008080050
 GameObject:
   m_ObjectHideFlags: 0
@@ -10447,7 +10426,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2008080050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebadb52f657bbe24b88a16ba3aa3c08d, type: 3}
+  m_Script: {fileID: 11500000, guid: 90fe77b1fb9904ace844006417522aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   darkTime: 0
@@ -10491,12 +10470,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f2b65b9e1510126479d96a6a948be65c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e155cf74e89644b05897022736bdaa3a, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.08, y: 0.52}
+  m_Size: {x: 0.26, y: 0.26}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -10510,8 +10489,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008080050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 28.8, z: 137.86958}
-  m_LocalScale: {x: 275, y: 165, z: 1}
+  m_LocalPosition: {x: -4.1, y: 6.8, z: 137.86958}
+  m_LocalScale: {x: 3019.5, y: 1617, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -10559,11 +10538,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017351509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollX: 0.2
-  ScrollY: 0.2
+  ScrollX: 0.1
+  ScrollY: 0.1
 --- !u!64 &2017351512
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10595,7 +10574,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10666,11 +10645,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2045824365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f932215f770a584c8695dd6fe7ec6eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a704497a326eb45aba55637e16663a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollX: 0.2
-  ScrollY: 0.2
+  ScrollX: 0.1
+  ScrollY: 0.1
 --- !u!64 &2045824368
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10702,7 +10681,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d136800869fbc154fa7d00c19dbf064b, type: 2}
+  - {fileID: 2100000, guid: 163326ac5af1a417287398265e3f9384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10746,7 +10725,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &2088103345
 RectTransform:
@@ -10789,8 +10768,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc7caf69b5f60a644ae2ce00e145e279, type: 2}
-  m_sharedMaterial: {fileID: -4487516887698628567, guid: fc7caf69b5f60a644ae2ce00e145e279,
+  m_fontAsset: {fileID: 11400000, guid: 076c4fab8a903404782c25ca9985961e, type: 2}
+  m_sharedMaterial: {fileID: -4487516887698628567, guid: 076c4fab8a903404782c25ca9985961e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -10917,7 +10896,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108051286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e643fe505efb64487b9c15200f3840, type: 3}
+  m_Script: {fileID: 11500000, guid: 1748935842c7b4e6da8ca5af25ecff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!64 &2108051288
@@ -10951,7 +10930,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 39bf1b873a342c0469f6ca8689384a23, type: 2}
+  - {fileID: 2100000, guid: 02bdf2b1fc38140b0838e6cb98286378, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10993,82 +10972,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
---- !u!1001 &1787508386380805971
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1787508387595335554, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_Name
-      value: HealParticleSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335554, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -34.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335557, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1787508387595335553, guid: eeeaecb6cc1368b4b83595712f88f217,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 818437506}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eeeaecb6cc1368b4b83595712f88f217, type: 3}

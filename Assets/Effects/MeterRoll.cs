@@ -6,10 +6,10 @@ using System;
 public class MeterRoll : MonoBehaviour {
 
     public float speed;
-    public bool rolling;
-    public int damage;
-    public int damagePrev;
-    public float newPos;
+    private bool rolling;
+    private int damage;
+    private int damagePrev;
+    private float newPos;
     private Vector3 aux;
     public GameObject meter;
     private MeterRoll meterRoll;
@@ -200,7 +200,7 @@ public class MeterRoll : MonoBehaviour {
 		
 	}
 
-    public bool FloatEqual(float a, float b)
+    public static bool FloatEqual(float a, float b)
     {
         return Mathf.Sqrt(a*a + b*b) < 0.025f;
     }

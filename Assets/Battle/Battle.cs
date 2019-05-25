@@ -31,8 +31,22 @@ public class Battle : MonoBehaviour
 
     };
 
+    protected enum MoveType
+    {
+        Bash,
+        SelfHeal,
+        PsiAttack,
+        PsiRowAttack,
+        RowHeal,
+        StatusAttack
+    }
+
+    
+
     private STATE currentState;
     private PlayerSTATE currentPlayerState;
+    private MoveType currentMove;
+
     public int NessHP;
     public List<PsiData> psiMoves;
 
@@ -86,7 +100,7 @@ public class Battle : MonoBehaviour
 
     private Vector3 textDest;
 
-    public GameObject psiAnimation;
+    private GameObject psiAnimation;
 
     private bool enemyDie = false;
 
@@ -356,7 +370,8 @@ public class Battle : MonoBehaviour
                             enemySelect--;
                             currentEnemies[enemySelect].SelectColor();
                             moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
+                            Vector3 aux = new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z);
+                            moveEnemyScript.SetDestination(aux);
 
                         }
                         if (Input.GetKey(KeyCode.D) && !writing && enemySelect < currentEnemies.Count - 1)
@@ -365,8 +380,8 @@ public class Battle : MonoBehaviour
                             enemySelect++;
                             currentEnemies[enemySelect].SelectColor();
                             moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
-
+                            Vector3 aux = new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z);
+                            moveEnemyScript.SetDestination(aux);
                         }
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
@@ -392,8 +407,10 @@ public class Battle : MonoBehaviour
                                 currentPlayerState = PlayerSTATE.SelectingEnemyPSI;
                                 moveEnemySelector.SetActive(true);
                                 moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                                moveEnemyScript.SetPosition(currentEnemies[enemySelect].transform.position);
-                                moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
+                                Vector3 aux = new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z);
+                                moveEnemyScript.SetPosition(aux);
+
+                                moveEnemyScript.SetDestination(aux);
 
                                 currentEnemies[enemySelect].SelectColor();
                             }
@@ -414,7 +431,8 @@ public class Battle : MonoBehaviour
                             enemySelect--;
                             currentEnemies[enemySelect].SelectColor();
                             moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
+                            Vector3 aux = new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z);
+                            moveEnemyScript.SetDestination(aux);
 
                         }
                         if (Input.GetKey(KeyCode.D) && !writing && enemySelect < currentEnemies.Count - 1)
@@ -423,7 +441,8 @@ public class Battle : MonoBehaviour
                             enemySelect++;
                             currentEnemies[enemySelect].SelectColor();
                             moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
+                            Vector3 aux = new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z);
+                            moveEnemyScript.SetDestination(aux);
 
                         }
                         if (Input.GetKeyDown(KeyCode.Space) && !writing)
@@ -531,7 +550,7 @@ public class Battle : MonoBehaviour
 
 
                             NessHP += damage;
-
+                            //adsdjasiodjasiodjasiodjdisioadosadpaosdjsaodjasio
                             psiSelector.Deactivate();
                             partyMemberSelector.SetActive(false);
                             playerOverlay.SetSelected(false);
@@ -543,7 +562,7 @@ public class Battle : MonoBehaviour
                         break;
 
                 }
-
+                //Opcion Menu Seleccionar
                 if (Input.GetKeyDown("space") && !isAttacking && rotator.GetCanMove() && !writing)
                 {
                         switch (rotator.num)
@@ -552,8 +571,10 @@ public class Battle : MonoBehaviour
                             currentPlayerState = PlayerSTATE.SelectingEnemyBash;
                             moveEnemySelector.SetActive(true);
                             moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetPosition(currentEnemies[enemySelect].transform.position);
-                            moveEnemyScript.SetDestination(currentEnemies[enemySelect].transform.position);
+                            Vector3 aux = new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z);
+                            moveEnemyScript.SetPosition(aux);
+
+                            moveEnemyScript.SetDestination(aux);
                             currentEnemies[enemySelect].SelectColor();
 
                             break;
@@ -610,7 +631,7 @@ public class Battle : MonoBehaviour
                                     {
                                         currentEnemies[enemyAuxIndex].ActivateShake(damage);
                                         currentEnemies[enemyAuxIndex].ReceiveDamage(damage);
-                                    
+
 
                                     }
                                 }
@@ -646,8 +667,11 @@ public class Battle : MonoBehaviour
                                         }
                                         return;
                                     }
-                                    if (1 > currentEnemies.Count)
+                                    if (lineIndex >= 1 && enemyAuxIndex < currentEnemies.Count - 1)
                                         enemyAuxIndex++;
+
+
+
                                 }
                                 else
                                 {

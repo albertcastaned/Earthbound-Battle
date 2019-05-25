@@ -7,6 +7,7 @@ public class OscilateOpacity : MonoBehaviour
     private new SpriteRenderer renderer;
     private float aux = 0f;
     private bool selected = false;
+    public float speed = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class OscilateOpacity : MonoBehaviour
     {
         if (selected)
         {
-            aux += 0.1f;
+            aux += Time.deltaTime * speed;
 
             if (aux > 2 * Mathf.PI)
             {
