@@ -10,6 +10,7 @@ public class PsiData : ScriptableObject {
     public List<string> description;
     [StringInList("Offense","Recovery","Assist")] public string type;
 
+    [StringInList("None","Sleep","Paralysis")] public string statusEffect;
     public int upgrade;
 
     public bool allRow;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class Enemy : MonoBehaviour
@@ -12,7 +13,25 @@ public class Enemy : MonoBehaviour
     public float aux;
     public EnemyData enemyData;
     private string enemyName;
-    private int health;
+
+    private int HP;
+    private int PP;
+    private int Offense;
+    private int Defense;
+    private int Speed;
+    private int Guts;
+    private int EXP;
+
+    private int hypnosisSuccess;
+
+    private int paralysisSuccess;
+
+    private int flashSuccess;
+
+    private int brainShockSuccess;
+
+    [StringInList("Idle", "Asleep", "Frozen", "Paralysis")] public string status;
+
     private string description;
     private SpriteRenderer sprite;
     private List<MovesData> moves;
@@ -23,6 +42,9 @@ public class Enemy : MonoBehaviour
     private Vector3 dest;
     private Vector3 velocity;
     private bool dying = false;
+
+    public string Status { get => status; set => status = value; }
+
     void Awake()
     {
         // makes a new instance of the material for runtime changes
@@ -35,32 +57,47 @@ public class Enemy : MonoBehaviour
         aux = 0;
         enemyName = enemyData.enemyName;
         selected = false;
-        health = enemyData.maxHealth;
+
+        HP = enemyData.HP;
+        PP = enemyData.PP;
+        Offense = enemyData.Offense;
+        Defense = enemyData.Defense;
+        Speed = enemyData.Speed;
+        Guts = enemyData.Guts;
+        EXP = enemyData.EXP;
+
+        paralysisSuccess = enemyData.ParalysisSuccess;
+        hypnosisSuccess = enemyData.HypnosisSuccess;
+        flashSuccess = enemyData.FlashSuccess;
+        brainShockSuccess = enemyData.BrainShockSuccess;
+
         description = enemyData.description;
+
+
         sprite = GetComponent<SpriteRenderer>();
         sprite.sprite = enemyData.sprite;
         moves = enemyData.moves;
 
     }
-    public void SetDest(Vector3 d)
-    {
-        dest = d;
-    }
-    public int GetHealth() => health;
-    public string GetName() => enemyName;
 
+    public int GetHealth() => HP;
+    public string GetName() => enemyName;
+    public int GetOffense() => Offense;
+    public int GetDefense() => Defense;
+    public int GetSpeed() => Speed;
+    public int GetHypnosis() => hypnosisSuccess;
+    public int GetParalysis() => paralysisSuccess;
     public MovesData ChooseAttack()
     {
 
         if (moves.Count == 0)
             return moves[0];
         float accumulatedPorcentage = 0f;
-        float aux = Random.Range(0f, 100f);
         int index = 0;
         for (int i=0;i<moves.Count - 1;i++)
         {
             accumulatedPorcentage += moves[i].probability;
-            if (accumulatedPorcentage >= aux)
+            if (accumulatedPorcentage >= Random.Range(0f, 100f))
             {
 
                 break;
@@ -77,7 +114,7 @@ public class Enemy : MonoBehaviour
 
     public void ReceiveDamage(int dmg)
     {
-        health -= dmg;
+        HP -= dmg;
     }
     public void AttackingPosition()
     {
@@ -92,7 +129,13 @@ public class Enemy : MonoBehaviour
 
         }
     }
-    
+
+    public void SetDestination(Vector3 dst)
+    {
+        dest = dst;
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -100,22 +143,20 @@ public class Enemy : MonoBehaviour
         if (dying)
             return;
 
-        if(battle.GetMoving() == false && battle.GetHalt() == false)
-            transform.position = Vector3.SmoothDamp(transform.position,dest,ref velocity, 0.1f);
-        
-
-        aux += 8f * Time.deltaTime;
-
-        if (aux > 2 * Mathf.PI)
-        {
-            aux = 0;
-        }
-        
+        transform.position = Vector3.SmoothDamp(transform.position,dest,ref velocity, 0.1f);
 
         if (selected)
+        {
+            aux += 8f * Time.deltaTime;
+
+            if (aux > 2 * Mathf.PI)
+            {
+                aux = 0;
+            }
             SetColor(new Color(1, 1, 1, (0.4f + Mathf.Sin(aux) / 2f)));
+        }
         else
-            SetColor(new Color(1, 1, 1, -0f));
+            SetColor(new Color(1, 1, 1, 0f));
 
     }
     public void SelectColor()
@@ -131,11 +172,11 @@ public class Enemy : MonoBehaviour
     public void ActivateShake(int dmg)
     {
         StartCoroutine(Shake(0.5f, 5f));
-        
+
         float width = GetComponent<SpriteRenderer>().bounds.size.x / 2f;
-        GameObject prefab = Instantiate(damageGUI, new Vector3(transform.position.x + width, transform.position.y, 0f), transform.rotation) as GameObject;
-        prefab.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-        Text text = prefab.GetComponent<Text>();
+        GameObject prefab = Instantiate(damageGUI, GameObject.FindGameObjectWithTag("Canvas").transform, false) as GameObject;
+        prefab.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + GetHeight(), 30f);
+        TMP_Text text = prefab.transform.GetChild(0).GetComponent<TMP_Text>();
         text.text = dmg.ToString();
 
     }       
@@ -146,6 +187,7 @@ public class Enemy : MonoBehaviour
     }
     public IEnumerator Die()
     {
+        battle.SetHaltValue(true);
         float elapsed = 0.0f;
         dying = true;
         while (battle.GetTyping())
@@ -166,8 +208,7 @@ public class Enemy : MonoBehaviour
 
         }
         dying = false;
-        battle.removeEnemy(this);
-        battle.SetHaltValue(false);
+        battle.RemoveEnemy(this);
         Destroy(gameObject);
 
     }

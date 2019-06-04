@@ -12,9 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a683bbed5bb1b48e8a628b2859d7218c, type: 3}
   m_Name: Bird
   m_EditorClassIdentifier: 
-  enemyName: Crow
-  maxHealth: 50
+  enemyName: Spiteful Crow
+  HP: 24
+  PP: 0
+  Offense: 5
+  Defense: 3
+  Speed: 77
+  Guts: 0
+  EXP: 3
+  HypnosisSuccess: 50
+  ParalysisSuccess: 99
+  FlashSuccess: 99
+  BrainShockSuccess: 10
   description: A very nasty crow
+  deathMessage: The crow flies away.
   sprite: {fileID: -3231492579343523708, guid: 54d67c636ce2346c29a7120618b7e1fc, type: 3}
   moves:
   - {fileID: 11400000, guid: 1b02d468dbe564ee082cad54251ba06d, type: 2}

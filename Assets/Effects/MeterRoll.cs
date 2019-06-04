@@ -9,6 +9,7 @@ public class MeterRoll : MonoBehaviour {
     private bool rolling;
     private int damage;
     private int damagePrev;
+    private bool dead = false;
     private float newPos;
     private Vector3 aux;
     public GameObject meter;
@@ -21,8 +22,9 @@ public class MeterRoll : MonoBehaviour {
     public int value;
     private float ogSpeed;
     public int id;
+    private int amp = 1;
     // Use this for initializa1tion
-    void Start () {
+    void Awake () {
         
         rolling = false;
         damagePrev = 0;
@@ -37,7 +39,8 @@ public class MeterRoll : MonoBehaviour {
 
 
     }
-
+    public bool GetRolling() => rolling;
+    public bool GetDead() => dead;
     public void SetValue()
     {
         transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y + (5.2f * (float)value), transform.localPosition.z);
@@ -112,14 +115,18 @@ public class MeterRoll : MonoBehaviour {
     }
     public bool CheckDeath()
     {
+
        if(meterRoll==null)
         {
-            if (transform.localPosition.y <= topHeight)
+            if (Mathf.Approximately(transform.localPosition.y, -26f) || Mathf.Approximately(transform.localPosition.y, 26f))
+            {
                 return true;
+            }
+
         }
-       else if(meterRoll.CheckDeath())
+        else if(meterRoll.CheckDeath())
         {
-            if (transform.localPosition.y <= topHeight)
+            if (Mathf.Approximately(transform.localPosition.y, -26f) || Mathf.Approximately(transform.localPosition.y, 26f))
                 return true;
         }
         else
@@ -128,14 +135,20 @@ public class MeterRoll : MonoBehaviour {
         }
         return false;
     }
+
+    public void SetAmp(int aux)
+    {
+        amp = aux;
+    }
     // Update is called once per frame
     void Update () {
 
-        if (rolling)
+        if (rolling && !dead)
         {
+
             if (damage > 0)
             {
-                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed, maxSpeed);
+                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed * amp, maxSpeed / amp * (amp > 1 ? 3 : 1));
                 if (transform.localPosition.y >= (-topHeight) - 0.3f)
                 {
 
@@ -150,7 +163,7 @@ public class MeterRoll : MonoBehaviour {
 
                 }
 
-                if (FloatEqual(velocity.y, 0f))
+                if (FloatEqual(velocity.y, 0f, 0.025f))
                 {
                     rolling = false;
                     damagePrev = damage;
@@ -161,8 +174,14 @@ public class MeterRoll : MonoBehaviour {
             }
             else if (damage < 0)
             {
+                if (CheckDeath())
+                {
+                    dead = true;
+                    return;
+                }
+                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed * amp, maxSpeed / amp * (amp > 1 ? 3 : 1));
 
-                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed, maxSpeed);
+
                 if (transform.localPosition.y <= topHeight - 0.2f)
                 {
                     if (meter == null)
@@ -181,7 +200,7 @@ public class MeterRoll : MonoBehaviour {
                     }
 
                 }
-                if (FloatEqual(velocity.y, 0f))
+                if (FloatEqual(velocity.y, 0f, 0.025f))
                 {
 
                     rolling = false;
@@ -200,8 +219,8 @@ public class MeterRoll : MonoBehaviour {
 		
 	}
 
-    public static bool FloatEqual(float a, float b)
+    public static bool FloatEqual(float a, float b,float precision)
     {
-        return Mathf.Sqrt(a*a + b*b) < 0.025f;
+        return Mathf.Sqrt(a*a + b*b) < precision;
     }
 }

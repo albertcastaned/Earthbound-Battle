@@ -20,6 +20,7 @@ MonoBehaviour:
   - Restores moderate amount of HP
   - Restores huge amount of HP
   type: Recovery
+  statusEffect: None
   upgrade: 2
   allRow: 0
   offensive: 0

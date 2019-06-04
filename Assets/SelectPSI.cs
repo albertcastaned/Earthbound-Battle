@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 
 public class SelectPSI : MonoBehaviour {
+
+    public Player player;
     public GameObject categoryBox;
     private Vector3 categoryP1 = new Vector3(-80f, 76f, 0f);
     private Vector3 categoryP2 = new Vector3(-250f, 76f, 0f);
@@ -11,6 +13,12 @@ public class SelectPSI : MonoBehaviour {
     public GameObject psiMenuBox;
     private Vector3 psiP1 = new Vector3(430f, 76f, 0f);
     private Vector3 psiP2 = new Vector3(87f, 76f, 0f);
+
+    private Vector3 psiCostP1 = new Vector3(150f, 39f, 0f);
+    private Vector3 psiCostP2 = new Vector3(493, 39f, 0f);
+
+    private Vector3 psiCostDest;
+
     private Vector3 psiDest;
     public GameObject descriptionBox;
     private Vector3 descriptionP1 = new Vector3(25f, -100f, 0f);
@@ -20,13 +28,15 @@ public class SelectPSI : MonoBehaviour {
 
     public GameObject categorySelector;
     public GameObject psiSelector;
+    public GameObject psiCost;
+
     private Vector3 categoryDestination;
     private Vector3 psiDestination;
     private int categoryIndex;
     private Vector3 catVelocity = Vector3.zero;
     private Vector3 psiVelocity = Vector3.zero;
     private Vector3 desVelocity = Vector3.zero;
-
+    private Vector3 psiCostVelocity = Vector3.zero;
     private Vector3 velocity;
     private Vector3 velocity2;
     public bool selectingCategory;
@@ -35,7 +45,7 @@ public class SelectPSI : MonoBehaviour {
     public List<TMP_Text> slot;
     public List<TMP_Text> categorySlot;
     public TMP_Text description;
-
+    public TMP_Text psiCostText;
     private int categoryHorizontalIndex;
     private int categoryVerticalIndex;
     private bool inPosition;
@@ -52,6 +62,7 @@ public class SelectPSI : MonoBehaviour {
         catDest = categoryBox.transform.localPosition;
         psiDest = psiMenuBox.transform.localPosition;
         descDest = descriptionBox.transform.localPosition;
+        psiCostDest = psiCost.transform.localPosition;
 
         psiSelector.SetActive(false);
         selectingCategory = true;
@@ -109,7 +120,10 @@ public class SelectPSI : MonoBehaviour {
     {
         return moves[categoryVerticalIndex].allRow;
     }
-
+    public string getPSIStatus()
+    {
+        return moves[categoryVerticalIndex].statusEffect;
+    }
     public void Deactivate()
     {
         selectingCategory = true;
@@ -125,6 +139,7 @@ public class SelectPSI : MonoBehaviour {
             catDest = categoryP1;
             psiDest = psiP2;
             descDest = descriptionP1;
+            psiCostDest = psiCostP1;
             selecting = true;
         }
         else
@@ -132,6 +147,8 @@ public class SelectPSI : MonoBehaviour {
             catDest = categoryP2;
             psiDest = psiP1;
             descDest = descriptionP2;
+            psiCostDest = psiCostP2;
+
             selecting = false;
         }
 
@@ -152,6 +169,7 @@ public class SelectPSI : MonoBehaviour {
             categorySlot[i].text = "";
         }
     }
+
     void UpdateText()
     {
         ClearSlotText();
@@ -160,18 +178,59 @@ public class SelectPSI : MonoBehaviour {
             switch (moves[i].upgrade)
             {
                 case 0:
-                    categorySlot[i].text = "[";
+                    if (player.ppMeter.Value >= moves[i].cost[0])
+                        categorySlot[i].text = "[";
+                    else
+                        categorySlot[i].text = "<color=#808080ff>[</color>";
                     break;
                 case 1:
-                    categorySlot[i].text = "[           ]";
+                    if (player.ppMeter.Value >= moves[i].cost[1])
+                    {
+                        categorySlot[i].text = "[ ]";
+                    }
+                    else
+                    {
+                        if (player.ppMeter.Value >= moves[categoryVerticalIndex].cost[0])
+                            categorySlot[i].text = "[ <color=#808080ff>]</color>";
+                        else
+                            categorySlot[i].text = "<color=#808080ff>[ ]</color>";
+                    }
                     break;
 
                 case 2:
-                    categorySlot[i].text = "[           ]           _";
+                    if (player.ppMeter.Value >= moves[i].cost[2])
+                    {
+                        categorySlot[i].text = "[ ] _";
+                    }
+                    else
+                    {
+                        if (player.ppMeter.Value >= moves[i].cost[1])
+                        {
+                            categorySlot[i].text = "[ ] <color=#808080ff>_</color>";
+
+                        }
+                        else
+                        {
+                            if (player.ppMeter.Value >= moves[i].cost[0])
+                                categorySlot[i].text = "[ <color=#808080ff>] _</color>";
+                            else
+                                categorySlot[i].text = "<color=#808080ff>[ ] _ </color>";
+                        }
+                    }
                     break;
             }
-            slot[i].text = moves[i].moveName;
+
+            if (player.ppMeter.Value >= moves[i].cost[0])
+                slot[i].text = moves[i].moveName;
+            else
+                slot[i].text = "<color=#808080ff>" + moves[i].moveName + "</color>";
+
         }
+    }
+    public bool CanAfford()
+    {
+        return player.ppMeter.Value >= moves[categoryVerticalIndex].cost[categoryHorizontalIndex];
+
     }
     // Update is called once per frame
     void Update() {
@@ -196,6 +255,11 @@ public class SelectPSI : MonoBehaviour {
         {
             descriptionBox.transform.localPosition = Vector3.SmoothDamp(descriptionBox.transform.localPosition, descDest, ref desVelocity, 0.1f);
         }
+        if (psiCost.transform.localPosition != psiCostDest)
+        {
+            psiCost.transform.localPosition = Vector3.SmoothDamp(psiCost.transform.localPosition, psiCostDest, ref psiCostVelocity, 0.1f);
+        }
+
 
         if (inPosition)
         {
@@ -226,9 +290,11 @@ public class SelectPSI : MonoBehaviour {
 
                                 break;
                         }
-                        UpdateText();
+
                         categoryDestination = new Vector3(categorySelector.transform.localPosition.x, 65f - (60f * categoryIndex), categorySelector.transform.localPosition.z);
                     }
+                    UpdateText();
+
                 }
                 else
                 {
@@ -236,8 +302,10 @@ public class SelectPSI : MonoBehaviour {
                     {
                         categoryVerticalIndex++;
                         categoryHorizontalIndex = 0;
+                        psiCostText.text = "PSI Cost: " + moves[categoryVerticalIndex].cost[categoryHorizontalIndex]; 
                         description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
                         psiDestination = new Vector3(-16f, 65f - (65f * categoryVerticalIndex), psiSelector.transform.localPosition.z);
+
                     }
 
                 }
@@ -269,10 +337,12 @@ public class SelectPSI : MonoBehaviour {
 
                                 break;
                         }
-                        UpdateText();
+
                         categoryDestination = new Vector3(categorySelector.transform.localPosition.x, 65f - (60f * categoryIndex), categorySelector.transform.localPosition.z);
 
                     }
+                    UpdateText();
+
                 }
                 else
                 {
@@ -280,8 +350,9 @@ public class SelectPSI : MonoBehaviour {
                     {
                         categoryVerticalIndex--;
                         categoryHorizontalIndex = 0;
-                        description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
+                        psiCostText.text = "PSI Cost: " + moves[categoryVerticalIndex].cost[categoryHorizontalIndex]; description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
                         psiDestination = new Vector3(-16f, 65f - (65f * categoryVerticalIndex), psiSelector.transform.localPosition.z);
+
                     }
 
                 }
@@ -291,8 +362,9 @@ public class SelectPSI : MonoBehaviour {
                 if (categoryHorizontalIndex < moves[categoryVerticalIndex].upgrade)
                 {
                     categoryHorizontalIndex++;
-                    description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
+                    psiCostText.text = "PSI Cost: " + moves[categoryVerticalIndex].cost[categoryHorizontalIndex]; description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
                     psiDestination = new Vector3(-16f + (155f * categoryHorizontalIndex), psiDestination.y, psiSelector.transform.localPosition.z);
+                    UpdateText();
 
                 }
             }
@@ -301,8 +373,9 @@ public class SelectPSI : MonoBehaviour {
                 if (categoryHorizontalIndex > 0)
                 {
                     categoryHorizontalIndex--;
-                    description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
+                    psiCostText.text = "PSI Cost: " + moves[categoryVerticalIndex].cost[categoryHorizontalIndex]; description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
                     psiDestination = new Vector3(-16f + (155f * categoryHorizontalIndex), psiDestination.y, psiSelector.transform.localPosition.z);
+                    UpdateText();
 
                 }
             }
@@ -310,12 +383,21 @@ public class SelectPSI : MonoBehaviour {
             {
                 if (selectingCategory)
                 {
-                    description.text = moves[categoryVerticalIndex].description[categoryHorizontalIndex];
+                    psiCostText.text = "PSI Cost: " + moves[categoryVerticalIndex].cost[0];
+                    description.text = moves[categoryVerticalIndex].description[0];
                     selectingCategory = false;
                     psiSelector.transform.localPosition = new Vector3(-16f, 65f, transform.localPosition.z);
                     psiDestination = psiSelector.transform.localPosition;
                     psiSelector.SetActive(true);
+                    UpdateText();
+
                 }
+                else
+                {
+                    if(player.ppMeter.Value < moves[categoryVerticalIndex].cost[categoryHorizontalIndex])
+                    UpdateText();
+
+                } 
             }
 
             categorySelector.transform.localPosition = Vector3.SmoothDamp(categorySelector.transform.localPosition, categoryDestination, ref velocity, 0.1f);
@@ -328,11 +410,15 @@ public class SelectPSI : MonoBehaviour {
                 {
                     psiSelector.SetActive(false);
                     selectingCategory = true;
+                    psiCostText.text = "";
+
                     description.text = "Offensive psi moves focused on damage";
                     categoryHorizontalIndex = 0;
                     categoryVerticalIndex = 0;
                     psiSelector.transform.localPosition = new Vector3(-16f, 65f, transform.localPosition.z);
                     psiDestination = psiSelector.transform.localPosition;
+                    UpdateText();
+
                 }
 
             }

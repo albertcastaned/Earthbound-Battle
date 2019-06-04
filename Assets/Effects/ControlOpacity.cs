@@ -35,7 +35,7 @@ public class ControlOpacity : MonoBehaviour
             {
                 if(autoChange)
                 {
-                    if (aux > 1.25f)
+                    if (aux > 1.5f)
                     {
                         darkTime = false;
                         aux = maxOpacity;

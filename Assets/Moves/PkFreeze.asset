@@ -9,15 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd7a61f79068a744a15f2b45b54f0a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 871bca7be2007474abe5a74dfaa99f2f, type: 3}
   m_Name: PkFreeze
   m_EditorClassIdentifier: 
   moveName: Pk Freeze
-  moveDamage: 1e000000780000005a000000
-  cost: 140000001e00000032000000
+  moveDamage: 14000000
+  cost: 05000000
   description:
-  - Deals small ice damage to a single enemy
-  - Deals moderate ice damage to a single enemy
-  - Deals huge ice damage to a single enemy
+  - Deal small ice damage to a single enemy.
   type: Offense
-  upgrade: 1
+  statusEffect: None
+  upgrade: 0
+  allRow: 0
+  offensive: 1
+  psiAnimation: {fileID: 6794784554147996525, guid: e1e44dd824ed94c9bbc91d5c729e4b95,
+    type: 3}
