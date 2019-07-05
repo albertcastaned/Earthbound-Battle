@@ -1,16 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 //Battle controller
 public class Battle : MonoBehaviour
 {
+
+    #region States
+
     //Possible battle states
-    protected enum STATE{
+    private enum State{
         PlayerTurn,
         EnemyTurn,
         Commands,
@@ -20,115 +26,174 @@ public class Battle : MonoBehaviour
     };
 
     //Possible player states
-    protected enum PlayerSTATE
+    private enum PlayerState
     {
         Idle,
-        ChoosingPSIMove,
+        ChoosingPsiMove,
         SelectingEnemyBash,
-        SelectingEnemyPSI,
+        SelectingEnemyPsi,
         ChoosingItem,
         ChoosingPartyMemberItem,
-        ChoosingPartyMemberPSI,
+        ChoosingPartyMemberPsi,
         TurnOver
-
     };
+    #endregion
 
-
-    public class Command
+    private enum Direction
     {
-        private GameObject caster;
-        private GameObject target;
-        private int value;
+        Self,
+        Target,
+        AllyTarget,
+        Allies,
+        Opponents,
+        All
+    }
 
-        private string message;
-        private int speed;
-        private bool miss = false;
-        private bool dodge = false;
-        private bool smash = false;
-        private GameObject animation;
-        private string status;
+    private enum TypeOfCommand
+    {
+        Message,
+        Bash,
+        PSI,
+        Item,
+        Die,
+        Multitarget,
+        END
+    }
+    
+    #region Command
+    public ChangeScene levelChanger;
 
+    private class Command
+    {
+        private TypeOfCommand MyTypeOfCommand;
+        public TypeOfCommand GetTypeOfCommand => MyTypeOfCommand;
 
-        public GameObject Target { get => target; set => target = value; }
-        public int Value { get => value; set => this.value = value; }
-        public string Message { get => message; set => message = value; }
-        public int Speed { get => speed; set => speed = value; }
-        public string MyType { get; set; }
-        public GameObject Caster { get => caster; set => caster = value; }
-        public GameObject Animation { get => animation; set => animation = value; }
-        public bool Miss { get => miss; set => miss = value; }
-        public bool Dodge { get => dodge; set => dodge = value; }
-        public bool Smash { get => smash; set => smash = value; }
-
-        public Command(string msg, int moveTypeIndex, GameObject cast, GameObject targ, int val, int spd,GameObject anim, string stat = "None")
+        private TypeOfCommand OriginalTypeOfCommand;
+        public TypeOfCommand GetOriginalTypeOfCommand => OriginalTypeOfCommand;
+        public void SetTypeOfCommand(TypeOfCommand type)
         {
-            Message = msg;
+            MyTypeOfCommand = type;
+        }
+        public void SetOriginalTypeOfCommand(TypeOfCommand type)
+        {
+            OriginalTypeOfCommand = type;
+        }
+        private BattleEntity _caster;
+        private BattleEntity _target;
+        private int _value;
 
-            switch(moveTypeIndex)
-            {
-                case -1:
-                    MyType = "NormalMessage";
-                    break;
-                case 0:
-                    MyType = "BASH";
-                    break;
-                case 1:
-                    MyType = "SingleTargetPSI";
-                    break;
-                case 2:
-                    MyType = "MultipleTargetPSI";
-                    break;
-                case 3:
-                    MyType = "SingleTargetHeal";
-                    break;
-                case 4:
-                    MyType = "MultipleTargetHeal";
-                    break;
-                case 5:
-                    MyType = "SingleTargetHealPSI";
-                    break;
-                case 6:
-                    MyType = "MultipleTargetHealPSI";
-                    break;
-                case 7:
-                    MyType = "SingleTargetStatus";
-                    break;
-                case 8:
-                    MyType = "MultipleTargetStatus";
-                    break;
-                case 9:
-                    MyType = "Defend";
-                    break;
+        private string _message;
+        private int _speed;
+        private bool _miss;
+        private bool _dodge;
+        private bool _smash;
+        
+        private GameObject _animation;
+        private string _status;
 
-                default:
-                    MyType = "Bash";
-                    break;
-            }
-            Caster = cast;
-            Target = targ;
-            Speed = spd;
-            Animation = anim;
-            status = stat;
-            if (moveTypeIndex!=0)
-            Value = val;
+        private ItemData _item;
+        private PsiData _psi;
+        
+        private Direction myDirection = Direction.Target;
+        public Direction GetDirection => myDirection;
+        //Target and Caster reference
+        public BattleEntity Target { get => _target; set => _target = value; }
+        
+        public BattleEntity Caster { get => _caster; set => _caster = value; }
+
+        public int Value { get => _value; set => _value = value; }
+        public string Message { get => _message; set => _message = value; }
+        public int Speed { get => _speed; set => _speed = value; }
+        public string MyType { get; set; }
+        public GameObject Animation { get => _animation; set => _animation = value; }
+        public bool Miss { get => _miss; set => _miss = value; }
+        public bool Dodge { get => _dodge; set => _dodge = value; }
+        public bool Smash { get => _smash; set => _smash = value; }
+        
+        public ItemData Item { get => _item; set => _item = value; }
+
+        public PsiData PSI
+        {
+            get => _psi;
+            set => _psi = value;
+        }
+
+        //Multiple constructors for easier instantiating
+        
+        //Constructor used for Messages
+        public Command(string Message)
+        {
+            this.Message = Message;
+            MyTypeOfCommand = TypeOfCommand.Message;
+            OriginalTypeOfCommand = MyTypeOfCommand;
+            Speed = -1;
+        }
+        
+        //Constructor used by PSI
+        public Command(PsiData psi, BattleEntity Caster, BattleEntity Target = null)
+        {
+
+            Message = "@ " + Caster.GetName + " used " + psi.GetPSIMoveName;
+            MyTypeOfCommand = TypeOfCommand.PSI;
+            OriginalTypeOfCommand = MyTypeOfCommand;
+            myDirection = (Direction) psi.GetMoveTarget;
+            this.Caster = Caster;
+            this.Target = Target;
+            PSI = psi;
+            Value = psi.GetPSIMoveDamage();
+            _status = psi.GetPSIStatusEffect;
+            Animation = psi.GetPSIAnimation;
+            Speed = 1;
+        }
+
+        //Constructor used by Item
+        public Command(ItemData item, BattleEntity Caster, BattleEntity Target = null)
+        {
+            MyTypeOfCommand = TypeOfCommand.Item;
+            OriginalTypeOfCommand = MyTypeOfCommand;
+            this.Caster = Caster;
+            this.Target = Target;
+            if (Caster == Target)
+                Message = "@ " + Caster.GetName + " used " + item.GetName();
             else
-            {
+                Message = "@ " + Caster.GetName + " used " + item.GetName() + " on " + Target.GetName;
+            Animation = null;
+            
+            Value = -1;
+            Item = item;
+            Speed = 1;
+
+        }
+        
+        //Bash Constructor
+        public Command(string Message, BattleEntity Caster, BattleEntity Target)
+        {
+            MyTypeOfCommand = TypeOfCommand.Bash;
+            OriginalTypeOfCommand = MyTypeOfCommand;
+
+            this.Message = Message;
+            this.Caster = Caster;
+            this.Target = Target;
+            
+            //Get probability of caster missing the attack
                 if (Random.Range(1, 16) == 1)
                 {
                     Value = 0;
-                    miss = true;
+                    _miss = true;
                     return;
                 }
-
-                if (Caster.tag == "Player")
+                //If the caster is a player
+                if (Caster is Player)
                 {
-                    float aux = Caster.GetComponent<Player>().GetGuts() / 500f;
-                    if (aux > 1f/20f)
+                    //Get probability of Critical attack
+                    var auxiliarChance = _caster.GetGuts() / 500f;
+                    if (auxiliarChance > 1f/20f)
                     {
-                        if(Random.Range(0,500) <= aux)
+                        if(Random.Range(0,500) <= auxiliarChance)
                         {
-                            smash = true;
-                            Value = 4 * Caster.GetComponent<Player>().GetOffense() - Target.GetComponent<Enemy>().GetDefense();
+                            //Normal damage times 4
+                            _smash = true;
+                            Value = 4 * _caster.GetOffense() - _target.GetDefense();
                             return;
                         }
                     }
@@ -136,189 +201,240 @@ public class Battle : MonoBehaviour
                     {
                         if (Random.Range(0, 20) <= 1)
                         {
-                            smash = true;
-                            Value = 4 * Caster.GetComponent<Player>().GetOffense() - Target.GetComponent<Enemy>().GetDefense();
+                            _smash = true;
+                            Value = 4 * _caster.GetOffense() - _target.GetDefense();
                             return;
                         }
                     }
-
-                    if (Target.GetComponent<Enemy>().Status != "Asleep")
+                    
+                    if (_target.Status != "Asleep")
                     {
-                        int auxDodge = 2 * Target.GetComponent<Enemy>().GetSpeed() - Caster.GetComponent<Player>().GetSpeed();
+                        //Get probability of target dodging the move
+                        var auxDodge = 2 * _target.GetSpeed() - _caster.GetSpeed();
                         if (Random.Range(0, 500) <= auxDodge)
                         {
-                            dodge = true;
-                            value = 0;
+                            _dodge = true;
+                            _value = 0;
                             return;
                         }
                     }
-                    Value = 2 * Caster.GetComponent<Player>().GetOffense() - Target.GetComponent<Enemy>().GetDefense();
-                }
-                else
-                {
-                    int auxDodge = 2 * Target.GetComponent<Player>().GetSpeed() - Caster.GetComponent<Enemy>().GetSpeed();
-                    if (Random.Range(0, 500) <= auxDodge)
-                    {
-                        dodge = true;
-                        value = 0;
-                        return;
-                    }
-                    Value = 2 * Caster.GetComponent<Enemy>().GetOffense() - Target.GetComponent<Player>().GetDeffense();
-                    if (Target.GetComponent<Player>().Defending)
+                    //Normal melee damage calculation
+                    Value = 2 * _caster.GetOffense() - _target.GetDefense();
+                    
+                    if (_target.Defending)
                         Value /= 2;
                 }
-
+                //Enemy is caster
+                else
+                {
+                    var auxDodge = 2 * _target.GetSpeed() - _caster.GetSpeed();
+                    if (Random.Range(0, 500) <= auxDodge)
+                    {
+                        _dodge = true;
+                        _value = 0;
+                        return;
+                    }
+                    this.Value = 2 * _caster.GetOffense() - _target.GetDefense();
+                    //Half damage if defending
+                    if (_target.Defending)
+                        Value /= 2;
+                }
                 Value += Mathf.Abs((int)Mathf.Round(Value * Random.Range(-0.25f, 0.25f)));
-            }
-
+                Value = Mathf.Abs(Value);
+            
         }
 
+
     }
+    #endregion
 
+    #region Variables
+    private State _currentState;
+    private PlayerState _currentPlayerState;
+
+    private List<Command> _currentCommands;
     
-
-    private STATE currentState;
-    private PlayerSTATE currentPlayerState;
-
-    private List<Command> currentCommands;
-
-    public int NessHP;
-    public List<PsiData> psiMoves;
-
-    public CameraShake cam;
     public TMP_Text text;
-    private bool isTyping;
-    private bool isAttacking;
-    private bool once;
-    private int enemySelect;
+    private bool _isTyping;
+    private bool _isAttacking;
+    private bool _once;
+
+    private int _playerIndex;
+    private int _enemySelect;
 
     public List<Enemy> currentEnemies;
     public List<Player> currentPlayers;
-
-    public Inventory inventory;
-    public MeterRoll hpBar;
-    public MeterRoll ppBar;
-
-    private MovesData aux;
+    
+    private MovesData _aux;
 
     public Vector3 menuDisplacement;
     public GameObject dialogue;
     public GameObject menuSpinner;
-    private Rotate rotator;
-    public GameObject NessMenu;
-    private Vector3 velocity = Vector3.zero;
+    private Rotate _rotator;
+    public GameObject menu;
+    private Vector3 _velocity = Vector3.zero;
     public GameObject moveEnemySelector;
-    private MoveToEnemy moveEnemyScript;
-    private MoveDialogue moveDialogue;
+    private MoveToEnemy _moveEnemyScript;
+    private MoveDialogue _moveDialogue;
     public SelectPSI psiSelector;
     public ItemSelectorManager itemSelector;
     public GameObject psiObject;
 
-    private GameObject dialoguePos;
+    private GameObject _dialoguePos;
     public GameObject itemObject;
-    private bool halt = false;
+    private bool _halt;
     public GameObject partyMemberSelector;
-    private int damage = 0;
     public GameObject currentText;
-    private Vector3 textVelocity = Vector3.zero;
+    private Vector3 _textVelocity = Vector3.zero;
 
-    private int firstText = 0;
-
-
-    private bool writing = false;
+    private int _firstText;
 
 
-    private Vector3 textDest;
+    private bool _writing;
 
 
-    private bool attacksAllRow = false;
-
-    public int EnemyIndex { get; private set; }
-
-    private bool psiSelf = false;
-
-    private int enemyAuxIndex = 0;
+    private Vector3 _textDest;
+    
+    private bool _psiSelf;
 
     public GameObject healPrefab;
 
+    
+    private int _commandIndex;
+    
+    private int _partySelectorIndex;
 
-    public OscilateOpacity playerOverlay;
+    private int _partyMultiTargetIndex = 0;
 
-    private int commandIndex = 0;
+    private bool _reviving;
+    
+    private Stack<ItemData> _itemStack;
+    
+    private bool[] _usedItem = new bool[4];
+    private int[] _usedItemIndex = new int[4];
 
-    private int ppAux = 0;
-
-    //Crear lista y ordenarlas dependiendo de la posicion x
+    public GameObject enemyPrefab;
+    
+    public EnemyData enemyTest1;
+    
+    public EnemyData enemyTest2;
+    
+    #endregion
+    #region Initiation
     void Awake()
     {
-        currentEnemies = new List<Enemy>();
-        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            currentEnemies.Add(enemy.GetComponent<Enemy>());
-        }
-        currentEnemies = new List<Enemy>(currentEnemies.OrderBy((c) => c.transform.position.x));
+        _halt = true;
+        SetupEnemies();
+        _halt = false;
     }
 
+    private void SetupEnemies()
+    {
+        currentEnemies = new List<Enemy>();
+        int ran = Random.Range(1, 3);
+        GameObject newEnemyObject;
+        Enemy newEnemy;
+        switch (ran)
+        {
+            case 1:
+                newEnemyObject = Instantiate(enemyPrefab);
+                newEnemy = newEnemyObject.GetComponent<Enemy>();
+                newEnemy.SetEnemyData((Random.Range(0,2) == 0 ? enemyTest1 : enemyTest2));
+                currentEnemies.Add(newEnemy);
+
+
+                break;
+            case 2:
+                case 3:
+                    
+                for (int i = 0; i < ran; i++)
+                {
+                    newEnemyObject = Instantiate(enemyPrefab);
+                    newEnemy = newEnemyObject.GetComponent<Enemy>();
+                    newEnemy.SetEnemyData((Random.Range(0,2) == 0 ? enemyTest1 : enemyTest2));
+                    currentEnemies.Add(newEnemy);
+                }
+                break;
+        }
+
+        switch (currentEnemies.Count)
+        {
+            case 1:
+                currentEnemies[0].SetDestination(new Vector3(0f, 17f, 90f));
+                currentEnemies[0].gameObject.transform.position = new Vector3(0f, 17f, 90f);
+                break;
+            
+            case 2:
+                currentEnemies[0].SetDestination(new Vector3(-60f, 17f, 90f));
+                currentEnemies[0].gameObject.transform.position = new Vector3(-60f, 17f, 90f);
+                currentEnemies[1].SetDestination(new Vector3(60f, 17f, 90f));
+                currentEnemies[1].gameObject.transform.position = new Vector3(60f, 17f, 90f);
+
+                break;
+            case 3:
+                currentEnemies[0].SetDestination(new Vector3(-60f, 17f, 90f));
+                currentEnemies[0].gameObject.transform.position = new Vector3(-60f, 17f, 90f);
+                currentEnemies[1].SetDestination(new Vector3(60f, 17f, 90f));
+                currentEnemies[1].gameObject.transform.position = new Vector3(60f, 17f, 90f);
+                currentEnemies[2].SetDestination(new Vector3(0f, 17f, 90f));
+                currentEnemies[2].gameObject.transform.position = new Vector3(0f, 17f, 90f);
+                break;
+        }
+
+        currentEnemies = new List<Enemy>(currentEnemies.OrderBy((c) => c.transform.position.x));
+
+    }
+    
+    
     //Inciar
     void Start()
     {
-        //Command List iniciar
-        currentCommands = new List<Command>();
+        AudioManager.instance.Play("Battle");
 
-        NessHP = 30;
-        //Menu rotador
-        rotator = menuSpinner.GetComponent<Rotate>();
-        enemySelect = 0;
+        //Command List iniciar
+        _currentCommands = new List<Command>();
+                //Menu rotador
+        _rotator = menuSpinner.GetComponent<Rotate>();
+        _enemySelect = 0;
         text.text = "";
-        isTyping = false;
-        isAttacking = false;
-        moveEnemyScript = moveEnemySelector.GetComponent<MoveToEnemy>();
-        moveDialogue = dialogue.GetComponent<MoveDialogue>();
-        currentState = STATE.PlayerTurn;
-        currentPlayerState = PlayerSTATE.Idle;
-        once = false;
-        EnemyIndex = 0;
-        //Menu de cuadrov vida posicion y
-        //Menu de opciones de ataque posicion y
-        menuDisplacement = new Vector3(NessMenu.transform.localPosition.x, NessMenu.transform.localPosition.y + 335f, NessMenu.transform.localPosition.z);
+        _isTyping = false;
+        _isAttacking = false;
+        _moveEnemyScript = moveEnemySelector.GetComponent<MoveToEnemy>();
+        _moveDialogue = dialogue.GetComponent<MoveDialogue>();
+        _currentState = State.PlayerTurn;
+        _currentPlayerState = PlayerState.Idle;
+        _once = false;
+        _playerIndex = 0;
+
+        var localPosition = menu.transform.localPosition;
+        menuDisplacement = new Vector3(localPosition.x, localPosition.y + 335f, localPosition.z);
         moveEnemySelector.SetActive(false);
         partyMemberSelector.SetActive(false);
         psiObject.SetActive(false);
-        NessMenu.SetActive(true);
+        menu.SetActive(true);
         itemObject.SetActive(false);
-
+        _itemStack = new Stack<ItemData>();
+        currentPlayers[0].ShiftToAttackPosition(true);
     }
-    //Obtener PSI moves por categoria
-    public List<PsiData> GetMovesByCategory(string category)
-    {
-        List<PsiData> temp = new List<PsiData>();
-        for(int i=0;i<psiMoves.Count;i++)
-        {
-            if (psiMoves[i].type == category)
-            {
-                temp.Add(psiMoves[i]);
-            }
-        }
-        return temp;
-    }
-
+    #endregion
+    
     //Mover texto hacia arriba
     private IEnumerator MoveText()
     {
-        
-        Vector3 target = new Vector3(currentText.transform.localPosition.x, currentText.transform.localPosition.y + 85f, currentText.transform.localPosition.z);
+        var localPosition = currentText.transform.localPosition;
+        var target = new Vector3(localPosition.x, localPosition.y + 85f, localPosition.z);
 
         while (!V3Equal(currentText.transform.localPosition,target))
         {
-            if (firstText <= 1)
+            if (_firstText <= 1)
                 break;
-            currentText.transform.localPosition = Vector3.SmoothDamp(currentText.transform.localPosition, target, ref textVelocity, 0.1f);
+            currentText.transform.localPosition = Vector3.SmoothDamp(currentText.transform.localPosition, target, ref _textVelocity, 0.1f);
             yield return null;
         }
 
-        if (firstText <= 1)
+        if (_firstText <= 1)
         {
-            firstText++;
+            _firstText++;
         }
         else
         {
@@ -327,61 +443,27 @@ public class Battle : MonoBehaviour
         }
     }
 
-    //Escribir dialogo letra por letra
-    private IEnumerator TextScroll(string lineOfText, string thisMoveType)
+
+    //Text Box controller 
+    #region TextDialogue
+    private IEnumerator TextScroll(string lineOfText)
     {
-        while (halt)
+        //Wait till halt is true
+        while (_halt)
             yield return null;
-
-        int letter = 0;
         
-        int lineLength = lineOfText.Length - 1;
-        if(firstText>1)
+        //Letter position and line length
+        var letter = 0;
+        var lineLength = lineOfText.Length - 1;
+
+
+        //Move inner text of dialogue box up.
+        if(_firstText>1)
         {
-          StartCoroutine("MoveText");
+          StartCoroutine(nameof(MoveText));
         }
-        switch(thisMoveType)
-        {
-            case "DAMAGE":
-                if(currentCommands[commandIndex].Target.tag == "Player")
-                {
-                    hpBar.CalculateDistance(-currentCommands[commandIndex].Value);
-                    StartCoroutine(cam.Shake(0.2f, 2f));
-                }
-                else
-                {
-                    currentCommands[commandIndex].Target.GetComponent<Enemy>().ActivateShake(currentCommands[commandIndex].Value);
-                    currentCommands[commandIndex].Target.GetComponent<Enemy>().ReceiveDamage(currentCommands[commandIndex].Value);
-
-                }
-                break;
-            case "MULTIDAMAGE":
-
-                currentEnemies[enemyAuxIndex].ActivateShake(currentCommands[commandIndex].Value);
-                currentEnemies[enemyAuxIndex].ReceiveDamage(currentCommands[commandIndex].Value);
-
-                
-                break;
-                
-            case "HEAL":
-                hpBar.CalculateDistance(currentCommands[commandIndex].Value);
-                Instantiate(healPrefab);
-                currentPlayers[0].InstantiateHeal(currentCommands[commandIndex].Value);
-                break;
-
-            case "PSIHEAL":
-                ppBar.CalculateDistance(ppAux);
-                hpBar.CalculateDistance(currentCommands[commandIndex].Value);
-                Instantiate(healPrefab);
-                currentPlayers[0].InstantiateHeal(currentCommands[commandIndex].Value);
-
-                break;
-
-            case "SLEEP":
-                currentCommands[commandIndex].Target.GetComponent<Enemy>().Status = "Asleep";
-                break;
-        }
-
+        
+        //Type letter by letter
         while (letter <= lineLength)
         {
             if (lineOfText[letter] == '¬')
@@ -394,258 +476,313 @@ public class Battle : MonoBehaviour
                 text.text += lineOfText[letter];
                 letter++;
             }
-
+            //Speed of text writing
             yield return new WaitForSeconds(0.030f);
         }
-
+        //Skip line once message line is finished
         text.text += "\n";
+        
+        if (_firstText < 2)
+            _firstText++;
+        
+        
+        //Decide next step
+        StartCoroutine(BattleAction());
+        
 
-       
-        if (firstText < 2)
-            firstText++;
+    }
+    #endregion
 
-        switch (thisMoveType)
+
+    private IEnumerator BattleAction()
+    { 
+        PsiData psiMove;
+        if (_currentCommands.Count == 0)
+            yield break;
+        Command cmd = _currentCommands[_commandIndex];
+        switch (cmd.GetTypeOfCommand)
         {
-            case "BASH":
-                if (currentCommands[commandIndex].Target.tag == "Player")
+            //Display regular message
+            case TypeOfCommand.Message:
+                if (cmd.Caster != null && cmd.Target != null)
                 {
-                    if(currentCommands[commandIndex].Miss)
-                        StartCoroutine(TextScroll("@ " + currentCommands[commandIndex].Caster.GetComponent<Enemy>().GetName() + " misses the attack.", "MISS"));
-                    else if (currentCommands[commandIndex].Dodge)
-                        StartCoroutine(TextScroll("@ Ness dodges swiftly!", "MISS"));
+                    if (cmd.Caster is Player &&
+                        cmd.Target.GetHealth() <= 0)
+                    {
+                        cmd.SetTypeOfCommand(TypeOfCommand.Die);
+                        
+                        StartCoroutine(TextScroll(
+                            "@ " + cmd.Target.GetName + " has been defeated."));
+                    }
                     else
-                        StartCoroutine(TextScroll("@ Ness takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
+                    {
+                        NextCommand();
+                    }
                 }
                 else
                 {
-                    if (currentCommands[commandIndex].Miss)
-                        StartCoroutine(TextScroll("@ Just missed!", "MISS"));
-                    else if (currentCommands[commandIndex].Smash)
-                    {
-                        StartCoroutine(TextScroll("@ SMASSHH!, " + currentCommands[commandIndex].Target.GetComponent<Enemy>().GetName() + " takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
-                    }
-                    else if (currentCommands[commandIndex].Dodge)
-                        StartCoroutine(TextScroll("@ " + currentCommands[commandIndex].Target.GetComponent<Enemy>().GetName() + " dodges the attack.", "MISS"));
-                    else
-                    {
-                        StartCoroutine(TextScroll("@ " + currentCommands[commandIndex].Target.GetComponent<Enemy>().GetName() + " takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
-                    }
-
-
-                }
-                break;
-
-            case "SingleTargetHeal":
-                if (currentCommands[commandIndex].Caster.tag == "Player")
-                {
-                    StartCoroutine(TextScroll("@ Ness recuperates " + currentCommands[commandIndex].Value + " of health.", "HEAL"));
-                }
-   
-                break;
-            case "SingleTargetHealPSI":
-                if (currentCommands[commandIndex].Caster.tag == "Player")
-                {
-                    StartCoroutine(TextScroll("@ Ness recuperates " + currentCommands[commandIndex].Value + " of health.", "PSIHEAL"));
+                    NextCommand();
                 }
 
                 break;
-
-            case "SingleTargetPSI":
-                if (currentCommands[commandIndex].Target.tag == "Player")
-                {
-
-                    StartCoroutine(TextScroll("@ Ness takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
-                }
-                else
-                {
-
-                    Instantiate(currentCommands[commandIndex].Animation);
-                    halt = true;
-                    while(halt)
-                    {
-                        yield return null;
-                    }
-                    ppBar.CalculateDistance(ppAux);
-                    StartCoroutine(TextScroll("@ " + currentCommands[commandIndex].Target.GetComponent<Enemy>().GetName() + " takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
-                }
-                break;
-
-            case "SingleTargetStatus":
-                if (currentCommands[commandIndex].Target.tag == "Player")
-                {
-
-                    StartCoroutine(TextScroll("@ Ness takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
-                }
-                else
-                {
-
-                    Instantiate(currentCommands[commandIndex].Animation);
-                    halt = true;
-                    while (halt)
-                    {
-                        yield return null;
-                    }
-                    ppBar.CalculateDistance(ppAux);
-                    if(currentCommands[commandIndex].Target.GetComponent<Enemy>().Status == "Asleep")
-                        StartCoroutine(TextScroll("@ " + currentCommands[commandIndex].Target.GetComponent<Enemy>().GetName() + " is already asleep.", "SLEEP"));
-                    else if(Random.Range(0,100) > currentCommands[commandIndex].Target.GetComponent<Enemy>().GetHypnosis())
-                        StartCoroutine(TextScroll("@ The PSI attack fails.", "NormalMessage"));
-                    else
-                        StartCoroutine(TextScroll("@ " + currentCommands[commandIndex].Target.GetComponent<Enemy>().GetName() + " falls asleep", "SLEEP"));
-                }
-                break;
-
-            case "MultipleTargetPSI":
-                if (currentCommands[commandIndex].Target.tag == "Player")
-                {
-                    StartCoroutine(TextScroll("@ Ness takes " + currentCommands[commandIndex].Value + " of damage.", "DAMAGE"));
-                }
-                else
-                {
-
-                    Instantiate(currentCommands[commandIndex].Animation);
-                    halt = true;
-                    while (halt)
-                    {
-                        yield return null;
-                    }
-                    ppBar.CalculateDistance(ppAux);
-
-                    StartCoroutine(TextScroll("@ " + currentEnemies[enemyAuxIndex].GetName() + " takes " + currentCommands[commandIndex].Value + " of damage.", "MULTIDAMAGE"));
-                    StartCoroutine(Halt(0.1f));
-
-                }
-                break;
-
-            case "DAMAGE":
-
-                if (commandIndex < currentCommands.Count)
-                {
-                    if (currentCommands[commandIndex].Caster.tag == "Player")
-                    {
-                        Enemy enemy = currentCommands[commandIndex].Target.GetComponent<Enemy>();
-                        if (enemy.GetHealth() <= 0)
-                        {
-                            StartCoroutine(TextScroll("@ " + enemy.GetName() + " has been defeated.", "DieMessage"));
-
-                        }else if(enemy.Status == "Asleep" && Random.Range(1,2) == 1)
-                        {
-                            enemy.Status = "Idle";
-                            currentCommands.RemoveAll(p => p.Caster == currentCommands[commandIndex].Target);
-
-
-                            StartCoroutine(TextScroll("@ " + enemy.GetName() + " wakes up from the hit.", "NormalMessage"));
-                        }
-                        else
-                        {
-                            commandIndex++;
-                            writing = false;
-                        }
-                    }
-                    else
-                    {
-
-                        currentCommands[commandIndex].Caster.GetComponent<Enemy>().AttackingPosition();
-                        commandIndex++;
-                        writing = false;
-                        StartCoroutine(Halt(0.1f));
-
-                    }
-                }
-
-                break;
-
-            case "Defend":
-            case "HEAL":
-            case "PSIHEAL":
-                StartCoroutine(Halt(0.1f));
-                commandIndex++;
-                writing = false;
-                break;
-
-
-            case "MULTIDAMAGE":
-
-
-                if (currentCommands[commandIndex].Caster.tag == "Player")
-                {
-
-                    if (currentEnemies[enemyAuxIndex].GetHealth() <= 0)
-                    {
-                        StartCoroutine(TextScroll("@ " + currentEnemies[enemyAuxIndex].GetName() + " has been defeated.", "MultiDieMessage"));
-
-                    }
-                    else
-                    {
-                        enemyAuxIndex++;
-                        if(enemyAuxIndex < currentEnemies.Count)
-                        StartCoroutine(TextScroll("@ " + currentEnemies[enemyAuxIndex].GetName() + " takes " + currentCommands[commandIndex].Value + " of damage.", "MULTIDAMAGE"));
-                        else
-                        {
-                            StartCoroutine(Halt(0.1f));
-                            enemyAuxIndex = 0;
-                            commandIndex++;
-                            writing = false;
-                        }
-                    }
-                }
-
-                break;
-            case "MultiDieMessage":
-                currentEnemies[enemyAuxIndex].StartCoroutine("Die");
-
-                while (halt)
+            
+            case TypeOfCommand.Die:
+                cmd.Target.DeathSequence();
+                while(_halt)
                     yield return null;
-                if (enemyAuxIndex < currentEnemies.Count)
+                if(cmd.GetDirection == Direction.Self || cmd.GetDirection == Direction.Target)
+                    NextCommand();
+                else
                 {
-                    StartCoroutine(TextScroll("@ " + currentEnemies[enemyAuxIndex].GetName() + " takes " + currentCommands[commandIndex].Value + " of damage.", "MULTIDAMAGE"));
+                    if (cmd.GetOriginalTypeOfCommand == TypeOfCommand.PSI)
+                        goto case TypeOfCommand.PSI;
+                    
+                    if (cmd.GetOriginalTypeOfCommand == TypeOfCommand.Item)
+                        goto case TypeOfCommand.Item;
+
+                    if (cmd.GetOriginalTypeOfCommand == TypeOfCommand.Multitarget)
+                    {
+                        cmd.SetTypeOfCommand(TypeOfCommand.Multitarget);
+                        goto case TypeOfCommand.Multitarget;
+                    }
+                }
+                break;
+            
+            //Melee damage
+            case TypeOfCommand.Bash:
+                cmd.SetTypeOfCommand(TypeOfCommand.Message);
+                if(cmd.Miss)
+                    StartCoroutine(TextScroll("@ " + cmd.Caster.GetName + " misses the attack."));
+                else if (cmd.Smash)
+                {
+                    cmd.Target.ReceiveDamage(-cmd.Value);
+                    StartCoroutine(TextScroll(
+                        "@ SMASSHH!, " + cmd.Target.GetName + " takes " +
+                        cmd.Value + " of damage."));
+                }
+                else if (cmd.Dodge)
+                    StartCoroutine(TextScroll("@ " + cmd.Target.GetName + " dodges swiftly!"));
+                else
+                {
+                    //Normal Damage
+                    if (cmd.Target is Player && ((Player) cmd.Target).isMortalDamage(-cmd.Value))
+                    {
+                        cmd.Target.ReceiveDamage(-cmd.Value);
+                        StartCoroutine(TextScroll(
+                            "@ " + cmd.Target.GetName + " takes " +
+                            cmd.Value + " of mortal damage."));
+                    }
+                    else
+                    {
+                        cmd.Target.ReceiveDamage(-cmd.Value);
+                        StartCoroutine(TextScroll(
+                            "@ " + cmd.Target.GetName + " takes " +
+                            cmd.Value + " of damage."));
+                    }
+                }
+
+                break;
+            
+            //PSI
+            case TypeOfCommand.PSI:
+                psiMove = cmd.PSI;
+
+                if (cmd.Animation != null)
+                {
+                    if (cmd.GetDirection == Direction.Target)
+                    {
+                        GameObject psiAnim = Instantiate(cmd.Animation);
+                        psiAnim.transform.position = cmd.Target.gameObject.transform.position;
+                    }
+                    else
+                        Instantiate(cmd.Animation);
+                    _halt = true;
+                    while (_halt)
+                    {
+                        yield return null;
+                    }
+                }
+                //Reduce PP
+                cmd.Caster.ChangePP(-psiMove.GetPSIMoveCost);
+
+                
+                //TODO Cast to ALL
+                if (cmd.GetDirection == Direction.Opponents)
+                {
+                    cmd.SetTypeOfCommand(TypeOfCommand.Multitarget);
+                    
+                    if(cmd.Caster is Player)
+                        StartCoroutine(TextScroll(psiMove.ApplyEffect(currentEnemies[_partyMultiTargetIndex],cmd.Value)));
+                    else if(cmd.Caster is Enemy)
+                        StartCoroutine(TextScroll(psiMove.ApplyEffect(currentPlayers[_partyMultiTargetIndex],cmd.Value)));
+                    else
+                        print("Error, caster null");
+                }
+                else if(cmd.GetDirection == Direction.Allies)
+                {
+                    cmd.SetTypeOfCommand(TypeOfCommand.Multitarget);
+                    if(cmd.Caster is Player)
+                        StartCoroutine(TextScroll(psiMove.ApplyEffect(currentPlayers[_partyMultiTargetIndex],cmd.Value)));
+                    else if(cmd.Caster is Enemy)
+                        StartCoroutine(TextScroll(psiMove.ApplyEffect(currentEnemies[_partyMultiTargetIndex],cmd.Value)));
+                    else
+                        print("Error, caster null");
+                }
+                else if(cmd.GetDirection == Direction.Self || cmd.GetDirection == Direction.Target)
+                {
+                    cmd.SetTypeOfCommand(TypeOfCommand.Message);
+                    StartCoroutine(TextScroll(psiMove.ApplyEffect(cmd.Target,cmd.Value)));
+                }
+                
+                break;
+            case TypeOfCommand.Multitarget:
+                if (_partyMultiTargetIndex >= 0 && cmd.Caster is Player && cmd.GetDirection == Direction.Opponents &&
+                    currentEnemies[_partyMultiTargetIndex].GetHealth() <= 0)
+                {
+                    _partyMultiTargetIndex--;
+                    cmd.SetOriginalTypeOfCommand(TypeOfCommand.Multitarget);
+                    cmd.SetTypeOfCommand(TypeOfCommand.Die);
+                    StartCoroutine(TextScroll(
+                        "@ " + cmd.Target.GetName + " has been defeated."));
                 }
                 else
                 {
-                    StartCoroutine(Halt(0.1f));
-                    enemyAuxIndex = 0;
-                    commandIndex++;
-                    writing = false;
+                    
+                    _partyMultiTargetIndex++;
+                    
+                    psiMove = cmd.PSI;
+                    if ((cmd.Caster is Enemy && cmd.GetDirection == Direction.Opponents) || (cmd.Caster is Player && cmd.GetDirection == Direction.Allies))
+                    {
+                        while (_partyMultiTargetIndex < currentPlayers.Count && currentPlayers[_partyMultiTargetIndex].Dead)
+                            _partyMultiTargetIndex++;
+                        if (_partyMultiTargetIndex >= currentPlayers.Count)
+                        {
+                            NextCommand();
+                        }
+                        else
+                        {
+                            cmd.Target = currentPlayers[_partyMultiTargetIndex];
+
+                            StartCoroutine(TextScroll(
+                                psiMove.ApplyEffect(cmd.Target)));
+                        }
+
+
+                    }else if((cmd.Caster is Enemy && cmd.GetDirection == Direction.Allies) || (cmd.Caster is Player && cmd.GetDirection == Direction.Opponents))
+                    {
+                        if (_partyMultiTargetIndex >= currentEnemies.Count)
+                        {
+                            NextCommand();
+                        }
+                        else
+                        {
+                            cmd.Target = currentEnemies[_partyMultiTargetIndex];
+
+                            StartCoroutine(TextScroll(
+                                psiMove.ApplyEffect(cmd.Target)));
+                        }
+                    }else
+                    {
+                        print("Error, >:(");
+                    }
+
                 }
-                break;
-
-            case "MISS":
-                if(currentCommands[commandIndex].Caster.gameObject.tag == "Enemy")
-                currentCommands[commandIndex].Caster.GetComponent<Enemy>().AttackingPosition();
-                StartCoroutine(Halt(0.1f));
-
-                commandIndex++;
-                writing = false;
-                break;
-            case "NormalMessage":
-            case "SLEEP":
-
-                commandIndex++;
-                writing = false;
-                StartCoroutine(Halt(0.1f));
 
                 break;
-                
-            case "DieMessage":
+            
+            case TypeOfCommand.Item:
+                ItemData item = cmd.Item;
 
-                currentCommands[commandIndex].Target.GetComponent<Enemy>().StartCoroutine("Die");
-                commandIndex++;
-                writing = false;
+                if (_currentCommands[_commandIndex].Target is Enemy)
+                {
+                    //TODO add enemy item usage
+                }
+                else if(_currentCommands[_commandIndex].Target is Player)
+                {
+                    cmd.SetTypeOfCommand(TypeOfCommand.Message);
+                    //TODO Item effect on all party?
+                    StartCoroutine(TextScroll(item.ApplyEffect(cmd.Target)));
+
+                }
+
                 break;
+
         }
+    }
+    #region Functions
+
+    //Obtener PSI moves por categoria
+    public List<PsiData> GetMovesByCategory(string category)
+    {
+        var temp = new List<PsiData>();
+        var moves = currentPlayers[_playerIndex].psiMoves;
+        foreach (var t in moves)
+        {
+            if (t.GetPSIType == category)
+            {
+                temp.Add(t);
+            }
+        }
+        return temp;
+    }
+    private void NextCommand()
+    {
+        if (_currentCommands[_commandIndex].Caster is Player || _currentCommands[_commandIndex].Caster is Enemy)
+        {
+            _currentCommands[_commandIndex].Caster.ShiftToAttackPosition(false);
+        }
+
+        _partyMultiTargetIndex = 0;
+        _commandIndex++;
+        _writing = false;
 
     }
 
-    public static bool V3Equal(Vector3 a, Vector3 b)
+    public void InsertCommandMessage(string msg)
+    {
+        
+        if (_commandIndex >= _currentCommands.Count - 1)
+            _currentCommands.Add(new Command(msg));
+        else
+            _currentCommands.Insert(_commandIndex + 1, new Command(msg));
+        
+        print("New command added");
+    }
+
+    public void RemoveCommandsBy(BattleEntity entity)
+    {
+        for (var i = 0; i < _currentCommands.Count; i++)
+        {
+            //Remove commands associated with dead player
+            if (_currentCommands[i].Caster == entity || _currentCommands[i].Target == entity)
+            {
+                
+                _currentCommands.RemoveAt(i);
+                _commandIndex--;
+            }
+
+
+        }
+    }
+
+    private static bool V3Equal(Vector3 a, Vector3 b)
     {
         return Vector3.SqrMagnitude(a - b) < 0.05;
     }
-   
+
+    private void ResetUsedItemArray()
+    {
+        for(int i=0;i<4;i++)
+        {
+            _usedItem[i] = false;
+            _usedItemIndex[i] = 0;
+        }
+    }
     //Mover posicion de enemigos
     private IEnumerator ShiftEnemiesPosition()
     {
 
-        Vector3 destination = new Vector3(0, 17, 60);
+        Vector3 destination = new Vector3(0, 17, 90);
         currentEnemies[0].SetDestination(destination);
         switch (currentEnemies.Count)
         {
@@ -661,240 +798,392 @@ public class Battle : MonoBehaviour
         }
         currentEnemies[0].transform.position = destination;
         currentEnemies[0].SetDestination(destination);
-        halt = false;
-
-
-        
-        
+        _halt = false;
 
     }
 
     //Quitar enemigo de la lista
     public void RemoveEnemy(Enemy en)
     {
-        halt = true;
+        _halt = true;
         currentEnemies.Remove(en);
 
         if (currentEnemies.Count != 0)
         {
-            StartCoroutine("ShiftEnemiesPosition");
+            StartCoroutine(nameof(ShiftEnemiesPosition));
+
         }
         else
         {
-            halt = false;
+            _halt = false;
         }
     }
-
-    //Obtener halt
-    public bool GetHalt()
-    {
-        return halt;
-    }
-
+    
 
     //Sortear comandos por speed
-    public void SortCommands()
+    private void SortCommands()
     {
-        currentCommands = new List<Command>(currentCommands.OrderBy((c) => c.Speed));
+        _currentCommands = new List<Command>(_currentCommands.OrderBy((c) => c.Speed));
     }
+
+    #endregion
     // Update is called once per frame
     void Update()
     {
 
-        if (halt)
+        if (_halt)
             return;
 
         //Gano
-        if (currentEnemies.Count == 0 && !writing && currentState != STATE.Won)
-            currentState = STATE.Won;
+        if (currentEnemies.Count == 0 && !_writing && _currentState != State.Won)
+        {
+            _currentCommands.Clear();
+            _currentState = State.Won;
+            AudioManager.instance.StopPlaying("Battle");
+            AudioManager.instance.Play("YouWin");
+            StartCoroutine(TextScroll("@ You won!"));
+
+        }
         //Perdio
-        else if (hpBar.GetDead() && !writing && currentState != STATE.Lose)
-            currentState = STATE.Lose;
-
-        if(currentCommands.Count > commandIndex && currentCommands[commandIndex].Caster != null)
+        else if (!_writing && _currentState != State.Lose)
         {
-            if(currentCommands[commandIndex].Caster.tag == "Player")
+            var flag = true;
+            foreach (var player in currentPlayers)
             {
-                currentPlayers[0].MoveBorder(true);
-
+                if (!player.Dead)
+                    flag = false;
             }
-            else
-            {
-                currentPlayers[0].MoveBorder(false);
-
-            }
+            if(flag)
+                _currentState = State.Lose;
         }
-        else
-        {
 
-            if (currentState == STATE.PlayerTurn || currentState == STATE.Won)
-            {
-                currentPlayers[0].MoveBorder(true);
-            }
-            else
-            {
-                currentPlayers[0].MoveBorder(false);
-
-            }
-        }
         //Mover Menu rotador
-        if (currentPlayerState == PlayerSTATE.Idle && !writing && currentState == STATE.PlayerTurn)
+        if (_currentPlayerState == PlayerState.Idle && !_writing && _currentState == State.PlayerTurn)
         {
-            NessMenu.transform.localPosition = Vector3.SmoothDamp(NessMenu.transform.localPosition, menuDisplacement, ref velocity, 0.2f);
-            if (NessMenu.transform.localPosition.y >= menuDisplacement.y - 30f)
-                rotator.SetCanMove(true);
+            menu.transform.localPosition = Vector3.SmoothDamp(menu.transform.localPosition, menuDisplacement, ref _velocity, 0.15f);
+            if (menu.transform.localPosition.y >= menuDisplacement.y - 30f)
+                _rotator.SetCanMove(true);
         }
         else
         {
-            NessMenu.transform.localPosition = Vector3.SmoothDamp(NessMenu.transform.localPosition, new Vector3(menuDisplacement.x, -335.0f, menuDisplacement.z), ref velocity, 0.2f);
-            rotator.SetCanMove(false);
+            menu.transform.localPosition = Vector3.SmoothDamp(menu.transform.localPosition, new Vector3(menuDisplacement.x, -335.0f, menuDisplacement.z), ref _velocity, 0.2f);
+            _rotator.SetCanMove(false);
         }
-        switch (currentState)
+        switch (_currentState)
         {
-            case STATE.Commands:
+            case State.Commands:
 
-                if(commandIndex >= currentCommands.Count)
+                if(_commandIndex >= _currentCommands.Count)
                 {
 
-                    currentState = STATE.PlayerTurn;
-                    currentCommands.Clear();
-                    commandIndex = 0;
-                    enemyAuxIndex = 0;
-                    moveDialogue.SetDestination(new Vector3(0, 150, 0));
-                    hpBar.SetAmp(1);
+                    _currentState = State.PlayerTurn;
+                    _currentCommands.Clear();
+                    _commandIndex = 0;
+                    _playerIndex = 0;
+                    while(currentPlayers[_playerIndex].Dead)
+                        _playerIndex++;
+                    currentPlayers[_playerIndex].ShiftToAttackPosition(true);
+                    _moveDialogue.SetDestination(new Vector3(0, 150, 0));
+                    ResetUsedItemArray();
+                    foreach (var player in currentPlayers)
+                        player.HPBar.SetAmp(1);
 
-                    foreach (Player player in currentPlayers)
-                        player.Defending = true;
 
                     return;
                 }
 
-                if (!writing)
+                if (!_writing)
                 {
-                    if (currentCommands[commandIndex].Caster == null)
-                    {
-                        if (commandIndex < currentCommands.Count)
-                        {
-                            commandIndex++;
 
-                            return;
-                        }
-
-                        else
-                        {
-                            currentState = STATE.PlayerTurn;
-                            currentCommands.Clear();
-                            commandIndex = 0;
-                            ppAux = 0;
-                            moveDialogue.SetDestination(new Vector3(0, 150, 0));
-                            return;
-                        }
                     
-                    }
-
-                    if (currentCommands[commandIndex].Caster.tag == "Enemy")
+                    //Skip if caster is null and restart to player turn if every command has been played excluding normal messages.
+                    if (_currentCommands[_commandIndex].MyType != "NormalMessage" && _currentCommands[_commandIndex].Caster == null)
                     {
-                        if (currentCommands[commandIndex].Caster.GetComponent<Enemy>().Status == "Asleep" && currentCommands[commandIndex].MyType != "NormalMessage")
+                        if (_commandIndex < _currentCommands.Count)
                         {
-                            commandIndex++;
-                            return;
-                            }
-                        if (currentCommands[commandIndex].MyType != "NormalMessage")
-                            currentCommands[commandIndex].Caster.GetComponent<Enemy>().AttackingPosition();
-                    }
+                            _commandIndex++;
 
-                    writing = true;
-                    StartCoroutine(TextScroll(currentCommands[commandIndex].Message,currentCommands[commandIndex].MyType));
+                            return;
+                        }
+
+                        _currentState = State.PlayerTurn;
+                        currentPlayers[0].ShiftToAttackPosition(true);
+                        _playerIndex = 0;
+
+                        _currentCommands.Clear();
+                        _commandIndex = 0;
+                        _moveDialogue.SetDestination(new Vector3(0, 150, 0));
+                        return;
+
+                    }
+                    
+                    //Enemy command
+                    if (_currentCommands[_commandIndex].Caster is Enemy)
+                    {
+                        //Skip if sleep status
+                        if (_currentCommands[_commandIndex].Caster.Status == "Sleep" &&
+                            _currentCommands[_commandIndex].MyType != "NormalMessage")
+                        {
+                            _commandIndex++;
+                            return;
+                        }
+                        
+                        if (_currentCommands[_commandIndex].MyType != "NormalMessage")
+                        {
+                            _currentCommands[_commandIndex].Caster.ShiftToAttackPosition(true);
+                            //Enemy select new target after player death.
+                            if (_currentCommands[_commandIndex].Target.Dead)
+                            {
+                                var alivePlayers = new List<Player>();
+
+                                foreach (var player in currentPlayers)
+                                {
+                                    if (!player.Dead)
+                                        alivePlayers.Add(player);
+                                }
+
+                                _currentCommands[_commandIndex].Target =
+                                    alivePlayers[Random.Range(0, (alivePlayers.Count - 1))];
+                                
+                            }
+                        }
+                        
+                        AudioManager.instance.Play("EnemyTurn");
+
+                    }
+                    
+                    //Player command
+                    if (_currentCommands[_commandIndex].Caster is Player)
+                    {
+                        //Skip if player died
+                        if (_currentCommands[_commandIndex].Caster.Dead)
+                        {
+                            _commandIndex++;
+                            return;
+                        }
+
+                        if (_currentCommands[_commandIndex].MyType != "NormalMessage")
+                        {
+                            _currentCommands[_commandIndex].Caster.ShiftToAttackPosition(true);
+                            //Player select new target after enemy death.
+                            if (_currentCommands[_commandIndex].Target == null)
+                            {
+                                var aliveEnemies = new List<Enemy>();
+
+                                foreach (var enemy in currentEnemies)
+                                {
+                                    if (!enemy.Dead)
+                                        aliveEnemies.Add(enemy);
+                                }
+
+                                _currentCommands[_commandIndex].Target =
+                                    aliveEnemies[Random.Range(0, (aliveEnemies.Count - 1))];
+                                
+                            }
+
+                        }
+
+                        if (_currentCommands[_commandIndex].GetTypeOfCommand == TypeOfCommand.PSI)
+                        {
+                            AudioManager.instance.Play("PsiCast");
+
+                        }else
+                            AudioManager.instance.Play("IsAttacking");
+
+
+                    }
+                    
+                    //Start text box writing
+                    _writing = true;
+                    StartCoroutine(TextScroll(_currentCommands[_commandIndex].Message));
 
                 }
                 break;
-            case STATE.PlayerTurn:
-            
-
-                switch (currentPlayerState)
+            #region PlayerMenuSelection
+            case State.PlayerTurn:
+                
+                //Player dead change to next player
+                if (_playerIndex < currentPlayers.Count && currentPlayers[_playerIndex].Dead)
                 {
-                    case PlayerSTATE.SelectingEnemyPSI:
+                    _currentPlayerState = PlayerState.TurnOver;
+                }
+
+                switch (_currentPlayerState)
+                {
+                    case PlayerState.Idle:
+                        
+                        //Return to previous player
+                        if(Input.GetKeyDown(KeyCode.Escape) && _playerIndex > 0)
+                        {
+                            var aux = _playerIndex - 1;
+                            while (aux >= 0 && currentPlayers[aux].Dead)
+                            {
+                                aux--;
+                                if (aux < 0)
+                                    break;
+                            }
+                            if (aux < 0)
+                                return;
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(false);
+                            _currentCommands.RemoveAt(_currentCommands.Count - 1);
+                            if (_usedItem[aux] && _itemStack.Count > 0)
+                                currentPlayers[aux].myInventory.items.Insert(_usedItemIndex[aux],_itemStack.Pop());
+                            
+                            _playerIndex = aux;
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(true);
+
+                        }
+                        break;
+                    case PlayerState.SelectingEnemyPsi:
                         if (Input.GetKeyDown(KeyCode.Space))
                         {
-                            currentPlayerState = PlayerSTATE.Idle;
-                            currentEnemies[enemySelect].ResetColor();
+                            _currentPlayerState = PlayerState.Idle;
+                            currentEnemies[_enemySelect].ResetColor();
                             moveEnemySelector.SetActive(false);
-
-
-
-
-                            damage = psiSelector.getPSIDamage();
-
-                            attacksAllRow = psiSelector.getPSIAllRow();
-                            if (attacksAllRow)
+                            if (psiSelector.GetPSIMove.GetMoveTarget == PsiData.Direction.Opponents)
                             {
-                                currentCommands.Add(new Command("@ Ness uses " + psiSelector.getPSIName(), 2, currentPlayers[0].gameObject, currentEnemies[enemySelect].gameObject, damage, 1, psiSelector.getPSIAnimation()));
+                                foreach (var enemy in currentEnemies)
+                                    enemy.ResetColor();
+                                _currentCommands.Add(new Command(psiSelector.GetPSIMove, currentPlayers[_playerIndex]));
+
                             }
                             else
                             {
-                                if(psiSelector.getPSIStatus() == "Sleep")
-                                    currentCommands.Add(new Command("@ Ness uses " + psiSelector.getPSIName(), 7, currentPlayers[0].gameObject, currentEnemies[enemySelect].gameObject, damage, 1, psiSelector.getPSIAnimation(),"SLEEP"));
-                                else
-                                    currentCommands.Add(new Command("@ Ness uses " + psiSelector.getPSIName(), 1, currentPlayers[0].gameObject, currentEnemies[enemySelect].gameObject, damage, 1, psiSelector.getPSIAnimation()));
+                                currentEnemies[_enemySelect].ResetColor();
+                                _currentCommands.Add(new Command(psiSelector.GetPSIMove, currentPlayers[_playerIndex], currentEnemies[_enemySelect]));
 
                             }
-
+                            
                             psiSelector.Deactivate();
-                            currentPlayerState = PlayerSTATE.TurnOver;
+                            _currentPlayerState = PlayerState.TurnOver;
+                            
+                        }
+                        if (Input.GetKeyDown(KeyCode.A) && !_writing && _enemySelect > 0 && psiSelector.GetPSIMove.GetMoveTarget != PsiData.Direction.Opponents)
+                        {
+                            AudioManager.instance.Play("LeftMenu");
 
-
+                            currentEnemies[_enemySelect].ResetColor();
+                            _enemySelect--;
+                            currentEnemies[_enemySelect].SelectColor();
+                            _moveEnemyScript.SetName(currentEnemies[_enemySelect].GetName);
+                            _moveEnemyScript.SetDestination(new Vector3(currentEnemies[_enemySelect].transform.position.x, currentEnemies[_enemySelect].transform.position.y + currentEnemies[_enemySelect].GetHeight(), currentEnemies[_enemySelect].transform.position.z));
 
                         }
-                        if (Input.GetKey(KeyCode.A) && !writing && enemySelect > 0)
+                        if (Input.GetKeyDown(KeyCode.D) && !_writing && _enemySelect < currentEnemies.Count - 1 && psiSelector.GetPSIMove.GetMoveTarget != PsiData.Direction.Opponents)
                         {
-                            currentEnemies[enemySelect].ResetColor();
-                            enemySelect--;
-                            currentEnemies[enemySelect].SelectColor();
-                            moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
+                            AudioManager.instance.Play("RightMenu");
 
-                        }
-                        if (Input.GetKey(KeyCode.D) && !writing && enemySelect < currentEnemies.Count - 1)
-                        {
-                            currentEnemies[enemySelect].ResetColor();
-                            enemySelect++;
-                            currentEnemies[enemySelect].SelectColor();
-                            moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
+                            currentEnemies[_enemySelect].ResetColor();
+                            _enemySelect++;
+                            currentEnemies[_enemySelect].SelectColor();
+                            _moveEnemyScript.SetName(currentEnemies[_enemySelect].GetName);
+                            _moveEnemyScript.SetDestination(new Vector3(currentEnemies[_enemySelect].transform.position.x, currentEnemies[_enemySelect].transform.position.y + currentEnemies[_enemySelect].GetHeight(), currentEnemies[_enemySelect].transform.position.z));
                         }
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
-                            currentEnemies[enemySelect].ResetColor();
+                            if (psiSelector.GetPSIMove.GetMoveTarget == PsiData.Direction.Opponents)
+                            {
+                                foreach (var enemy in currentEnemies)
+                                    enemy.ResetColor();
+                            }else
+                                currentEnemies[_enemySelect].ResetColor();
                             moveEnemySelector.SetActive(false);
-                            currentPlayerState = PlayerSTATE.ChoosingPSIMove;
+                            _currentPlayerState = PlayerState.ChoosingPsiMove;
 
                             psiSelector.MoveMenu();
                         }
                         break;
-                    case PlayerSTATE.ChoosingPSIMove:
+                    case PlayerState.ChoosingPsiMove:
                         if (Input.GetKeyDown(KeyCode.Space) && psiSelector.getInPosition() && !psiSelector.getChoosingCat() && psiSelector.CanAfford())
                         {
-                            psiSelf = !psiSelector.getPSIOffensive();
-                            ppAux = -psiSelector.getPSICost();
+                            AudioManager.instance.Play("Click");
 
-                            if (psiSelf)
+                            switch (psiSelector.GetPSIMove.GetMoveTarget)
                             {
-                                partyMemberSelector.SetActive(true);
-                                playerOverlay.SetSelected(true);
-                                currentPlayerState = PlayerSTATE.ChoosingPartyMemberPSI;
+                                case PsiData.Direction.Allies:
+                                {
+                                    _currentPlayerState = PlayerState.ChoosingPartyMemberPsi;
+
+                                    partyMemberSelector.SetActive(true);
+                                    partyMemberSelector.GetComponent<MoveToPartyMember>().SetPosition(new Vector3(
+                                        (currentPlayers[0].gameObject.transform.position.x + currentPlayers[currentPlayers.Count - 1].gameObject.transform.position.x) / 2f,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.y,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+                                    partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(
+                                        currentPlayers[0].gameObject.transform.position.x + currentPlayers[currentPlayers.Count - 1].gameObject.transform.position.x,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.y,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+                                    foreach (var player in currentPlayers)
+                                    {
+                                        if(player.Dead)
+                                            continue;
+                                        player.GetOscilate.SetSelected(true);
+                                        player.ShiftToAttackPosition(true);
+                                    }
+
+                                    break;
+                                }
+
+                                case PsiData.Direction.AllyTarget:
+                                    _currentPlayerState = PlayerState.ChoosingPartyMemberPsi;
+
+                                    partyMemberSelector.SetActive(true);
+                                
+                                    _partySelectorIndex = _playerIndex;
+
+                                    partyMemberSelector.GetComponent<MoveToPartyMember>().SetPosition(new Vector3(
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.x,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.y,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+                                    partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.x,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.y,
+                                        currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+                                    currentPlayers[_playerIndex].GetOscilate.SetSelected(true);
+                                    break;
+                                
+                                case PsiData.Direction.Target:
+                                    _currentPlayerState = PlayerState.SelectingEnemyPsi;
+                                    moveEnemySelector.SetActive(true);
+                                    
+                                    _moveEnemyScript.SetName(currentEnemies[_enemySelect].GetName);
+                                    _moveEnemyScript.SetPosition(new Vector3(
+                                        currentEnemies[_enemySelect].transform.position.x,
+                                        currentEnemies[_enemySelect].transform.position.y +
+                                        currentEnemies[_enemySelect].GetHeight(),
+                                        currentEnemies[_enemySelect].transform.position.z));
+
+                                    _moveEnemyScript.SetDestination(new Vector3(
+                                        currentEnemies[_enemySelect].transform.position.x,
+                                        currentEnemies[_enemySelect].transform.position.y +
+                                        currentEnemies[_enemySelect].GetHeight(),
+                                        currentEnemies[_enemySelect].transform.position.z));
+
+                                    currentEnemies[_enemySelect].SelectColor();
+                                    break;
+                                
+                                case PsiData.Direction.Opponents:
+                                    _currentPlayerState = PlayerState.SelectingEnemyPsi;
+                                    moveEnemySelector.SetActive(true);
+                                    
+                                    _moveEnemyScript.SetName("All");
+                                    _moveEnemyScript.SetPosition(new Vector3(
+                                        (currentEnemies[0].transform.position.x + currentEnemies[currentEnemies.Count - 1].transform.position.x) / 2f ,
+                                        currentEnemies[_enemySelect].transform.position.y +
+                                        currentEnemies[_enemySelect].GetHeight(),
+                                        currentEnemies[_enemySelect].transform.position.z));
+                                    _moveEnemyScript.SetDestination(new Vector3(
+                                        (currentEnemies[0].transform.position.x + currentEnemies[currentEnemies.Count - 1].transform.position.x) / 2f ,
+                                        currentEnemies[_enemySelect].transform.position.y +
+                                        currentEnemies[_enemySelect].GetHeight(),
+                                        currentEnemies[_enemySelect].transform.position.z));
+
+                                    foreach(var enemy in currentEnemies)
+                                        enemy.SelectColor();
+
+                                    break;
                             }
-                            else
-                            {
-                                currentPlayerState = PlayerSTATE.SelectingEnemyPSI;
-                                moveEnemySelector.SetActive(true);
-                                moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                                moveEnemyScript.SetPosition(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
 
-                                moveEnemyScript.SetDestination(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
-
-                                currentEnemies[enemySelect].SelectColor();
-
-                            }
 
                             psiSelector.MoveMenu();
 
@@ -902,268 +1191,524 @@ public class Battle : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.Escape) && psiSelector.getChoosingCat())
                         {
                             psiSelector.MoveMenu();
-                            currentPlayerState = PlayerSTATE.Idle;
+                            currentPlayers[_playerIndex].GetOscilate.SetSelected(false);
+
+                            _currentPlayerState = PlayerState.Idle;
                         }
                         break;
-                    case PlayerSTATE.SelectingEnemyBash:
-                        if (Input.GetKey(KeyCode.A) && !writing && enemySelect > 0)
+
+                    case PlayerState.SelectingEnemyBash:
+                        if (Input.GetKeyDown(KeyCode.A) && !_writing && _enemySelect > 0)
                         {
-                            currentEnemies[enemySelect].ResetColor();
-                            enemySelect--;
-                            currentEnemies[enemySelect].SelectColor();
-                            moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
+                            AudioManager.instance.Play("LeftMenu");
+
+                            currentEnemies[_enemySelect].ResetColor();
+                            _enemySelect--;
+                            currentEnemies[_enemySelect].SelectColor();
+                            _moveEnemyScript.SetName(currentEnemies[_enemySelect].GetName);
+                            _moveEnemyScript.SetDestination(new Vector3(currentEnemies[_enemySelect].transform.position.x, currentEnemies[_enemySelect].transform.position.y + currentEnemies[_enemySelect].GetHeight(), currentEnemies[_enemySelect].transform.position.z));
 
                         }
-                        if (Input.GetKey(KeyCode.D) && !writing && enemySelect < currentEnemies.Count - 1)
+                        if (Input.GetKeyDown(KeyCode.D) && !_writing && _enemySelect < currentEnemies.Count - 1)
                         {
-                            currentEnemies[enemySelect].ResetColor();
-                            enemySelect++;
-                            currentEnemies[enemySelect].SelectColor();
-                            moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetDestination(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
+                            AudioManager.instance.Play("RightMenu");
+
+                            currentEnemies[_enemySelect].ResetColor();
+                            _enemySelect++;
+                            currentEnemies[_enemySelect].SelectColor();
+                            _moveEnemyScript.SetName(currentEnemies[_enemySelect].GetName);
+                            _moveEnemyScript.SetDestination(new Vector3(currentEnemies[_enemySelect].transform.position.x, currentEnemies[_enemySelect].transform.position.y + currentEnemies[_enemySelect].GetHeight(), currentEnemies[_enemySelect].transform.position.z));
 
                         }
-                        if (Input.GetKeyDown(KeyCode.Space) && !writing)
+                        if (Input.GetKeyDown(KeyCode.Space) && !_writing)
                         {
-                            currentEnemies[enemySelect].ResetColor();
+                            AudioManager.instance.Play("Click");
+
+                            currentEnemies[_enemySelect].ResetColor();
                             moveEnemySelector.SetActive(false);
-                            damage = 50;
 
-                            currentCommands.Add(new Command("@ Ness bashes the enemy.", 0, currentPlayers[0].gameObject, currentEnemies[enemySelect].gameObject, damage, 1,null));
+                            _currentCommands.Add(new Command("@ " + currentPlayers[_playerIndex].GetName + " bashes the enemy.", currentPlayers[_playerIndex], currentEnemies[_enemySelect]));
 
-                            currentPlayerState = PlayerSTATE.TurnOver;
+                            _currentPlayerState = PlayerState.TurnOver;
 
 
                         }
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
-                            currentEnemies[enemySelect].ResetColor();
+                            currentEnemies[_enemySelect].ResetColor();
                             moveEnemySelector.SetActive(false);
-                            currentPlayerState = PlayerSTATE.Idle;
+                            _currentPlayerState = PlayerState.Idle;
                         }
                         break;
-                    case PlayerSTATE.ChoosingItem:
+
+                    case PlayerState.ChoosingItem:
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
                             itemSelector.MoveMenu();
-                            currentPlayerState = PlayerSTATE.Idle;
+                            _currentPlayerState = PlayerState.Idle;
                         }
+                        //Go to player selection
                         if (Input.GetKeyDown(KeyCode.Space))
                         {
+                            AudioManager.instance.Play("Click");
+
+                            if (currentPlayers[_playerIndex].myInventory.items[itemSelector.getItemIndex()].GetEffect() == "Revive")
+                            {
+                                var deadPlayers = new List<Player>();
+                                var indexAux = 0;
+                                foreach (var player in currentPlayers)
+                                {
+                                    if (!player.Dead)
+                                        continue;
+                                    
+                                    deadPlayers.Add(player);
+                                }
+                               
+                                if (deadPlayers.Count == 0)
+                                    return;
+                                while (!currentPlayers[indexAux].Dead)
+                                    indexAux++;
+                                _partySelectorIndex = indexAux;
+                                _reviving = true;
+                            }
+                            else
+                                _partySelectorIndex = _playerIndex;
                             itemSelector.MoveMenu();
+
                             partyMemberSelector.SetActive(true);
-                            currentPlayerState = PlayerSTATE.ChoosingPartyMemberItem;
-                            playerOverlay.SetSelected(true);
+                            partyMemberSelector.GetComponent<MoveToPartyMember>().SetPosition(new Vector3(currentPlayers[_partySelectorIndex].gameObject.transform.position.x, currentPlayers[_partySelectorIndex].gameObject.transform.position.y, currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+                            partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(currentPlayers[_partySelectorIndex].gameObject.transform.position.x, currentPlayers[_partySelectorIndex].gameObject.transform.position.y, currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(true);
+    
+                            _currentPlayerState = PlayerState.ChoosingPartyMemberItem;
                         }
                         break;
-                    case PlayerSTATE.ChoosingPartyMemberItem:
+                    //Choosing party member to give item
+                    case PlayerState.ChoosingPartyMemberItem:
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
                             itemSelector.MoveMenu();
                             partyMemberSelector.SetActive(false);
-                            playerOverlay.SetSelected(false);
-                            currentPlayerState = PlayerSTATE.ChoosingItem;
+                            if(_partySelectorIndex!=_playerIndex)
+                                currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(true);
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                            currentPlayers[_playerIndex].GetOscilate.SetSelected(false);
+                            _reviving = false;
+
+                            _currentPlayerState = PlayerState.ChoosingItem;
+
                         }
                         if (Input.GetKeyDown(KeyCode.Space))
                         {
-                            int index = itemSelector.getItemIndex();
+                            AudioManager.instance.Play("Click");
 
+                            if(!_reviving && currentPlayers[_partySelectorIndex].Dead)
+                                return;
+                            var index = itemSelector.getItemIndex();
 
-                            currentCommands.Add(new Command("@ Ness eats a " + inventory.items[index].GetName(), 3, currentPlayers[0].gameObject, null, inventory.items[index].GetHPGain(), 1, healPrefab));
+                            _currentCommands.Add(new Command(currentPlayers[_playerIndex].myInventory.items[index], currentPlayers[_playerIndex],currentPlayers[_partySelectorIndex]));
 
-                            inventory.items.RemoveAt(index);
+                            _usedItem[_playerIndex] = true;
+                            _usedItemIndex[_playerIndex] = index;
+                            _itemStack.Push(currentPlayers[_playerIndex].myInventory.items[index]);
+
+                            currentPlayers[_playerIndex].myInventory.items.RemoveAt(index);
                             itemSelector.Deactivate();
                             partyMemberSelector.SetActive(false);
-                            playerOverlay.SetSelected(false);
-                            currentPlayerState = PlayerSTATE.TurnOver;
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_playerIndex].GetOscilate.SetSelected(false);
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
 
+
+                            _currentPlayerState = PlayerState.TurnOver;
+                            
+                        }
+                        if (Input.GetKeyDown(KeyCode.A) && !_writing && _partySelectorIndex > 0)
+                        {
+                            AudioManager.instance.Play("LeftMenu");
+
+                            int aux;
+                            if (_reviving)
+                            {
+                                aux = _partySelectorIndex - 1;
+                                while (!currentPlayers[aux].Dead)
+                                {
+                                    aux--;
+                                    if (aux < 0)
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                aux = _partySelectorIndex - 1;
+                                while (currentPlayers[aux].Dead)
+                                {
+                                    aux--;
+                                    if (aux < 0)
+                                        break;
+                                }
+
+                            }
+                            if (aux < 0)
+                                return;
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                            _partySelectorIndex = aux;
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(true);
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(true);  
+                            partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(currentPlayers[_partySelectorIndex].gameObject.transform.position.x, currentPlayers[_partySelectorIndex].gameObject.transform.position.y, currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.D) && !_writing && _partySelectorIndex < currentPlayers.Count - 1)
+                        {
+                            AudioManager.instance.Play("RightMenu");
+
+                            int aux;
+                            int size;
+                            if (_reviving)
+                            {
+                                aux = _partySelectorIndex + 1; 
+                                size = currentPlayers.Count;
+
+                                while (!currentPlayers[aux].Dead)
+                                {
+
+                                    aux++;
+                                    if (aux >= size)
+                                        break;
+                                }
+                            }
+                            else
+                            {
+
+                                aux = _partySelectorIndex + 1;
+                                size = currentPlayers.Count;
+
+                                while (currentPlayers[aux].Dead)
+                                {
+
+                                    aux++;
+                                    if (aux >= size)
+                                        break;
+                                }
+                            }
+
+                            if (aux >= size)
+                                return;
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                            _partySelectorIndex = aux;
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(true);
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(true);
+
+                            partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(currentPlayers[_partySelectorIndex].gameObject.transform.position.x, currentPlayers[_partySelectorIndex].gameObject.transform.position.y, currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
 
                         }
                         break;
-                    case PlayerSTATE.ChoosingPartyMemberPSI:
+                    case PlayerState.ChoosingPartyMemberPsi:
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
                             partyMemberSelector.SetActive(false);
                             psiSelector.MoveMenu();
-                            playerOverlay.SetSelected(false);
+                            if (psiSelector.GetPSIMove.GetMoveTarget == PsiData.Direction.Allies)
+                            {
+                                foreach (var player in currentPlayers)
+                                {
+                                    if(player.Dead)
+                                        continue;
+                                    if(player != currentPlayers[_playerIndex])
+                                        player.ShiftToAttackPosition(false);
+                                    player.GetOscilate.SetSelected(false);
+                                }
+                            }
+                            else
+                            {
+                                if (_partySelectorIndex != _playerIndex)
+                                    currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                                currentPlayers[_playerIndex].ShiftToAttackPosition(true);
+                                currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                                currentPlayers[_playerIndex].GetOscilate.SetSelected(false);
+                            }
 
-
-                            currentPlayerState = PlayerSTATE.ChoosingPSIMove;
+                            _currentPlayerState = PlayerState.ChoosingPsiMove;
 
                         }
                         if (Input.GetKeyDown(KeyCode.Space))
                         {
+                            AudioManager.instance.Play("Click");
 
-                            damage = psiSelector.getPSIDamage();
-                            currentCommands.Add(new Command("@ Ness uses " + psiSelector.getPSIName(), 5, currentPlayers[0].gameObject, null, damage, 3 ,healPrefab));
+                            if(currentPlayers[_partySelectorIndex].Dead)
+                                return;
+                            if (psiSelector.GetPSIMove.GetMoveTarget == PsiData.Direction.Allies)
+                            {
+                                foreach (var player in currentPlayers)
+                                {
+                                    if(player.Dead)
+                                        continue;
+                                    player.ShiftToAttackPosition(false);
+                                    player.GetOscilate.SetSelected(false);
+                                }
+                            }
+                            
+                            _currentCommands.Add(new Command(psiSelector.GetPSIMove, currentPlayers[_playerIndex],currentPlayers[_partySelectorIndex]));
+                            
+                            
                             psiSelector.Deactivate();
                             partyMemberSelector.SetActive(false);
-                            playerOverlay.SetSelected(false);
-                            currentPlayerState = PlayerSTATE.TurnOver;
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(false);
+                            _currentPlayerState = PlayerState.TurnOver;
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.A) && !_writing && _partySelectorIndex > 0 && psiSelector.GetPSIMove.GetMoveTarget != PsiData.Direction.Allies)
+                        {
+                            AudioManager.instance.Play("LeftMenu");
+
+                            var aux = _partySelectorIndex - 1;
+                            while (currentPlayers[aux].Dead)
+                            {
+
+                                aux--;
+                                if (aux < 0)
+                                    return;
+                                
+                            }
+                                
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                            _partySelectorIndex = aux;
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(true);
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(true);
+
+
+                            partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(currentPlayers[_partySelectorIndex].gameObject.transform.position.x, currentPlayers[_partySelectorIndex].gameObject.transform.position.y, currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.D) && !_writing && _partySelectorIndex < currentPlayers.Count - 1 && psiSelector.GetPSIMove.GetMoveTarget != PsiData.Direction.Allies)
+                        {
+                            AudioManager.instance.Play("RightMenu");
+
+                            var aux = _partySelectorIndex + 1; 
+                            var size = currentPlayers.Count;
+                            while (currentPlayers[aux ].Dead)
+                            {
+
+                                aux++;
+                                if (aux >= size)
+                                    return;
+                            }
+                                
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(false);
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(false);
+                            _partySelectorIndex = aux;
+                            currentPlayers[_partySelectorIndex].GetOscilate.SetSelected(true);
+                            currentPlayers[_partySelectorIndex].ShiftToAttackPosition(true);
+
+
+
+
+                            partyMemberSelector.GetComponent<MoveToPartyMember>().SetDestination(new Vector3(currentPlayers[_partySelectorIndex].gameObject.transform.position.x, currentPlayers[_partySelectorIndex].gameObject.transform.position.y, currentPlayers[_partySelectorIndex].gameObject.transform.position.z));
 
                         }
                         break;
-
-                    case PlayerSTATE.TurnOver:
-
-                        text.text = "";
-                        text.transform.localPosition = new Vector3(0f, -11f, 0f);
-                        firstText = 0;
-                        damage = 0;
-                        enemySelect = 0;
-                        attacksAllRow = false;
-                        EnemyIndex = 0;
-                        currentPlayerState = PlayerSTATE.Idle;
-                        psiObject.SetActive(false);
-                        itemObject.SetActive(false);
-                        
-                        currentState = STATE.EnemyTurn;
+            #endregion
+                    
+                    case PlayerState.TurnOver:
+                        if (_playerIndex < currentPlayers.Count - 1)
+                        {
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(false);
+                            _playerIndex++;
+                            _reviving = false;
+                            while (_playerIndex < currentPlayers.Count && currentPlayers[_playerIndex].Dead)
+                            {
+                                _playerIndex++;
+                            }
+                            if (_playerIndex >= currentPlayers.Count)
+                            {
+                                ClearPlayerTurn();
+                                return;
+                            }
+                            
+                            currentPlayers[_playerIndex].ShiftToAttackPosition(true);
+                            _currentPlayerState = PlayerState.Idle;
+                        }
+                        else
+                        {
+                            ClearPlayerTurn();
+                        }
                         break;
 
 
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
                 //Opcion Menu Seleccionar
-                if (Input.GetKeyDown("space") && !isAttacking && rotator.GetCanMove() && !writing)
+                if (Input.GetKeyDown("space") && !_isAttacking && _rotator.GetCanMove() && !_writing)
                 {
-                    switch (rotator.num)
+                    AudioManager.instance.Play("Click");
+
+                    switch (_rotator.num)
                     {
                         //BASH
                         case 1:
-                            currentPlayerState = PlayerSTATE.SelectingEnemyBash;
+                            _currentPlayerState = PlayerState.SelectingEnemyBash;
                             moveEnemySelector.SetActive(true);
-                            moveEnemyScript.SetName(currentEnemies[enemySelect].GetName());
-                            moveEnemyScript.SetPosition(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
+                            _moveEnemyScript.SetName(currentEnemies[_enemySelect].GetName);
+                            _moveEnemyScript.SetPosition(new Vector3(currentEnemies[_enemySelect].transform.position.x, currentEnemies[_enemySelect].transform.position.y + currentEnemies[_enemySelect].GetHeight(), currentEnemies[_enemySelect].transform.position.z));
 
-                            moveEnemyScript.SetDestination(new Vector3(currentEnemies[enemySelect].transform.position.x, currentEnemies[enemySelect].transform.position.y + currentEnemies[enemySelect].GetHeight(), currentEnemies[enemySelect].transform.position.z));
-                            currentEnemies[enemySelect].SelectColor();
+                            _moveEnemyScript.SetDestination(new Vector3(currentEnemies[_enemySelect].transform.position.x, currentEnemies[_enemySelect].transform.position.y + currentEnemies[_enemySelect].GetHeight(), currentEnemies[_enemySelect].transform.position.z));
+                            currentEnemies[_enemySelect].SelectColor();
 
                             break;
 
                         //PSI
                         case 2:
                             psiObject.SetActive(true);
-                            currentPlayerState = PlayerSTATE.ChoosingPSIMove;
+                            _currentPlayerState = PlayerState.ChoosingPsiMove;
 
                             psiSelector.MoveMenu();
 
                             break;
 
-                            //INVENTORY
+                            //DEFEND
                         case 3:
-                            if (inventory.items.Count != 0)
-                            {
-                                currentCommands.Add(new Command("@ Ness guards agains the enemy.", 9, currentPlayers[0].gameObject, null, 0, -1, null));
-                                currentPlayers[0].Defending = true;
-                                hpBar.SetAmp(2);
-                                currentPlayerState = PlayerSTATE.TurnOver;
-                            }
+
+                            _currentCommands.Add(new Command("@ " + currentPlayers[_playerIndex].GetName + " guards agains the enemy."));
+                            currentPlayers[_playerIndex].Defending = true;
+                            currentPlayers[_playerIndex].HPBar.SetAmp(2);
+                            _currentPlayerState = PlayerState.TurnOver;
+                            
                             break;
+                        
+                        case 4:
+                            _currentPlayerState = PlayerState.TurnOver;
+                            break;
+                        
+
 
                             //INVENTORY
                         case 6:
-                            if (inventory.getItemsCount() > 0)
+                            if (currentPlayers[_playerIndex].myInventory.getItemsCount() > 0)
                             {
-                                currentPlayerState = PlayerSTATE.ChoosingItem;
+                                _currentPlayerState = PlayerState.ChoosingItem;
                                 itemObject.SetActive(true);
-
                                 itemSelector.Activate();
-
                                 itemSelector.MoveMenu();
                             }
                             break;
-
-
                     }
-                    return;
                 }
-
-
                 break;
 
-            case STATE.EnemyTurn:
+            case State.EnemyTurn:
 
-                foreach (Enemy enemy in currentEnemies)
+                foreach (var enemy in currentEnemies)
                 {
-                    if (enemy.Status == "Asleep")
+                    var alivePlayers = new List<Player>();
+
+                    foreach (var player in currentPlayers)
+                    {
+                        if(!player.Dead)
+                            alivePlayers.Add(player);
+                    }
+                    var ranTarget = alivePlayers[Random.Range(0, alivePlayers.Count)];
+
+                    if (enemy.Status == "Sleep")
                     {
                         if(Random.Range(1,4) == 1)
                         {
                             enemy.Status = "Idle";
-                            currentCommands.Add(new Command("@ " + enemy.GetName() + " wakes up.", -1, enemy.gameObject, null,0,-1,null));
-                            MovesData move = enemy.ChooseAttack();
-                            currentCommands.Add(new Command("@ " + enemy.GetName() + move.moveMessage, 0, enemy.gameObject, currentPlayers[0].gameObject, move.moveDamage, 1, null));
+                            _currentCommands.Add(new Command("@ " + enemy.GetName + " wakes up."));
+                            var move = enemy.ChooseAttack();
+                            _currentCommands.Add(new Command("@ " + enemy.GetName + move.moveMessage,enemy, ranTarget));
 
                         }
                         else
-                        currentCommands.Add(new Command("@ " + enemy.GetName() + " is asleep.", -1, enemy.gameObject, null, 0, 1, null));
-                    }
+                            _currentCommands.Add(new Command("@ " + enemy.GetName + " is asleep."));
+                    }    
                     else
                     {
-                        MovesData move = enemy.ChooseAttack();
-                        currentCommands.Add(new Command("@ " + enemy.GetName() + move.moveMessage, 0, enemy.gameObject, currentPlayers[0].gameObject, move.moveDamage, 1, null));
+                        var move = enemy.ChooseAttack();
+                        _currentCommands.Add(new Command("@ " + enemy.GetName + move.moveMessage, enemy, ranTarget));
                     }
                 }
 
                 //Move dialogue box
                 dialogue.SetActive(true);
-                moveDialogue.SetDestination(new Vector3(0, 85, 0));
+                _moveDialogue.SetDestination(new Vector3(0, 85, 0));
 
                 SortCommands();
 
-                currentState = STATE.Commands;
+                _currentState = State.Commands;
 
                 break;
 
-            case STATE.Won:
+            case State.Won:
 
-                if (!once && !isTyping)
+                if (Input.GetKeyDown(KeyCode.Space) && !_writing)
                 {
-                    once = true;
-                    dialogue.SetActive(true);
-                    moveDialogue.SetDestination(new Vector3(0, 85, 0));
-                   // StartCoroutine(TextScroll("@ Ness wins!"));
+                    levelChanger.FadeToLevel("Overworld");
                 }
                 break;
 
-            case STATE.Lose:
-
-                if (!once)
+            case State.Lose:
+                if (!_once)
                 {
-                    once = true;
-                    isTyping = true;
+                    _once = true;
+                    _isTyping = true;
                     dialogue.SetActive(true);
-                    moveDialogue.SetDestination(new Vector3(0, 85, 0));
-                  //  StartCoroutine(TextScroll("@ Enemies wins!"));
+
+                    _moveDialogue.SetDestination(new Vector3(0, 85, 0));
                 }
                 break;
 
-            case STATE.Flee:
+            case State.Flee:
                 Destroy(gameObject);
                 break;
         }
 
     }
 
+    private void ClearPlayerTurn()
+    {
+        text.text = "";
+        text.transform.localPosition = new Vector3(0f, -11f, 0f);
+        _firstText = 0;
+        _enemySelect = 0;
+        _currentPlayerState = PlayerState.Idle;
+        psiObject.SetActive(false);
+        itemObject.SetActive(false);
+        if(_playerIndex < currentPlayers.Count)
+            currentPlayers[_playerIndex].ShiftToAttackPosition(false);
+        _itemStack.Clear();
+        _reviving = false;
+        _currentState = State.EnemyTurn;
+    }
     public bool GetTyping()
     {
-        return isTyping;
+        return _isTyping;
     }
 
     public bool GetWriting()
     {
-        return writing;
+        return _writing;
     }
     public void SetHaltValue(bool a)
     {
-        halt = a;
+        _halt = a;
     }
 
-
-    public IEnumerator Halt(float duration)
+    public Player CurrentPlayerSelecting()
     {
+        return currentPlayers[_playerIndex];
+    }
 
-        halt = true;
+    private IEnumerator Halt(float duration)
+    {
+        _halt = true;
         float elapsed = 0.0f;
         while (elapsed < duration)
         {
@@ -1172,45 +1717,8 @@ public class Battle : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        halt = false;
+        _halt = false;
     }
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 310, 100, 20), "Ness HP: " + NessHP.ToString());
-        for(int index = 0; index < currentEnemies.Count; index++)
-        {
-            if(currentEnemies[index]!=null)
-            GUI.Label(new Rect(10, 320 + (index * 10), 100, 20), "Enemy " + (index + 1) + " HP" + currentEnemies[index].GetHealth());
-        }
 
-        switch (currentState)
-        {
-            case STATE.Commands:
-                GUI.Label(new Rect(10, 300, 100, 20), "COMMANDS");
-                break;
-
-            case STATE.PlayerTurn:
-                GUI.Label(new Rect(10, 300, 100, 20), "Ness TURN");
-
-                break;
-
-            case STATE.EnemyTurn:
-                GUI.Label(new Rect(10, 300, 100, 20), "Enemy TURN");
-
-                break;
-
-            case STATE.Won:
-                GUI.Label(new Rect(10, 300, 100, 20), "Ness WON");
-                break;
-
-            case STATE.Lose:
-                GUI.Label(new Rect(10, 300, 100, 20), "Ness lose");
-                break;
-
-            case STATE.Flee:
-                GUI.Label(new Rect(10, 300, 100, 20), "Ness FLEE");
-                break;
-        }
-    }
 
 }

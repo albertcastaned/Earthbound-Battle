@@ -14,7 +14,7 @@ public class Depth : MonoBehaviour {
         if(transform.position.z > 60.0f)
             spriteLayer.sortingLayerName = "Default";
         else
-            spriteLayer.sortingLayerName = "Menu";
+            spriteLayer.sortingLayerName = "HUD";
 
     }
 }

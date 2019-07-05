@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7579581354263969737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7579581354263969748}
+  - component: {fileID: 7579581354263969750}
+  m_Layer: 0
+  m_Name: AudioControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &7579581354263969748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7579581354263969737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7579581354263969750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7579581354263969737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa5b9f3a5f7b4b6fa5d27f3744db778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Onett
+    clip: {fileID: 8300000, guid: f10a8dc9bb672457e815e468bcd0f782, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Text
+    clip: {fileID: 8300000, guid: 0c964cb556e06417f9edf6c03ada5706, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Battle
+    clip: {fileID: 8300000, guid: 5f001ae69117741bd931338dcbcdc20c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Click
+    clip: {fileID: 8300000, guid: 135daa7569561426a9e5fc498c07890d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: EnterBattle
+    clip: {fileID: 8300000, guid: 82dff875747184a0eb061338d3e346c2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: EnemyDamaged
+    clip: {fileID: 8300000, guid: b6de1c0050bc141d6864fc89ea9729f2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: EnemyDed
+    clip: {fileID: 8300000, guid: 4fd6d589395ef4a208b92d3652c75680, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: EnemyTurn
+    clip: {fileID: 8300000, guid: a83b966e3ccf34b95afd14713843087e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: IsAttacking
+    clip: {fileID: 8300000, guid: f7990a663147a43ceab408e5e27c4d8e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: LeftMenu
+    clip: {fileID: 8300000, guid: 7dff0fd260de94fcfa65a72b0e90a682, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: RightMenu
+    clip: {fileID: 8300000, guid: c48e7f1d5da1a42aa90e4774842758c6, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: YouWin
+    clip: {fileID: 8300000, guid: b37bcc490f1a84242804579092956811, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Hurt
+    clip: {fileID: 8300000, guid: 16b049038051449cf8d6e1f1e97c70de, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Heal
+    clip: {fileID: 8300000, guid: ea161ec98fee7410aac7818a595ea794, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: PsiCast
+    clip: {fileID: 8300000, guid: 98e2f12d006aa440c9965aa673422498, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: PsiFire
+    clip: {fileID: 8300000, guid: c41ce6fdfcda949689168415b22c0529, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0

@@ -8,64 +8,61 @@ public class MeterRoll : MonoBehaviour {
     public float speed;
     private bool rolling;
     private int damage;
-    private int damagePrev;
-    private bool dead = false;
     private float newPos;
     private Vector3 aux;
     public GameObject meter;
     private MeterRoll meterRoll;
     private Vector3 velocity = Vector3.zero;
     private float topHeight;
-    public GameObject line;
     public float maxSpeed;
-    private Vector3 linePos;
-    public int value;
     private float ogSpeed;
-    public int id;
     private int amp = 1;
+    
     // Use this for initializa1tion
     void Awake () {
-        
+
         rolling = false;
-        damagePrev = 0;
-        if(meter!=null)
-        meterRoll = meter.GetComponent<MeterRoll>();
-        else
-        meterRoll = null;
-        linePos = line.transform.position;
+        meterRoll = meter!=null ? meter.GetComponent<MeterRoll>() : null;
         topHeight = transform.localPosition.y;
         ogSpeed = speed;
-        SetValue();
-
 
     }
+
     public bool GetRolling() => rolling;
-    public bool GetDead() => dead;
-    public void SetValue()
+    public void SetValue(int val)
     {
-        transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y + (5.2f * (float)value), transform.localPosition.z);
+        var transform1 = transform;
+        var localPosition = transform1.localPosition;
+        localPosition = new Vector3(localPosition.x,localPosition.y + (5.2f * val), localPosition.z);
+        transform1.localPosition = localPosition;
+        
     }
+
+
     public void CalculateDistance(int dmg)
     {
         damage = dmg;
+        
         if (rolling)
         {
             if (damage < 0)
             {
                 if (velocity.y < 0)
                 {
-                    newPos += (5.2f * (float)damage);
-                    aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
+                    newPos += (5.2f * damage);
+                    var localPosition = transform.localPosition;
+                    aux = new Vector3(localPosition.x, newPos, localPosition.z);
                     return;
-                } else if (velocity.y > 0)
+                }
+                if (velocity.y > 0)
                 {
                     speed = ogSpeed;
 
-                    float delta;
-
-                    delta = (5.2f * Mathf.Round((transform.localPosition.y / 5.2f))) - transform.localPosition.y;
-                    newPos = transform.localPosition.y + delta;
-                    aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
+                    Transform transform1;
+                    var delta = (5.2f * Mathf.Round((transform.localPosition.y / 5.2f))) - (transform1 = transform).localPosition.y;
+                    var localPosition = transform1.localPosition;
+                    newPos = localPosition.y + delta;
+                    aux = new Vector3(localPosition.x, newPos, localPosition.z);
                     return;
                 }
             }else if (damage>0)
@@ -76,47 +73,45 @@ public class MeterRoll : MonoBehaviour {
                         speed = ogSpeed;
                         float delta;
 
-                        delta = (5.2f * Mathf.Round((transform.localPosition.y / 5.2f))) - transform.localPosition.y;
-                        newPos = (transform.localPosition.y + delta) + (5.2f * (float)damage);
-                        aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
+                        Transform transform1;
+                        delta = (5.2f * Mathf.Round((transform.localPosition.y / 5.2f))) - (transform1 = transform).localPosition.y;
+                        var localPosition = transform1.localPosition;
+                        newPos = (localPosition.y + delta) + (5.2f * damage);
+                        aux = new Vector3(localPosition.x, newPos, localPosition.z);
                         velocity = new Vector3(velocity.x, 0.04f, velocity.z);
                         return;
                     }
-                    else if (velocity.y > 0)
+                    if (velocity.y > 0)
                     {
 
-                        newPos += (5.2f * (float)damage);
-                        aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
+                        newPos += (5.2f * damage);
+                        var localPosition = transform.localPosition;
+                        aux = new Vector3(localPosition.x, newPos, localPosition.z);
                         return;
                     }
                     
             }
 
         }
-        newPos = transform.localPosition.y + (5.2f * (float)damage);
+
+        var position = transform.localPosition;
+        newPos = position.y + (5.2f * damage);
         rolling = true;
-        aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
+        aux = new Vector3(position.x, newPos, position.z);
 
 
     }
-    public static float Round(float value, int digits)
+
+    private static float Round(float value, int digits)
     {
-        float mult = Mathf.Pow(10.0f, (float)digits);
+        var mult = Mathf.Pow(10.0f, digits);
         return Mathf.Round(value * mult) / mult;
     }
-    void OnDrawGizmos()
+
+    private bool CheckDeath()
     {
 
-        Gizmos.color = Color.blue;
-        Vector3 og = new Vector3(linePos.x, linePos.y, linePos.z);
-        Vector3 line = new Vector3(linePos.x + 50f, linePos.y, linePos.z);
-        Gizmos.DrawLine(og, line);
-
-    }
-    public bool CheckDeath()
-    {
-
-       if(meterRoll==null)
+        if(meterRoll==null)
         {
             if (Mathf.Approximately(transform.localPosition.y, -26f) || Mathf.Approximately(transform.localPosition.y, 26f))
             {
@@ -136,90 +131,84 @@ public class MeterRoll : MonoBehaviour {
         return false;
     }
 
-    public void SetAmp(int aux)
+    public void SetAmp(int val)
     {
-        amp = aux;
+        amp = val;
     }
     // Update is called once per frame
-    void Update () {
-
-        if (rolling && !dead)
+    void Update ()
+    {
+        
+        if (!rolling) return;
+        
+        if (damage > 0)
         {
-
-            if (damage > 0)
+            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed * amp, maxSpeed / amp * (amp > 1 ? 3 : 1));
+            
+            if (transform.localPosition.y >= (-topHeight) - 1.5f)
             {
-                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed * amp, maxSpeed / amp * (amp > 1 ? 3 : 1));
-                if (transform.localPosition.y >= (-topHeight) - 0.3f)
-                {
+                var transform2 = transform;
+                var position = transform2.localPosition;
+                position = new Vector3(position.x, topHeight, position.z);
+                transform2.localPosition = position;
+                newPos += topHeight * 2;
+                aux = new Vector3(position.x, newPos, position.z);
+                if(meter != null)
+                    meterRoll.CalculateDistance(1);
+            }
+            
+        }
+        else if (damage < 0)
+        {
+            if (CheckDeath())
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, -26f, transform.localPosition.z);
+                rolling = false;
+                return;
+            }
+            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed * amp, maxSpeed / amp * (amp > 1 ? 3 : 1));
+            
 
+            if (transform.localPosition.y <= topHeight - 0.2f)
+            {
+
+                if (meter == null)
+                {
                     transform.localPosition = new Vector3(transform.localPosition.x, topHeight, transform.localPosition.z);
-                    newPos += topHeight * 2;
+                    rolling = false;
+                }
+                else if(!CheckDeath())
+                {
+                    transform.localPosition = new Vector3(transform.localPosition.x, -topHeight, transform.localPosition.z);
+                    newPos += -topHeight * 2;
                     aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
-
-                    if (meter != null)
-                    {
-                        meterRoll.CalculateDistance(1);
-                    }
-
+                    meterRoll.CalculateDistance(-1);
                 }
 
-                if (FloatEqual(velocity.y, 0f, 0.025f))
-                {
-                    rolling = false;
-                    damagePrev = damage;
-                    newPos = Round(newPos, 3);
-                    transform.localPosition = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
-                }
 
             }
-            else if (damage < 0)
-            {
-                if (CheckDeath())
-                {
-                    dead = true;
-                    return;
-                }
-                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, aux, ref velocity, speed * amp, maxSpeed / amp * (amp > 1 ? 3 : 1));
 
+            
+        }
 
-                if (transform.localPosition.y <= topHeight - 0.2f)
-                {
-                    if (meter == null)
-                    {
-                        transform.localPosition = new Vector3(transform.localPosition.x, topHeight, transform.localPosition.z);
-                        rolling = false;
-                        damagePrev = damage;
-
-                    }
-                    else
-                    {
-                        transform.localPosition = new Vector3(transform.localPosition.x, -topHeight, transform.localPosition.z);
-                        newPos += -topHeight * 2;
-                        aux = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
-                        meterRoll.CalculateDistance(-1);
-                    }
-
-                }
-                if (FloatEqual(velocity.y, 0f, 0.025f))
-                {
-
-                    rolling = false;
-                    damagePrev = damage;
-                    newPos = Round(newPos, 3);
-                    transform.localPosition = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
-                }
-            }
-
-
+        
+        if (!FloatEqual(velocity.y, 0f, 0.025f)) return;
+        {
+            rolling = false;
+            newPos = Round(newPos, 3);
+            var transform1 = transform;
+            var localPosition = transform1.localPosition;
+            localPosition = new Vector3(localPosition.x, newPos, localPosition.z);
+            transform1.localPosition = localPosition;
         }
 
 
 
-        
-		
-	}
 
-    public static bool FloatEqual(float a, float b,float precision)
+
+    }
+
+    private static bool FloatEqual(float a, float b,float precision)
     {
         return Mathf.Sqrt(a*a + b*b) < precision;
     }

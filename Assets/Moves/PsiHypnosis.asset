@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: PsiHypnosis
   m_EditorClassIdentifier: 
   moveName: Pk Hypnosis
-  moveDamage: 00000000
-  cost: 0a000000
-  description:
-  - Slight chance of sleeping the enemy.
+  moveDamage:
+    DamageMin: 0
+    DamageMax: 0
+  cost: 10
+  description: Puts enemy to sleep
   type: Assist
+  effect: Status
   statusEffect: Sleep
-  upgrade: 0
-  allRow: 0
-  offensive: 1
+  MoveTarget: 4
   psiAnimation: {fileID: 6794784554147996525, guid: e1e44dd824ed94c9bbc91d5c729e4b95,
     type: 3}

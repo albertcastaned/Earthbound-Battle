@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871bca7be2007474abe5a74dfaa99f2f, type: 3}
   m_Name: PkFire
   m_EditorClassIdentifier: 
-  moveName: Pk Fire
-  moveDamage: 1e000000c8000000
-  cost: 0a00000014000000
-  description:
-  - Deals small fire damage to a row of enemies.
-  - Deals moderate fire damage to a row of enemies.
+  moveName: Pk Fire \
+  moveDamage:
+    DamageMin: 15
+    DamageMax: 5
+  cost: 12
+  description: Deals small amount of fire damage to all targets.
   type: Offense
-  upgrade: 1
-  allRow: 1
-  offensive: 1
+  effect: Damage
+  statusEffect: None
+  MoveTarget: 1
   psiAnimation: {fileID: 6794784554147996525, guid: e1e44dd824ed94c9bbc91d5c729e4b95,
     type: 3}

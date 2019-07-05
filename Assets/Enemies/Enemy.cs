@@ -1,132 +1,142 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
-
-public class Enemy : MonoBehaviour
+public class Enemy : BattleEntity
 {
     private const string SHADER_COLOR_NAME = "_Color";
     private Material material;
-    public float aux;
-    public EnemyData enemyData;
-    private string enemyName;
+    private float aux;
 
-    private int HP;
-    private int PP;
-    private int Offense;
-    private int Defense;
-    private int Speed;
-    private int Guts;
-    private int EXP;
+    [SerializeField]
+    private EnemyData enemyData;
 
-    private int hypnosisSuccess;
-
-    private int paralysisSuccess;
-
-    private int flashSuccess;
-
-    private int brainShockSuccess;
-
-    [StringInList("Idle", "Asleep", "Frozen", "Paralysis")] public string status;
-
+    private enum AI{
+              DefaultAI, Healer
+          };
+    
+    [SerializeField] private AI MyAI = AI.DefaultAI;
     private string description;
     private SpriteRenderer sprite;
     private List<MovesData> moves;
     public GameObject damageGUI;
-    public Battle battle;
     private bool selected;
-    private bool attacking = false;
+    private bool attacking;
     private Vector3 dest;
     private Vector3 velocity;
-    private bool dying = false;
+    private bool dying;
 
-    public string Status { get => status; set => status = value; }
+    private float spriteHeight;
+    private float spriteWidth;
+    private static readonly int Color = Shader.PropertyToID(SHADER_COLOR_NAME);
 
+    private bool LOADED;
     void Awake()
     {
-        // makes a new instance of the material for runtime changes
+        battle = GameObject.Find("BattleHandler").GetComponent<Battle>();
         material = GetComponent<SpriteRenderer>().material;
     }
-    // Start is called before the first frame update
-    void Start()
+
+    public void SetEnemyData(EnemyData newData)
     {
+        enemyData = newData;
+        Config();
+    }
+
+    private void Config()
+    {
+        name = enemyData.GetEnemyName;
         dest = transform.position;
-        aux = 0;
-        enemyName = enemyData.enemyName;
+        name = enemyData.GetEnemyName;
+        myName = enemyData.GetEnemyName;
         selected = false;
 
-        HP = enemyData.HP;
-        PP = enemyData.PP;
-        Offense = enemyData.Offense;
-        Defense = enemyData.Defense;
-        Speed = enemyData.Speed;
-        Guts = enemyData.Guts;
-        EXP = enemyData.EXP;
+        HP = enemyData.GetEnemyMaxHP;
+        PP = enemyData.GetEnemyMaxPP;
+        Offense = enemyData.GetEnemyOffense;
+        Defense = enemyData.GetEnemyDefense;
+        Speed = enemyData.GetEnemySpeed;
+        Guts = enemyData.GetEnemyGuts;
+        EXP = enemyData.GetEnemyEXPDrop;
 
-        paralysisSuccess = enemyData.ParalysisSuccess;
-        hypnosisSuccess = enemyData.HypnosisSuccess;
-        flashSuccess = enemyData.FlashSuccess;
-        brainShockSuccess = enemyData.BrainShockSuccess;
+        paralysisSuccess = enemyData.GetEnemyParalysisSucc;
+        hypnosisSuccess = enemyData.GetEnemyHypnosisSucc;
+        flashSuccess = enemyData.GetEnemyFlashSucc;
+        brainShockSuccess = enemyData.GetEnemyBrainshockSucc;
 
-        description = enemyData.description;
+        description = enemyData.GetEnemyDescription;
 
 
+        MyAI = (AI) enemyData.GetEnemyAI;
         sprite = GetComponent<SpriteRenderer>();
-        sprite.sprite = enemyData.sprite;
-        moves = enemyData.moves;
+        sprite.sprite = enemyData.GetEnemySprite;
 
+        var bounds = sprite.bounds;
+        spriteWidth = bounds.size.x;
+        spriteHeight = bounds.size.y;
+
+        moves = enemyData.moves;
+        LOADED = true;
+    }
+    
+    
+    
+    
+    #region Abstract Methods
+    public override void ReceiveDamage(int dmg)
+    {
+        AudioManager.instance.Play("EnemyDamaged");
+
+        HP += dmg;
+        ActivateShake(dmg);
     }
 
-    public int GetHealth() => HP;
-    public string GetName() => enemyName;
-    public int GetOffense() => Offense;
-    public int GetDefense() => Defense;
-    public int GetSpeed() => Speed;
-    public int GetHypnosis() => hypnosisSuccess;
-    public int GetParalysis() => paralysisSuccess;
+    public override void ChangePP(int amount)
+    {
+        PP -= amount;
+    }
+    public override int GetHealth()
+    {
+        return HP;
+    }
+
+    public override void Revive(int healthRestore)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ShiftToAttackPosition(bool value)
+    {
+        attacking = value;
+        var position = transform.position;
+        dest = attacking ? new Vector3(position.x,position.y,20f) : new Vector3(position.x, position.y, 90f);
+    }
+    public override void Heal(int amount)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void DeathSequence()
+    {
+        StartCoroutine(nameof(Die));
+    }
+    #endregion
+    
+    
+    public float GetWidth() => spriteWidth;
+    public float GetHeight() => spriteHeight;
+
     public MovesData ChooseAttack()
     {
-
-        if (moves.Count == 0)
-            return moves[0];
-        float accumulatedPorcentage = 0f;
-        int index = 0;
-        for (int i=0;i<moves.Count - 1;i++)
+        switch (MyAI)
         {
-            accumulatedPorcentage += moves[i].probability;
-            if (accumulatedPorcentage >= Random.Range(0f, 100f))
-            {
-
-                break;
-            }
-
-            index++;
-        }
-
-        return moves[index];
-
-
-    }
-    public Vector3 getTransform() => transform.position;
-
-    public void ReceiveDamage(int dmg)
-    {
-        HP -= dmg;
-    }
-    public void AttackingPosition()
-    {
-        attacking = !attacking;
-        if(attacking)
-        {
-            dest = new Vector3(transform.position.x,transform.position.y,20f);
-        }
-        else
-        {
-            dest = new Vector3(transform.position.x, transform.position.y, 60f);
-
+            case AI.DefaultAI:
+                return moves[Random.Range(0, moves.Count - 1)];
+            case AI.Healer:
+                return moves[0];
+            default:
+                return moves[Random.Range(0, moves.Count - 1)];
         }
     }
 
@@ -134,13 +144,11 @@ public class Enemy : MonoBehaviour
     {
         dest = dst;
     }
-
-
-
+    
     // Update is called once per frame
     void Update()
     {
-        if (dying)
+        if (!LOADED || dying)
             return;
 
         transform.position = Vector3.SmoothDamp(transform.position,dest,ref velocity, 0.1f);
@@ -169,29 +177,29 @@ public class Enemy : MonoBehaviour
         selected = false;
 
     }
-    public void ActivateShake(int dmg)
+    private void ActivateShake(int dmg)
     {
         StartCoroutine(Shake(0.5f, 5f));
 
-        float width = GetComponent<SpriteRenderer>().bounds.size.x / 2f;
-        GameObject prefab = Instantiate(damageGUI, GameObject.FindGameObjectWithTag("Canvas").transform, false) as GameObject;
-        prefab.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + GetHeight(), 30f);
-        TMP_Text text = prefab.transform.GetChild(0).GetComponent<TMP_Text>();
-        text.text = dmg.ToString();
+        var prefab = Instantiate(damageGUI, GameObject.FindGameObjectWithTag("Canvas").transform, false);
+        var currentTransform = transform;
+        var localPosition = currentTransform.localPosition;
+        
+        prefab.transform.localPosition = new Vector3(localPosition.x, localPosition.y + GetHeight(), 30f);
+        var text = prefab.transform.GetChild(0).GetComponent<TMP_Text>();
+        text.text = (-dmg).ToString();
 
-    }       
-
-    public float GetHeight()
-    {
-        return GetComponent<SpriteRenderer>().bounds.size.y;
     }
-    public IEnumerator Die()
+
+    private IEnumerator Die()
     {
         battle.SetHaltValue(true);
         float elapsed = 0.0f;
         dying = true;
         while (battle.GetTyping())
             yield return null;
+        AudioManager.instance.Play("EnemyDed");
+
         while(elapsed < 1.2f)
         {
             SetColor(new Color(1, 1, 1, elapsed));
@@ -212,18 +220,15 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
 
     }
-    public bool getDying()
-    {
-        return dying;
-    }
-     public IEnumerator Shake(float duration, float magnitude)
-    {
-        Vector3 originalPosition = transform.position;
 
-        float elapsed = 0.0f;
+    private IEnumerator Shake(float duration, float magnitude)
+    {
+        var originalPosition = transform.position;
+
+        var elapsed = 0.0f;
         while (elapsed < duration)
         {
-            float x = originalPosition.x + Random.Range(-1f, 1f) * magnitude;
+            var x = originalPosition.x + Random.Range(-1f, 1f) * magnitude;
 
             transform.position = new Vector3(x, originalPosition.y, originalPosition.z);
 
@@ -235,6 +240,6 @@ public class Enemy : MonoBehaviour
 
     private void SetColor(Color color)
     {
-        material.SetColor(SHADER_COLOR_NAME, color);
+        material.SetColor(Color, color);
     }
 }

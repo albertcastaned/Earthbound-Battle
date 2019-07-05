@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a683bbed5bb1b48e8a628b2859d7218c, type: 3}
+  m_Name: Dog
+  m_EditorClassIdentifier: 
+  EnemyName: Runaway Dog
+  sprite: {fileID: -8108438390446734492, guid: 54d67c636ce2346c29a7120618b7e1fc, type: 3}
+  description: A very dog
+  Behaviour: DefaultAI
+  deathMessage: Dog runs away.
+  HP: 50
+  ThisEnemyAI: 0
+  PP: 0
+  Offense: 12
+  Defense: 5
+  Speed: 26
+  Guts: 0
+  HypnosisSuccess: 99
+  ParalysisSuccess: 99
+  FlashSuccess: 99
+  BrainShockSuccess: 0
+  moves:
+  - {fileID: 11400000, guid: 1b02d468dbe564ee082cad54251ba06d, type: 2}
+  EXP_Drop: 0
+  itemDrop:
+  - item: {fileID: 0}
+    percentageDrop: {fileID: 0}
+  - item: {fileID: 0}
+    percentageDrop: {fileID: 0}

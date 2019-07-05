@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff701fc66f0447be9f7aab8103a7a4f, type: 3}
   m_Name: Hamburger
   m_EditorClassIdentifier: 
+  ID: 0
   itemName: Hamburger
-  itemDescription: A very tasty hambureger.
+  itemDescription: Medium-Rare beef, the right choice.
   itemHealthGain: 30
+  effect: Heal

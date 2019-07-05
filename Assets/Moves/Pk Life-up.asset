@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871bca7be2007474abe5a74dfaa99f2f, type: 3}
   m_Name: Pk Life-up
   m_EditorClassIdentifier: 
-  moveName: Pk Lifeup
-  moveDamage: 0a0000001e00000032000000
-  cost: 0a0000000f0000001e000000
-  description:
-  - Restores small amount of HP
-  - Restores moderate amount of HP
-  - Restores huge amount of HP
+  moveName: Pk Lifeup [
+  moveDamage:
+    DamageMin: 5
+    DamageMax: 15
+  cost: 15
+  description: Restores small amount of HP
   type: Recovery
+  effect: Heal
   statusEffect: None
-  upgrade: 2
-  allRow: 0
-  offensive: 0
-  psiAnimation: {fileID: 1787508387595335554, guid: b246f053688274ae9b093f09269ce35e,
-    type: 3}
+  MoveTarget: 3
+  psiAnimation: {fileID: 0}

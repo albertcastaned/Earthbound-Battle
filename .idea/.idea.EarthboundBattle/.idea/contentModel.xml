@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Audio" t="Include">
+          <e p="AudioManager.cs" t="Include" />
+          <e p="Sound.cs" t="Include" />
+        </e>
+        <e p="Background Distortioner Package" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="ConfigureBackground.cs" t="Include" />
+            <e p="StringInListDrawer.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="BackgroundShader.shader" t="Include" />
+          </e>
+        </e>
+        <e p="Battle" t="Include">
+          <e p="Battle.cs" t="Include" />
+          <e p="BattleEntity.cs" t="Include" />
+          <e p="DamageEnemyFall.cs" t="Include" />
+        </e>
+        <e p="BattleTransitions" t="Include">
+          <e p="BattleTransitions.shader" t="Include" />
+          <e p="SimpleBlit.cs" t="Include" />
+        </e>
+        <e p="ChangeScene.cs" t="Include" />
+        <e p="ChooseRandomSprite.cs" t="Include" />
+        <e p="Effects" t="Include">
+          <e p="Bob.cs" t="Include" />
+          <e p="CameraShake.cs" t="Include" />
+          <e p="ControlOpacity.cs" t="Include" />
+          <e p="Depth.cs" t="Include" />
+          <e p="DestroyAnimation.cs" t="Include" />
+          <e p="GrowOnSelect.cs" t="Include" />
+          <e p="healPartBehaviour.cs" t="Include" />
+          <e p="MeterRoll.cs" t="Include" />
+          <e p="ShadowEffect.cs" t="Include" />
+          <e p="SpriteShader.shader" t="Include" />
+          <e p="tile.shader" t="Include" />
+          <e p="TileMove.cs" t="Include" />
+        </e>
+        <e p="Enemies" t="Include">
+          <e p="Enemy.cs" t="Include" />
+          <e p="EnemyData.cs" t="Include" />
+        </e>
+        <e p="FollowLeader.cs" t="Include" />
+        <e p="HUD" t="Include">
+          <e p="GetMeterValue.cs" t="Include" />
+          <e p="OscilateOpacity.cs" t="Include" />
+          <e p="Rotate.cs" t="Include" />
+          <e p="RotatePivot.cs" t="Include" />
+          <e p="SelectPSI.cs" t="Include" />
+          <e p="SlotMove.cs" t="Include" />
+        </e>
+        <e p="Items" t="Include">
+          <e p="Inventory.cs" t="Include" />
+          <e p="ItemData.cs" t="Include" />
+          <e p="ItemSelectorManager.cs" t="Include" />
+        </e>
+        <e p="Movement" t="Include">
+          <e p="MoveDescr.cs" t="Include" />
+          <e p="MoveDialogue.cs" t="Include" />
+          <e p="MoveToEnemy.cs" t="Include" />
+          <e p="MoveToPartyMember.cs" t="Include" />
+        </e>
+        <e p="Moves" t="Include">
+          <e p="MovesData.cs" t="Include" />
+          <e p="PsiData.cs" t="Include" />
+        </e>
+        <e p="Players" t="Include">
+          <e p="Player.cs" t="Include" />
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="GameController.cs" t="Include" />
+          <e p="Movement.cs" t="Include" />
+          <e p="NPCBehaviour.cs" t="Include" />
+          <e p="RotateSun.cs" t="Include" />
+          <e p="spriteShadow.shader" t="Include" />
+          <e p="TextBoxManager.cs" t="Include" />
+          <e p="TextImporter.cs" t="Include" />
+        </e>
+        <e p="Shader" t="Include">
+          <e p="spriteShadow.shader" t="Include" />
+        </e>
+        <e p="Sprites" t="Include">
+          <e p="Misc" t="Include">
+            <e p="test.shader" t="Include" />
+          </e>
+        </e>
+        <e p="TestScript.cs" t="Include" />
+        <e p="Text" t="Include">
+          <e p="NullText.txt" t="Include" />
+          <e p="script.txt" t="Include" />
+          <e p="script2.txt" t="Include" />
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Examples &amp; Extras" t="Include">
+            <e p="Fonts" t="Include">
+              <e p="Anton OFL.txt" t="Include" />
+              <e p="Bangers - OFL.txt" t="Include" />
+              <e p="LiberationSans - OFL.txt" t="Include" />
+              <e p="NotoSans - License.txt" t="Include" />
+              <e p="Oswald Bold - OFL.txt" t="Include" />
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="Benchmark01.cs" t="Include" />
+              <e p="Benchmark01_UGUI.cs" t="Include" />
+              <e p="Benchmark02.cs" t="Include" />
+              <e p="Benchmark03.cs" t="Include" />
+              <e p="Benchmark04.cs" t="Include" />
+              <e p="CameraController.cs" t="Include" />
+              <e p="ChatController.cs" t="Include" />
+              <e p="EnvMapAnimator.cs" t="Include" />
+              <e p="ObjectSpin.cs" t="Include" />
+              <e p="ShaderPropAnimator.cs" t="Include" />
+              <e p="SimpleScript.cs" t="Include" />
+              <e p="SkewTextExample.cs" t="Include" />
+              <e p="TeleType.cs" t="Include" />
+              <e p="TextConsoleSimulator.cs" t="Include" />
+              <e p="TextMeshProFloatingText.cs" t="Include" />
+              <e p="TextMeshSpawner.cs" t="Include" />
+              <e p="TMP_DigitValidator.cs" t="Include" />
+              <e p="TMP_ExampleScript_01.cs" t="Include" />
+              <e p="TMP_FrameRateCounter.cs" t="Include" />
+              <e p="TMP_PhoneNumberValidator.cs" t="Include" />
+              <e p="TMP_TextEventCheck.cs" t="Include" />
+              <e p="TMP_TextEventHandler.cs" t="Include" />
+              <e p="TMP_TextInfoDebugTool.cs" t="Include" />
+              <e p="TMP_TextSelector_A.cs" t="Include" />
+              <e p="TMP_TextSelector_B.cs" t="Include" />
+              <e p="TMP_UiFrameRateCounter.cs" t="Include" />
+              <e p="TMPro_InstructionOverlay.cs" t="Include" />
+              <e p="VertexColorCycler.cs" t="Include" />
+              <e p="VertexJitter.cs" t="Include" />
+              <e p="VertexShakeA.cs" t="Include" />
+              <e p="VertexShakeB.cs" t="Include" />
+              <e p="VertexZoom.cs" t="Include" />
+              <e p="WarpTextExample.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="EarthboundBattle.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+    </e>
+    <e p="$PROJECT_DIR$/../Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$/../Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_EarthboundBattle.-1138349499.00" t="ExcludeRecursive" />
+  </component>
+</project>

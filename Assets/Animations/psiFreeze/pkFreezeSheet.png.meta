@@ -1,0 +1,1109 @@
+fileFormatVersion: 2
+guid: cfeb654a9d0154b82be3f3de48751529
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6257872677369972451
+    second: pkFreezeSheet_0
+  - first:
+      213: 1435683833559614723
+    second: pkFreezeSheet_1
+  - first:
+      213: 1357028694652843293
+    second: pkFreezeSheet_2
+  - first:
+      213: 3882922842065167370
+    second: pkFreezeSheet_3
+  - first:
+      213: 8807718328270651847
+    second: pkFreezeSheet_4
+  - first:
+      213: 8482105349595887073
+    second: pkFreezeSheet_5
+  - first:
+      213: -6195804500510198555
+    second: pkFreezeSheet_6
+  - first:
+      213: 7713193866830522230
+    second: pkFreezeSheet_7
+  - first:
+      213: 37253634745823731
+    second: pkFreezeSheet_8
+  - first:
+      213: -5886542189462837034
+    second: pkFreezeSheet_9
+  - first:
+      213: 1442281967860003019
+    second: pkFreezeSheet_10
+  - first:
+      213: -4520753906401836326
+    second: pkFreezeSheet_11
+  - first:
+      213: -6440881992558587134
+    second: pkFreezeSheet_12
+  - first:
+      213: 4091829968936741270
+    second: pkFreezeSheet_13
+  - first:
+      213: 6648972552536428357
+    second: pkFreezeSheet_14
+  - first:
+      213: -7074902741137238365
+    second: pkFreezeSheet_15
+  - first:
+      213: -690422636913434382
+    second: pkFreezeSheet_16
+  - first:
+      213: 6499661032454753438
+    second: pkFreezeSheet_17
+  - first:
+      213: -8818922714811963297
+    second: pkFreezeSheet_18
+  - first:
+      213: 5526224932866524705
+    second: pkFreezeSheet_19
+  - first:
+      213: -2352880475974317223
+    second: pkFreezeSheet_20
+  - first:
+      213: 2329780343421238717
+    second: pkFreezeSheet_21
+  - first:
+      213: 2019677341811992731
+    second: pkFreezeSheet_22
+  - first:
+      213: -1761577158929978280
+    second: pkFreezeSheet_23
+  - first:
+      213: 5428711933524323209
+    second: pkFreezeSheet_24
+  - first:
+      213: 698387585163833040
+    second: pkFreezeSheet_25
+  - first:
+      213: -3786629977526601116
+    second: pkFreezeSheet_26
+  - first:
+      213: 1538269863706571343
+    second: pkFreezeSheet_27
+  - first:
+      213: -7134246261701164926
+    second: pkFreezeSheet_28
+  - first:
+      213: -8873979226871023207
+    second: pkFreezeSheet_29
+  - first:
+      213: -849735700941000573
+    second: pkFreezeSheet_30
+  - first:
+      213: 3449205091222401334
+    second: pkFreezeSheet_31
+  - first:
+      213: 3964935449436538549
+    second: pkFreezeSheet_32
+  - first:
+      213: -4522644322337786367
+    second: pkFreezeSheet_33
+  - first:
+      213: -4459867794498397254
+    second: pkFreezeSheet_34
+  - first:
+      213: 7232409256486766670
+    second: pkFreezeSheet_35
+  - first:
+      213: -7191241438491086717
+    second: pkFreezeSheet_36
+  - first:
+      213: -2871450455274961375
+    second: pkFreezeSheet_37
+  - first:
+      213: 8840780938305203944
+    second: pkFreezeSheet_38
+  - first:
+      213: -2771470678447283092
+    second: pkFreezeSheet_39
+  - first:
+      213: 3437292421943300873
+    second: pkFreezeSheet_40
+  - first:
+      213: 6102358529310501684
+    second: pkFreezeSheet_41
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pkFreezeSheet_0
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1801
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2476b8da37d8744429b84a3215f2f937
+      internalID: 6257872677369972451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_1
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1801
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca19a8bde3fd4794b8d3567abd81883
+      internalID: 1435683833559614723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_2
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1801
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b854f948ef1fc4c19a8e6b4ec67a1f1d
+      internalID: 1357028694652843293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 1913
+        width: 80
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 298fdb19b12134d27b8107a4dbee5e9e
+      internalID: 3882922842065167370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1576
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ade3da50deb4432dbf5a8ad8aebbf55
+      internalID: 8807718328270651847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_5
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1576
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef30a68959044744981d2e050b216d0
+      internalID: 8482105349595887073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_6
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1576
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e71fb6286c0455e9a64c96b5dad284
+      internalID: -6195804500510198555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_7
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1576
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a87f916acb24d9f898b42fceee2152
+      internalID: 7713193866830522230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_8
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1576
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60c8d157ecd0b4e899587c2218a5f07e
+      internalID: 37253634745823731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1351
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3601e4a51fc6a436cba5a59f29538abd
+      internalID: -5886542189462837034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_10
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1351
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a5d0b30ddb66418b98801c1eb8d2d07
+      internalID: 1442281967860003019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_11
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1351
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 020af378ed9704991877d306ded37534
+      internalID: -4520753906401836326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_12
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1351
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75110928a5e5d4d32b16c73d46151415
+      internalID: -6440881992558587134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_13
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1351
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efa52ebf8003b498b927ddd3f9167bd5
+      internalID: 4091829968936741270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1126
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3988bc9ef36dd42cd99cb2c0f8ac944b
+      internalID: 6648972552536428357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_15
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1126
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1012095c647aa4148b4f012ce8b6febc
+      internalID: -7074902741137238365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_16
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1126
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91a728c3f080a4408aae2162be0da1e8
+      internalID: -690422636913434382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_17
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1126
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f035b8e53b0544263927323191ed403f
+      internalID: 6499661032454753438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_18
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1126
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ff63787869a4cae8f9f141ee372205
+      internalID: -8818922714811963297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 901
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e105e5cefe24e4521933415b5298d0ed
+      internalID: 5526224932866524705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_20
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 901
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3d15c79141b24df38606201bec7bdae
+      internalID: -2352880475974317223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_21
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 901
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e294bb7757a3741e99798a1cbacf629f
+      internalID: 2329780343421238717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_22
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 901
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca85107495a144489fee7b485f70b80
+      internalID: 2019677341811992731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_23
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 901
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72ef43cdf62bc49e0ac93222a2fb61b4
+      internalID: -1761577158929978280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 676
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75057d695b8ba4e809feb0a3cb0a7886
+      internalID: 5428711933524323209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_25
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 676
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0592afc69242644748af88fec749cd3d
+      internalID: 698387585163833040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_26
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 676
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df3635bd383884b0e9074b71f9ec5859
+      internalID: -3786629977526601116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_27
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 676
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bd3ac81076cb4e668987c3a2d63afee
+      internalID: 1538269863706571343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_28
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 676
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f72a329fb402d4f02957640a758e6d8e
+      internalID: -7134246261701164926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 451
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3812b47780c342d08f4717bd9d11f89
+      internalID: -8873979226871023207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_30
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 451
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c235caaaf95894c5a88666f34544b293
+      internalID: -849735700941000573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_31
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 451
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae0cd7128ca4438fadae05fba73b6c7
+      internalID: 3449205091222401334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_32
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 451
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc998988a23304fcdb24b12549bf8be5
+      internalID: 3964935449436538549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_33
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 451
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a58e954d86ed34d87af282d37bd795cd
+      internalID: -4522644322337786367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 226
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90b20102e4f940cb83a334c09cf7f85
+      internalID: -4459867794498397254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_35
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 226
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c39bc68e33644f0796323711a6011d9
+      internalID: 7232409256486766670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_36
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 226
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 305fa6ccefcdf4a0ea79bd7bf3538a98
+      internalID: -7191241438491086717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_37
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 226
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6104c3ae3cde444d29e63544ae8228c1
+      internalID: -2871450455274961375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_38
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 226
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc45d91f435b743ba9c3175e8acb9f2c
+      internalID: 8840780938305203944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20984ac8f203b4b809e93cac4ebed45e
+      internalID: -2771470678447283092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_40
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13f060decc4d24b4c9e9ae122ffe8832
+      internalID: 3437292421943300873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pkFreezeSheet_41
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1
+        width: 255
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65d7161b826e643e6807dc48c442e943
+      internalID: 6102358529310501684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f1b9da52aef4f4f4c96ab698076a1c08
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

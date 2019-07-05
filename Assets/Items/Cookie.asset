@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff701fc66f0447be9f7aab8103a7a4f, type: 3}
   m_Name: Cookie
   m_EditorClassIdentifier: 
+  ID: 0
   itemName: Cookie
-  itemDescription: The worst item in the game
-  itemHealthGain: 10
+  itemDescription: Recovers small amount of health
+  itemHealthGain: 8
+  effect: Heal

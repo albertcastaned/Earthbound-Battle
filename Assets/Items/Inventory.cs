@@ -5,14 +5,9 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
 
-    public List<itemsData> items;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<ItemData> items;
 
-    public List<itemsData> getItems()
+    public List<ItemData> getItems()
     {
         return items;
     }
@@ -21,9 +16,5 @@ public class Inventory : MonoBehaviour
     {
         return items.Count;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
