@@ -37,7 +37,7 @@ public class SelectPSI : MonoBehaviour {
     private Vector3 velocity2;
     public bool selectingCategory;
     public List<PsiData> moves;
-    public Battle battle;
+    public BattleController battle;
     private List<GameObject> slots;
     private List<GameObject> costSlots;
 

@@ -5,17 +5,16 @@ using UnityEngine;
 public abstract class BattleEntity : MonoBehaviour
 {
 
-    protected Battle battle;
+    protected BattleController battle;
     protected string myName;
     public string GetName => myName;
 
     protected int HP;
-    protected int PP;
+    protected int SP;
     protected int Offense;
     protected int Defense;
     protected int Speed;
     protected int Guts;
-    protected int EXP;
 
     protected int hypnosisSuccess;
 
@@ -37,7 +36,7 @@ public abstract class BattleEntity : MonoBehaviour
     private bool defending;
     public bool Defending { get => defending; set => defending = value; }
     
-    public int GetPP => PP;
+    public int GetSP => SP;
     
     protected bool isDead;
 

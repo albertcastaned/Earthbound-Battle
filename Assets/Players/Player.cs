@@ -7,34 +7,12 @@ using UnityEngine.UI;
 public class Player : BattleEntity
 {
 
-    #region STATS
-    public int thisMaxHP;
-    public int thisMaxPP;
-    public string thisName;
-    public int thisHP;
-    public int thisPP;
-    public int thisOffense;
-    public int thisDefense;
-    public int thisSpeed;
-    public int thisGuts;
-    public int thisEXP;
-
-    public int thisHypnosisSuccess;
-
-    public int thisParalysisSuccess;
-
-    public int thisFlashSuccess;
-
-    public int thisBrainShockSuccess;
-    #endregion
+    public PlayerData myPlayerData;
 
     public Inventory myInventory;
-
-    private GameObject _portrait;
-
+    
     private bool borderAttackingPosition;
     private float borderDisplacement;
-    private float portraitDisplacement;
 
     private Vector3 borderOriginalPos;
     private Vector3 portraitOriginalPos;
@@ -86,21 +64,20 @@ public class Player : BattleEntity
     // Start is called before the first frame update
     void Awake()
     {
-        myName = thisName;
-        HP = thisHP;
-        PP = thisPP;
-        Offense = thisOffense;
-        Defense = thisDefense;
-        Speed = thisSpeed;
-        Guts = thisGuts;
-        EXP = thisEXP;
+        myName = myPlayerData.playerName;
+        HP = myPlayerData.CurrentHP;
+        SP = myPlayerData.CurrentSP;
+        Offense = myPlayerData.Offense;
+        Defense = myPlayerData.Defense;
+        Speed = myPlayerData.Speed;
+        Guts = myPlayerData.Guts;
 
-        paralysisSuccess = thisParalysisSuccess;
-        hypnosisSuccess = thisHypnosisSuccess;
-        flashSuccess = thisFlashSuccess;
-        brainShockSuccess = thisBrainShockSuccess;
+        paralysisSuccess = myPlayerData.ParalysisSuccessChance;
+        hypnosisSuccess = myPlayerData.HypnosisSuccessChance;
+        flashSuccess = myPlayerData.FlashSuccessChance;
+        brainShockSuccess = myPlayerData.BrainShockSuccessChance;
+        
         border = transform.Find("Border").gameObject;
-        _portrait = transform.Find("Portrait").gameObject;
         hpSprite = border.transform.Find("HP").gameObject;
         ppSprite = border.transform.Find("PP").gameObject;
 
@@ -114,25 +91,20 @@ public class Player : BattleEntity
         cam = GameObject.Find("CameraHolder").transform.Find("Camera").GetComponent<CameraShake>();
         nameText = border.transform.Find("Name").GetComponent<TextMeshProUGUI>();
         nameText.text = myName;
-        battle = GameObject.Find("BattleHandler").GetComponent<Battle>();
+        battle = BattleController.instance;
         tileMove = border.transform.Find("Pattern").GetComponent<TileMove>();
-        portraitDisplacement = -35f;
         
-        
-
     }
     
     void Start()
     {
         InitiateMeters();
-        
         borderOriginalPos = transform.position;
-        portraitOriginalPos = _portrait.transform.position;
     }
 
     private void InitiateMeters()
     {
-        int og = thisHP;
+        int og = HP;
         int num1 = og % 10;
         og /= 10;
         int num2 = og % 10;
@@ -141,7 +113,7 @@ public class Player : BattleEntity
         
         hpMeter.SetValue(num3,num2,num1);
         
-        int og2 = thisPP;
+        int og2 = SP;
         int ppNum1 = og2 % 10;
         og2 /= 10;
         int ppNum2 = og2 % 10;
@@ -159,22 +131,22 @@ public class Player : BattleEntity
         {
             if (!hpMeter.Rolling)
             {
-                thisHP = GetHealthOfMeter();
+                HP = GetHealthOfMeter();
                 CheckDeath();
             }
         }
         transform.position = Vector3.SmoothDamp(transform.position,
             new Vector3(borderOriginalPos.x, borderOriginalPos.y + borderDisplacement, borderOriginalPos.z),
             ref borderVelocity, 0.2f);
-        _portrait.transform.position = Vector3.SmoothDamp(_portrait.transform.position,
-            new Vector3(portraitOriginalPos.x, portraitOriginalPos.y + portraitDisplacement, portraitOriginalPos.z),
-            ref portraitVelocity, 0.2f);
+
     }
+    
+    //Passed as negative
     public override void ReceiveDamage(int dmg)
     {
-        
-        if (thisHP + dmg <= 0)
-            dmg = -thisHP;
+        if (Defending)
+            dmg /= 2;
+
         AudioManager.instance.Play("Hurt");
 
         hpBar.CalculateDistance(dmg);
@@ -188,14 +160,8 @@ public class Player : BattleEntity
     
     private void CheckDeath()
     {
-        if (thisHP > 0 || revivingTimer) return;
-        isDead = true;
-        tileMove.ScrollX = 0;
-        tileMove.ScrollY = 0;
-        battle.RemoveCommandsBy(this);
-        
-        battle.InsertCommandMessage("@ " + myName + " has been defeated!");
-        StartCoroutine(nameof(ShiftToDeadColors));
+        if (HP > 0 || revivingTimer) return;
+        DeathSequence();
 
     }
 
@@ -214,7 +180,7 @@ public class Player : BattleEntity
 
     public bool isMortalDamage(int dmg)
     {
-        return (thisHP - dmg <= 0 || hpMeter.GetValue() - dmg <= 0);
+        return (HP - dmg <= 0 || hpMeter.GetValue() - dmg <= 0);
     }
     private IEnumerator ShiftToAliveColors()
     {
@@ -268,8 +234,8 @@ public class Player : BattleEntity
     {
         return Math.Abs(me.r - other.r) < 0.005f && Math.Abs(me.g - other.g) < 0.005f && Math.Abs(me.b - other.b) < 0.005f && Math.Abs(me.a - other.a) < 0.005f;
     }
+    
     #region Abstract Methods
-
 
     public override int GetHealth()
     {
@@ -284,14 +250,11 @@ public class Player : BattleEntity
         {
             
             borderDisplacement = 0f;
-            portraitDisplacement = -35f;
             borderAttackingPosition = false;
         }
         else
         {
             borderDisplacement = 15f;
-            portraitDisplacement = 20f;
-
             borderAttackingPosition = true;
         }
     }
@@ -299,23 +262,22 @@ public class Player : BattleEntity
     public override void Heal(int amount)
     {
         
-        if (thisHP + amount > thisMaxHP)
+        if (HP + amount > myPlayerData.MaxHP)
         {
-            amount = thisMaxHP - thisHP;
-        }else if (hpMeter.GetValue() + amount > thisMaxHP)
+            amount = myPlayerData.MaxHP - HP;
+        }else if (hpMeter.GetValue() + amount > myPlayerData.MaxHP)
         {
-            amount = thisMaxHP - thisHP;
+            amount = myPlayerData.MaxHP - HP;
         }
-        thisHP += amount;
+        HP += amount;
         if(amount > 0)
             hpBar.CalculateDistance(amount);
 
         AudioManager.instance.Play("Heal");
 
+        /*
         var canvasTransform = GameObject.FindGameObjectWithTag("Canvas").transform;
         var prefab = Instantiate(healGUI, canvasTransform, false);
-        var guiTransform = _portrait.transform;
-        var position = guiTransform.position;
         prefab.transform.localPosition =
             new Vector3(position.x, position.y + (borderAttackingPosition ? 20f : 50f), 0f);
         var text = prefab.transform.GetChild(0).GetComponent<TMP_Text>();
@@ -323,27 +285,28 @@ public class Player : BattleEntity
 
         Instantiate(healPrefab, canvasTransform, false)
             .GetComponent<RotatePivot>().Setup(transform, controlOpacity);
+            */
     }
 
     public override void ChangePP(int amount)
     {
-        if (ppMeter.GetValue() + amount > thisMaxPP)
-            amount = thisMaxPP - thisPP;
+        if (ppMeter.GetValue() + amount > myPlayerData.MaxSP)
+            amount = myPlayerData.MaxSP - SP;
 
         if (ppMeter.GetValue() + amount <= 0)
-            amount = thisPP;
+            amount = SP;
 
-        thisPP += amount;
+        SP += amount;
         ppBar.CalculateDistance(amount);
 
         if (amount >= 0)
         {
             AudioManager.instance.Play("Heal");
 
+            //TODO Heal effect to actual on screen character for Heal too 
+            /*
             var canvasTransform = GameObject.FindGameObjectWithTag("Canvas").transform;
             var prefab = Instantiate(psiGUI, canvasTransform, false);
-            var guiTransform = _portrait.transform;
-            var position = guiTransform.position;
             prefab.transform.localPosition =
                 new Vector3(position.x, position.y + (borderAttackingPosition ? 20f : 50f), 0f);
             var text = prefab.transform.GetChild(0).GetComponent<TMP_Text>();
@@ -351,13 +314,20 @@ public class Player : BattleEntity
 
             Instantiate(psiPrefab, canvasTransform, false)
                 .GetComponent<RotatePivot>().Setup(transform, controlOpacity);
+                */
         }
     }
     public override void DeathSequence()
     {
-        //
+        isDead = true;
+        tileMove.ScrollX = 0;
+        tileMove.ScrollY = 0;
+        battle.RemoveCommandsBy(this);
+        
+        battle.InsertCommandMessage("@ " + myName + " has been defeated!");
+        StartCoroutine(nameof(ShiftToDeadColors));
     }
 
-#endregion
+    #endregion
 
 }

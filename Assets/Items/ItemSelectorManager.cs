@@ -6,7 +6,7 @@ public class ItemSelectorManager : MonoBehaviour
 {
 
 
-    public Battle battle;
+    public BattleController battle;
     private Vector3 selectingPos = new Vector3(0f,50f, 0f);
     private Vector3 unselectedPos = new Vector3(0f,190f, 0f);
     private Vector3 dest;
@@ -37,7 +37,7 @@ public class ItemSelectorManager : MonoBehaviour
 
     void Awake()
     {
-        inventory = battle.CurrentPlayerSelecting().myInventory;
+        inventory = battle.CurrentPlayerSelecting().currentInventory;
         items = inventory.getItems();
         UpdateItemList();
         dest = unselectedPos;
@@ -94,7 +94,7 @@ public class ItemSelectorManager : MonoBehaviour
     }
     public void MoveMenu()
     {
-        inventory = battle.CurrentPlayerSelecting().myInventory;
+        inventory = battle.CurrentPlayerSelecting().currentInventory;
         items = inventory.getItems();
         if (!selecting)
         {

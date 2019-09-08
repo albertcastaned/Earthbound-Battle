@@ -34,7 +34,7 @@ public class Enemy : BattleEntity
     private bool LOADED;
     void Awake()
     {
-        battle = GameObject.Find("BattleHandler").GetComponent<Battle>();
+        battle = GameObject.Find("BattleHandler").GetComponent<BattleController>();
         material = GetComponent<SpriteRenderer>().material;
     }
 
@@ -53,12 +53,11 @@ public class Enemy : BattleEntity
         selected = false;
 
         HP = enemyData.GetEnemyMaxHP;
-        PP = enemyData.GetEnemyMaxPP;
+        SP = enemyData.GetEnemyMaxPP;
         Offense = enemyData.GetEnemyOffense;
         Defense = enemyData.GetEnemyDefense;
         Speed = enemyData.GetEnemySpeed;
         Guts = enemyData.GetEnemyGuts;
-        EXP = enemyData.GetEnemyEXPDrop;
 
         paralysisSuccess = enemyData.GetEnemyParalysisSucc;
         hypnosisSuccess = enemyData.GetEnemyHypnosisSucc;
@@ -94,7 +93,7 @@ public class Enemy : BattleEntity
 
     public override void ChangePP(int amount)
     {
-        PP -= amount;
+        SP -= amount;
     }
     public override int GetHealth()
     {

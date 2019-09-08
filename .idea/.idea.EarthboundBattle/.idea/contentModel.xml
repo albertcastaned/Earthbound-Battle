@@ -18,8 +18,9 @@
           </e>
         </e>
         <e p="Battle" t="Include">
-          <e p="Battle.cs" t="Include" />
+          <e p="BattleController.cs" t="Include" />
           <e p="BattleEntity.cs" t="Include" />
+          <e p="Command.cs" t="Include" />
           <e p="DamageEnemyFall.cs" t="Include" />
         </e>
         <e p="BattleTransitions" t="Include">
@@ -72,6 +73,7 @@
         </e>
         <e p="Players" t="Include">
           <e p="Player.cs" t="Include" />
+          <e p="PlayerData.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="GameController.cs" t="Include" />

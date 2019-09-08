@@ -27,7 +27,7 @@ public class DestroyAnimation : MonoBehaviour
 
 
             battleObject = GameObject.Find("BattleHandler");
-            battle = battleObject.GetComponent<Battle>();
+            battle = battleObject.GetComponent<BattleController>();
             opacityObject = GameObject.Find("Opacity");
             opacityControl = opacityObject.GetComponent<ControlOpacity>();
             opacityControl.setOpacity(true);
